@@ -1,93 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shyamsundar Dharwad | Data & Operations Analyst</title>
     <meta name="description" content="Portfolio of Shyamsundar Dharwad - Bridging Heavy Industry with Data Science" />
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              mono: ['JetBrains Mono', 'monospace'],
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#151f32',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        primary: {
+                            400: '#38bdf8', // Light Blue
+                            500: '#0ea5e9', // Sky Blue
+                            600: '#0284c7', // Darker Blue
+                        },
+                        accent: {
+                            400: '#818cf8', // Indigo
+                            500: '#6366f1',
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)",
+                    },
+                    backgroundSize: {
+                        'grid-pattern': '40px 40px',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                },
             },
-            colors: {
-              slate: {
-                850: '#151f32',
-                900: '#0f172a',
-                950: '#020617',
-              },
-              primary: {
-                400: '#38bdf8', // Light Blue
-                500: '#0ea5e9', // Sky Blue
-                600: '#0284c7', // Darker Blue
-              },
-              accent: {
-                400: '#818cf8', // Indigo
-                500: '#6366f1',
-              }
-            },
-            backgroundImage: {
-              'grid-pattern': "linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)",
-            },
-            backgroundSize: {
-              'grid-pattern': '40px 40px',
-            },
-            animation: {
-              'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'float': 'float 6s ease-in-out infinite',
-            },
-            keyframes: {
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
-              }
-            }
-          },
-        },
-      }
+        }
     </script>
     <style>
-      body {
-        background-color: #020617;
-        color: #f8fafc;
-      }
-      .glass {
-        background: rgba(15, 23, 42, 0.6);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      .glass-hover:hover {
-        background: rgba(30, 41, 59, 0.7);
-        border-color: rgba(56, 189, 248, 0.3);
-        box-shadow: 0 0 20px rgba(14, 165, 233, 0.15);
-      }
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #020617;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #334155;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #475569;
-      }
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+        }
+
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-hover:hover {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.15);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
     </style>
 
     <!-- Import Map: STRICTLY forcing React 18 to match Recharts dependencies -->
@@ -106,10 +115,11 @@
   }
 }
 </script>
-    
+
     <!-- Babel for in-browser JSX compilation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
+
 <body>
     <div id="root"></div>
 
@@ -118,14 +128,14 @@
         import React, { useState, useEffect } from 'react';
         import { createRoot } from 'react-dom/client';
         import { motion } from 'framer-motion';
-        import { 
+        import {
             ArrowRight, Database, Settings, BarChart3, Download, Github, Linkedin, Mail,
             Briefcase, GraduationCap, Award, ExternalLink, Code, BarChart, Truck, ScanLine, Brain,
             Menu, X, Phone, MapPin, ChevronUp, Play
         } from 'lucide-react';
-        import { 
-            ResponsiveContainer, BarChart as ReBarChart, Bar, XAxis, YAxis, Tooltip, Cell, 
-            RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar 
+        import {
+            ResponsiveContainer, BarChart as ReBarChart, Bar, XAxis, YAxis, Tooltip, Cell,
+            RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar
         } from 'recharts';
 
         // --- Data Definitions ---
@@ -190,6 +200,23 @@
                 link: 'https://github.com/Shyams728/bizcard_ocr_project',
                 demoLink: 'https://shyams-ocr-project.streamlit.app/',
                 category: 'OCR'
+            },
+            {
+                id: 'p8',
+                title: 'YouTube Data Dashboard',
+                description: 'End-to-end data pipeline to extract, store, and analyze YouTube channel data. Features NLP for comment sentiment and interactive Plotly visualizations.',
+                tech: ['Python', 'Streamlit', 'MongoDB', 'YouTube API', 'NLP'],
+                link: 'https://github.com/Shyams728/youtube_project',
+                demoLink: 'https://shyams-youtube-dashboard-project.streamlit.app/',
+                category: 'Analytics'
+            },
+            {
+                id: 'p9',
+                title: 'Clothing Customer Behavior Analytics',
+                description: 'Advanced Power BI dashboard for retail analytics, featuring RFM segmentation, cohort retention analysis, and executive KPI tracking.',
+                tech: [' Power BI', 'DAX', 'Power Query', 'Data Modeling'],
+                link: 'https://github.com/Shyams728/clothing_customer_behavior_analytics',
+                category: 'Analytics'
             }
         ];
 
@@ -263,106 +290,106 @@
 
                     <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <motion.div 
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                        >
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-500/30 bg-primary-500/10 text-primary-400 text-xs font-mono mb-6">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
-                            </span>
-                            System Online: Available for Hire
-                            </div>
-
-                            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight text-white">
-                            Bridging <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-blue-500 to-accent-500">
-                                Heavy Industry
-                            </span> <br />
-                            with Data Science
-                            </h1>
-
-                            <p className="text-lg text-slate-400 mb-8 leading-relaxed max-w-xl">
-                            I transform 5+ years of hands-on L&T Construction & Mining machinery experience into actionable business insights using Python, SAP, and Advanced Maintenance Analytics.
-                            </p>
-
-                            <div className="flex flex-wrap gap-4">
-                            <a 
-                                href="#projects"
-                                className="group flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-semibold rounded-lg hover:bg-slate-200 transition-all"
+                            <motion.div
+                                initial={{ opacity: 0, x: -50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
                             >
-                                View Analytics Projects
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </a>
-                            <a 
-                                href="mailto:shyamsundardharwad@gmail.com"
-                                className="flex items-center gap-2 px-6 py-3 border border-slate-700 text-white font-medium rounded-lg hover:bg-slate-800 transition-all hover:border-primary-500/50"
-                            >
-                                Contact Me
-                            </a>
-                            </div>
-
-                            <div className="mt-12 flex items-center gap-6 text-slate-400">
-                            <a href="https://github.com/Shyams728" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-                                <Github className="w-6 h-6" />
-                            </a>
-                            <a href="https://www.linkedin.com/in/shyamsundar-dharwad-052690aa/" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
-                                <Linkedin className="w-6 h-6" />
-                            </a>
-                            <a href="mailto:shyamsundardharwad@gmail.com" className="hover:text-white transition-colors">
-                                <Mail className="w-6 h-6" />
-                            </a>
-                            </div>
-                        </motion.div>
-
-                        <motion.div 
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            className="hidden lg:flex justify-center relative"
-                        >
-                            <div className="relative w-full max-w-md aspect-square">
-                                <div className="absolute inset-0 m-auto w-48 h-48 bg-slate-800/50 rounded-full border border-slate-700 flex items-center justify-center backdrop-blur-md z-20 animate-float">
-                                    <div className="text-center">
-                                        <div className="text-4xl font-bold text-white mb-1">5+</div>
-                                        <div className="text-xs text-slate-400 uppercase tracking-widest">Years Exp</div>
-                                    </div>
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-500/30 bg-primary-500/10 text-primary-400 text-xs font-mono mb-6">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+                                    </span>
+                                    System Online: Available for Hire
                                 </div>
 
-                                <motion.div 
-                                    animate={{ rotate: 360 }}
-                                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                                    className="absolute inset-0 w-full h-full rounded-full border border-dashed border-slate-700/50 z-10"
-                                >
-                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-slate-900 border border-slate-600 rounded-lg flex items-center justify-center text-primary-400">
-                                        <Settings className="w-6 h-6" />
-                                    </div>
-                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-12 h-12 bg-slate-900 border border-slate-600 rounded-lg flex items-center justify-center text-accent-400">
-                                        <Database className="w-6 h-6" />
-                                    </div>
-                                </motion.div>
+                                <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight text-white">
+                                    Bridging <br />
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-blue-500 to-accent-500">
+                                        Heavy Industry
+                                    </span> <br />
+                                    with Data Science
+                                </h1>
 
-                                <motion.div 
-                                    animate={{ rotate: -360 }}
-                                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                                    className="absolute inset-12 w-auto h-auto rounded-full border border-slate-700/30 z-10"
-                                >
-                                    <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-slate-900 border border-slate-600 rounded-full flex items-center justify-center text-green-400">
-                                        <BarChart3 className="w-5 h-5" />
-                                    </div>
-                                </motion.div>
-                                
-                                <div className="absolute -right-4 top-1/4 glass p-4 rounded-lg border-l-4 border-l-primary-500 z-30 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform">
-                                    <pre className="text-xs font-mono text-slate-300">
-                                        <span className="text-purple-400">def</span> <span className="text-blue-400">optimize_uptime</span>(data):{'\n'}
-                                        {'  '}metrics = analyze_logs(data){'\n'}
-                                        {'  '}return metrics.predict(<span className="text-green-400">'fail'</span>)
-                                    </pre>
+                                <p className="text-lg text-slate-400 mb-8 leading-relaxed max-w-xl">
+                                    I transform 5+ years of hands-on L&T Construction & Mining machinery experience into actionable business insights using Python, SAP, and Advanced Maintenance Analytics.
+                                </p>
+
+                                <div className="flex flex-wrap gap-4">
+                                    <a
+                                        href="#projects"
+                                        className="group flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-semibold rounded-lg hover:bg-slate-200 transition-all"
+                                    >
+                                        View Analytics Projects
+                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                    </a>
+                                    <a
+                                        href="mailto:shyamsundardharwad@gmail.com"
+                                        className="flex items-center gap-2 px-6 py-3 border border-slate-700 text-white font-medium rounded-lg hover:bg-slate-800 transition-all hover:border-primary-500/50"
+                                    >
+                                        Contact Me
+                                    </a>
                                 </div>
-                            </div>
-                        </motion.div>
+
+                                <div className="mt-12 flex items-center gap-6 text-slate-400">
+                                    <a href="https://github.com/Shyams728" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+                                        <Github className="w-6 h-6" />
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/shyamsundar-dharwad-052690aa/" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors">
+                                        <Linkedin className="w-6 h-6" />
+                                    </a>
+                                    <a href="mailto:shyamsundardharwad@gmail.com" className="hover:text-white transition-colors">
+                                        <Mail className="w-6 h-6" />
+                                    </a>
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                className="hidden lg:flex justify-center relative"
+                            >
+                                <div className="relative w-full max-w-md aspect-square">
+                                    <div className="absolute inset-0 m-auto w-48 h-48 bg-slate-800/50 rounded-full border border-slate-700 flex items-center justify-center backdrop-blur-md z-20 animate-float">
+                                        <div className="text-center">
+                                            <div className="text-4xl font-bold text-white mb-1">5+</div>
+                                            <div className="text-xs text-slate-400 uppercase tracking-widest">Years Exp</div>
+                                        </div>
+                                    </div>
+
+                                    <motion.div
+                                        animate={{ rotate: 360 }}
+                                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                        className="absolute inset-0 w-full h-full rounded-full border border-dashed border-slate-700/50 z-10"
+                                    >
+                                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-slate-900 border border-slate-600 rounded-lg flex items-center justify-center text-primary-400">
+                                            <Settings className="w-6 h-6" />
+                                        </div>
+                                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-12 h-12 bg-slate-900 border border-slate-600 rounded-lg flex items-center justify-center text-accent-400">
+                                            <Database className="w-6 h-6" />
+                                        </div>
+                                    </motion.div>
+
+                                    <motion.div
+                                        animate={{ rotate: -360 }}
+                                        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                                        className="absolute inset-12 w-auto h-auto rounded-full border border-slate-700/30 z-10"
+                                    >
+                                        <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-slate-900 border border-slate-600 rounded-full flex items-center justify-center text-green-400">
+                                            <BarChart3 className="w-5 h-5" />
+                                        </div>
+                                    </motion.div>
+
+                                    <div className="absolute -right-4 top-1/4 glass p-4 rounded-lg border-l-4 border-l-primary-500 z-30 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform">
+                                        <pre className="text-xs font-mono text-slate-300">
+                                            <span className="text-purple-400">def</span> <span className="text-blue-400">optimize_uptime</span>(data):{'\n'}
+                                            {'  '}metrics = analyze_logs(data){'\n'}
+                                            {'  '}return metrics.predict(<span className="text-green-400">'fail'</span>)
+                                        </pre>
+                                    </div>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
                 </section>
@@ -379,66 +406,66 @@
                             viewport={{ once: true }}
                             className="text-center mb-16"
                         >
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Technical & Domain <span className="text-primary-400">Expertise</span></h2>
-                        <p className="text-slate-400 max-w-2xl mx-auto">
-                            A unique combination of hardcore engineering operations and modern data science capabilities.
-                        </p>
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Technical & Domain <span className="text-primary-400">Expertise</span></h2>
+                            <p className="text-slate-400 max-w-2xl mx-auto">
+                                A unique combination of hardcore engineering operations and modern data science capabilities.
+                            </p>
                         </motion.div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        
-                        <motion.div 
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="glass p-8 rounded-2xl border border-slate-800"
-                        >
-                            <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-                            <span className="w-2 h-8 bg-blue-500 rounded-full"></span>
-                            Data Science Toolkit
-                            </h3>
-                            <div className="h-[300px] w-full">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <ReBarChart layout="vertical" data={techData} margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
-                                <XAxis type="number" hide />
-                                <YAxis dataKey="name" type="category" width={120} tick={{ fill: '#94a3b8', fontSize: 12 }} axisLine={false} tickLine={false} />
-                                <Tooltip 
-                                    contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#fff' }}
-                                    itemStyle={{ color: '#fff' }}
-                                    cursor={{ fill: 'rgba(255,255,255,0.05)' }}
-                                />
-                                <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
-                                    {techData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                    ))}
-                                </Bar>
-                                </ReBarChart>
-                            </ResponsiveContainer>
-                            </div>
-                        </motion.div>
 
-                        <motion.div 
-                            initial={{ opacity: 0, x: 30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="glass p-8 rounded-2xl border border-slate-800"
-                        >
-                            <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-                            <span className="w-2 h-8 bg-purple-500 rounded-full"></span>
-                            Engineering Operations
-                            </h3>
-                            <div className="h-[300px] w-full">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <RadarChart cx="50%" cy="50%" outerRadius="70%" data={domainData}>
-                                <PolarGrid stroke="#334155" />
-                                <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                                <Radar name="Proficiency" dataKey="A" stroke="#8b5cf6" strokeWidth={3} fill="#8b5cf6" fillOpacity={0.3} />
-                                <Tooltip contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#fff' }} />
-                                </RadarChart>
-                            </ResponsiveContainer>
-                            </div>
-                        </motion.div>
+                            <motion.div
+                                initial={{ opacity: 0, x: -30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                className="glass p-8 rounded-2xl border border-slate-800"
+                            >
+                                <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+                                    <span className="w-2 h-8 bg-blue-500 rounded-full"></span>
+                                    Data Science Toolkit
+                                </h3>
+                                <div className="h-[300px] w-full">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <ReBarChart layout="vertical" data={techData} margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
+                                            <XAxis type="number" hide />
+                                            <YAxis dataKey="name" type="category" width={120} tick={{ fill: '#94a3b8', fontSize: 12 }} axisLine={false} tickLine={false} />
+                                            <Tooltip
+                                                contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#fff' }}
+                                                itemStyle={{ color: '#fff' }}
+                                                cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+                                            />
+                                            <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
+                                                {techData.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                                ))}
+                                            </Bar>
+                                        </ReBarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, x: 30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                className="glass p-8 rounded-2xl border border-slate-800"
+                            >
+                                <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+                                    <span className="w-2 h-8 bg-purple-500 rounded-full"></span>
+                                    Engineering Operations
+                                </h3>
+                                <div className="h-[300px] w-full">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <RadarChart cx="50%" cy="50%" outerRadius="70%" data={domainData}>
+                                            <PolarGrid stroke="#334155" />
+                                            <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 12 }} />
+                                            <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
+                                            <Radar name="Proficiency" dataKey="A" stroke="#8b5cf6" strokeWidth={3} fill="#8b5cf6" fillOpacity={0.3} />
+                                            <Tooltip contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#fff' }} />
+                                        </RadarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
                 </section>
@@ -448,69 +475,69 @@
         const ExperienceSection = () => {
             return (
                 <section id="experience" className="py-24 relative overflow-hidden">
-                <div className="absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-slate-800 to-transparent -translate-y-1/2 hidden md:block opacity-30" />
-                
-                <div className="max-w-6xl mx-auto px-6 relative z-10">
-                    <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white">Career <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Trajectory</span></h2>
-                    </div>
+                    <div className="absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-slate-800 to-transparent -translate-y-1/2 hidden md:block opacity-30" />
 
-                    <div className="relative">
-                        <div className="absolute left-8 top-0 bottom-0 w-px bg-slate-800 md:hidden" />
+                    <div className="max-w-6xl mx-auto px-6 relative z-10">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl md:text-4xl font-bold text-white">Career <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Trajectory</span></h2>
+                        </div>
 
-                        <div className="space-y-12">
-                            {experiences.map((exp, index) => (
-                                <motion.div 
-                                    key={exp.id}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-50px" }}
-                                    transition={{ delay: index * 0.1 }}
-                                    className={`flex flex-col md:flex-row gap-8 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
-                                >
-                                    <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-slate-950 border-2 border-primary-500 -translate-x-1/2 mt-6 z-20 shadow-[0_0_15px_rgba(14,165,233,0.5)]"></div>
+                        <div className="relative">
+                            <div className="absolute left-8 top-0 bottom-0 w-px bg-slate-800 md:hidden" />
 
-                                    <div className="ml-16 md:ml-0 md:w-1/2 pr-0 md:pr-12 pl-0 md:pl-12">
-                                        <div className={`glass p-6 rounded-xl border border-slate-800 hover:border-primary-500/30 transition-colors group relative overflow-hidden ${index % 2 === 1 ? 'md:text-left' : 'md:text-right'}`}>
-                                            <div className={`absolute top-0 w-full h-1 bg-gradient-to-r from-primary-500 to-accent-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 left-0`} />
-                                            
-                                            <div className={`flex items-center gap-3 mb-2 text-primary-400 ${index % 2 === 1 ? '' : 'md:flex-row-reverse'}`}>
-                                                {exp.type === 'work' ? <Briefcase className="w-5 h-5" /> : <GraduationCap className="w-5 h-5" />}
-                                                <span className="text-xs font-mono px-2 py-1 rounded bg-slate-800 text-slate-300">{exp.period}</span>
+                            <div className="space-y-12">
+                                {experiences.map((exp, index) => (
+                                    <motion.div
+                                        key={exp.id}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: "-50px" }}
+                                        transition={{ delay: index * 0.1 }}
+                                        className={`flex flex-col md:flex-row gap-8 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
+                                    >
+                                        <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-slate-950 border-2 border-primary-500 -translate-x-1/2 mt-6 z-20 shadow-[0_0_15px_rgba(14,165,233,0.5)]"></div>
+
+                                        <div className="ml-16 md:ml-0 md:w-1/2 pr-0 md:pr-12 pl-0 md:pl-12">
+                                            <div className={`glass p-6 rounded-xl border border-slate-800 hover:border-primary-500/30 transition-colors group relative overflow-hidden ${index % 2 === 1 ? 'md:text-left' : 'md:text-right'}`}>
+                                                <div className={`absolute top-0 w-full h-1 bg-gradient-to-r from-primary-500 to-accent-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 left-0`} />
+
+                                                <div className={`flex items-center gap-3 mb-2 text-primary-400 ${index % 2 === 1 ? '' : 'md:flex-row-reverse'}`}>
+                                                    {exp.type === 'work' ? <Briefcase className="w-5 h-5" /> : <GraduationCap className="w-5 h-5" />}
+                                                    <span className="text-xs font-mono px-2 py-1 rounded bg-slate-800 text-slate-300">{exp.period}</span>
+                                                </div>
+
+                                                <h3 className="text-xl font-bold text-white mb-1">{exp.role}</h3>
+                                                <h4 className="text-slate-400 text-sm mb-4">{exp.company} • {exp.location}</h4>
+
+                                                <p className="text-slate-300 text-sm mb-4 leading-relaxed">
+                                                    {exp.description}
+                                                </p>
+
+                                                {exp.achievements.length > 0 && (
+                                                    <ul className={`text-xs text-slate-400 space-y-1.5 ${index % 2 === 1 ? '' : 'md:flex md:flex-col md:items-end'}`}>
+                                                        {exp.achievements.map((item, i) => (
+                                                            <li key={i} className="flex items-start gap-2">
+                                                                <span className={`mt-1 w-1 h-1 rounded-full bg-accent-500 shrink-0 ${index % 2 === 1 ? '' : 'md:order-2'}`}></span>
+                                                                <span className={index % 2 === 1 ? '' : 'md:text-right'}>{item}</span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                )}
                                             </div>
-                                            
-                                            <h3 className="text-xl font-bold text-white mb-1">{exp.role}</h3>
-                                            <h4 className="text-slate-400 text-sm mb-4">{exp.company} • {exp.location}</h4>
-                                            
-                                            <p className="text-slate-300 text-sm mb-4 leading-relaxed">
-                                                {exp.description}
-                                            </p>
-
-                                            {exp.achievements.length > 0 && (
-                                                <ul className={`text-xs text-slate-400 space-y-1.5 ${index % 2 === 1 ? '' : 'md:flex md:flex-col md:items-end'}`}>
-                                                    {exp.achievements.map((item, i) => (
-                                                        <li key={i} className="flex items-start gap-2">
-                                                            <span className={`mt-1 w-1 h-1 rounded-full bg-accent-500 shrink-0 ${index % 2 === 1 ? '' : 'md:order-2'}`}></span>
-                                                            <span className={index % 2 === 1 ? '' : 'md:text-right'}>{item}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            )}
                                         </div>
-                                    </div>
-                                    
-                                    <div className="hidden md:block md:w-1/2"></div>
-                                </motion.div>
-                            ))}
+
+                                        <div className="hidden md:block md:w-1/2"></div>
+                                    </motion.div>
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </div>
                 </section>
             );
         };
 
         const getIcon = (category) => {
-            switch(category) {
+            switch (category) {
                 case 'Analytics': return <BarChart className="w-5 h-5" />;
                 case 'Web Scraping': return <Truck className="w-5 h-5" />;
                 case 'OCR': return <ScanLine className="w-5 h-5" />;
@@ -522,83 +549,83 @@
         const Projects = () => {
             return (
                 <section id="projects" className="py-24 bg-slate-900/50">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-                        <div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Featured <span className="text-primary-400">Projects</span></h2>
-                            <p className="text-slate-400">Data analytics, automated pipelines, and machine learning models.</p>
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+                            <div>
+                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Featured <span className="text-primary-400">Projects</span></h2>
+                                <p className="text-slate-400">Data analytics, automated pipelines, and machine learning models.</p>
+                            </div>
+                            <a href="https://github.com/Shyams728" target="_blank" rel="noreferrer" className="hidden md:flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">
+                                View GitHub Profile <ExternalLink className="w-4 h-4" />
+                            </a>
                         </div>
-                        <a href="https://github.com/Shyams728" target="_blank" rel="noreferrer" className="hidden md:flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">
-                            View GitHub Profile <ExternalLink className="w-4 h-4" />
-                        </a>
-                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {projects.map((project, index) => (
-                            <motion.div 
-                                key={project.id}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full"
-                            >
-                                <div className="flex justify-between items-start mb-6">
-                                    <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center text-primary-400 group-hover:bg-primary-500/20 transition-colors">
-                                        {getIcon(project.category)}
-                                    </div>
-                                    <div className="flex gap-2">
-                                        {project.demoLink && (
-                                            <a 
-                                                href={project.demoLink}
-                                                target="_blank" 
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {projects.map((project, index) => (
+                                <motion.div
+                                    key={project.id}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1 }}
+                                    className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full"
+                                >
+                                    <div className="flex justify-between items-start mb-6">
+                                        <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center text-primary-400 group-hover:bg-primary-500/20 transition-colors">
+                                            {getIcon(project.category)}
+                                        </div>
+                                        <div className="flex gap-2">
+                                            {project.demoLink && (
+                                                <a
+                                                    href={project.demoLink}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
+                                                    title="Live Streamlit Demo"
+                                                >
+                                                    <Play className="w-5 h-5" />
+                                                </a>
+                                            )}
+                                            <a
+                                                href={project.link}
+                                                target="_blank"
                                                 rel="noreferrer"
-                                                className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
-                                                title="Live Streamlit Demo"
+                                                className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
+                                                title="View Code on GitHub"
                                             >
-                                                <Play className="w-5 h-5" />
+                                                <Github className="w-5 h-5" />
                                             </a>
-                                        )}
-                                        <a 
-                                            href={project.link} 
-                                            target="_blank" 
-                                            rel="noreferrer"
-                                            className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
-                                            title="View Code on GitHub"
-                                        >
-                                            <Github className="w-5 h-5" />
+                                        </div>
+                                    </div>
+
+                                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
+                                        <a href={project.demoLink || project.link} target="_blank" rel="noreferrer">
+                                            {project.title}
                                         </a>
-                                    </div>
-                                </div>
+                                    </h3>
+                                    <p className="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">
+                                        {project.description}
+                                    </p>
 
-                                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
-                                    <a href={project.demoLink || project.link} target="_blank" rel="noreferrer">
-                                        {project.title}
-                                    </a>
-                                </h3>
-                                <p className="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">
-                                    {project.description}
-                                </p>
-
-                                <div className="mt-auto">
-                                    <div className="flex flex-wrap gap-2">
-                                        {project.tech.map(t => (
-                                            <span key={t} className="px-2 py-1 text-xs font-medium rounded-md bg-slate-800 text-slate-300 border border-slate-700">
-                                                {t}
-                                            </span>
-                                        ))}
+                                    <div className="mt-auto">
+                                        <div className="flex flex-wrap gap-2">
+                                            {project.tech.map(t => (
+                                                <span key={t} className="px-2 py-1 text-xs font-medium rounded-md bg-slate-800 text-slate-300 border border-slate-700">
+                                                    {t}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            </motion.div>
-                        ))}
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        <div className="mt-8 text-center md:hidden">
+                            <a href="https://github.com/Shyams728" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary-400 hover:text-white transition-colors">
+                                View More on GitHub <ExternalLink className="w-4 h-4" />
+                            </a>
+                        </div>
                     </div>
-                    
-                    <div className="mt-8 text-center md:hidden">
-                        <a href="https://github.com/Shyams728" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary-400 hover:text-white transition-colors">
-                            View More on GitHub <ExternalLink className="w-4 h-4" />
-                        </a>
-                    </div>
-                </div>
                 </section>
             );
         };
@@ -609,7 +636,7 @@
 
             useEffect(() => {
                 const handleScroll = () => {
-                setIsScrolled(window.scrollY > 50);
+                    setIsScrolled(window.scrollY > 50);
                 };
                 window.addEventListener('scroll', handleScroll);
                 return () => window.removeEventListener('scroll', handleScroll);
@@ -624,118 +651,124 @@
 
             return (
                 <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-primary-500/30 selection:text-white">
-                
-                <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent border-b border-transparent'}`}>
-                    <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                    <a href="#" className="flex items-center gap-2 group">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent-600 flex items-center justify-center text-white font-bold shadow-lg shadow-primary-500/20 group-hover:shadow-primary-500/40 transition-shadow">
-                        S
-                        </div>
-                        <span className="font-bold text-lg text-white">Shyam<span className="text-slate-500">sundar</span></span>
-                    </a>
 
-                    <div className="hidden md:flex items-center gap-8">
-                        <ul className="flex gap-8">
-                        {navLinks.map(link => (
-                            <li key={link.label}>
-                            <a 
-                                href={link.href} 
-                                className="text-sm font-medium text-slate-400 hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary-500 after:transition-all hover:after:w-full"
-                            >
-                                {link.label}
+                    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent border-b border-transparent'}`}>
+                        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                            <a href="#" className="flex items-center gap-2 group">
+                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent-600 flex items-center justify-center text-white font-bold shadow-lg shadow-primary-500/20 group-hover:shadow-primary-500/40 transition-shadow">
+                                    S
+                                </div>
+                                <span className="font-bold text-lg text-white">Shyam<span className="text-slate-500">sundar</span></span>
                             </a>
-                            </li>
-                        ))}
-                        </ul>
-                        <a 
-                        href="mailto:shyamsundardharwad@gmail.com"
-                        className="px-5 py-2.5 bg-white text-slate-950 text-sm font-semibold rounded-lg hover:bg-slate-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)]"
-                        >
-                        Hire Me
-                        </a>
-                    </div>
 
-                    <button 
-                        className="md:hidden text-slate-300 hover:text-white"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            <div className="hidden md:flex items-center gap-8">
+                                <ul className="flex gap-8">
+                                    {navLinks.map(link => (
+                                        <li key={link.label}>
+                                            <a
+                                                href={link.href}
+                                                className="text-sm font-medium text-slate-400 hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary-500 after:transition-all hover:after:w-full"
+                                            >
+                                                {link.label}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <a
+                                    href="mailto:shyamsundardharwad@gmail.com"
+                                    className="px-5 py-2.5 bg-white text-slate-950 text-sm font-semibold rounded-lg hover:bg-slate-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                                >
+                                    Hire Me
+                                </a>
+                            </div>
+
+                            <button
+                                className="md:hidden text-slate-300 hover:text-white"
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            >
+                                {isMenuOpen ? <X /> : <Menu />}
+                            </button>
+                        </div>
+
+                        {isMenuOpen && (
+                            <div className="md:hidden absolute top-20 left-0 w-full bg-slate-900 border-b border-slate-800 p-6 animate-fade-in-down">
+                                <ul className="flex flex-col gap-4">
+                                    {navLinks.map(link => (
+                                        <li key={link.label}>
+                                            <a
+                                                href={link.href}
+                                                className="block text-slate-300 hover:text-primary-400 font-medium py-2"
+                                                onClick={() => setIsMenuOpen(false)}
+                                            >
+                                                {link.label}
+                                            </a>
+                                        </li>
+                                    ))}
+                                    <li>
+                                        <a
+                                            href="mailto:shyamsundardharwad@gmail.com"
+                                            className="block text-center w-full mt-4 px-5 py-3 bg-primary-600 text-white font-semibold rounded-lg"
+                                            onClick={() => setIsMenuOpen(false)}
+                                        >
+                                            Hire Me
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
+                    </nav>
+
+                    <main>
+                        <Hero />
+                        <Skills />
+                        <ExperienceSection />
+                        <Projects />
+                    </main>
+
+                    <footer className="border-t border-slate-800 bg-slate-950 pt-16 pb-8">
+                        <div className="max-w-4xl mx-auto px-6 text-center">
+                            <h2 className="text-2xl font-bold text-white mb-6">Ready to optimize your operations?</h2>
+                            <p className="text-slate-400 mb-8 max-w-lg mx-auto">
+                                Currently available for immediate joining in Data Analyst or Operations Engineer roles.
+                            </p>
+
+                            <a href="mailto:shyamsundardharwad@gmail.com" className="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-500 text-white font-semibold rounded-full shadow-lg shadow-primary-600/25 transition-all hover:scale-105 mb-12">
+                                <Mail className="w-5 h-5" />
+                                shyamsundardharwad@gmail.com
+                            </a>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-400 border-t border-slate-900 pt-8 mb-8">
+                                <div className="flex flex-col items-center justify-center gap-2">
+                                    <div className="flex items-center gap-2">
+                                        <Phone className="w-4 h-4 text-primary-400" />
+                                        <span>+91 789 247 0215</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Phone className="w-4 h-4 text-primary-400" />
+                                        <span>+91 9591456580</span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-center gap-2">
+                                    <MapPin className="w-4 h-4 text-primary-400" />
+                                    <span>Mundgod, Karnataka, India</span>
+                                </div>
+                                <div className="flex items-center justify-center gap-2">
+                                    <span>Open to Relocate</span>
+                                </div>
+                            </div>
+
+                            <p className="text-xs text-slate-600">
+                                © {new Date().getFullYear()} Shyamsundar Dharwad. Built with React & Tailwind.
+                            </p>
+                        </div>
+                    </footer>
+
+                    <button
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        className={`fixed bottom-8 right-8 p-3 rounded-full bg-slate-800 text-primary-400 border border-slate-700 shadow-xl transition-all duration-300 z-40 hover:bg-slate-700 ${isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                     >
-                        {isMenuOpen ? <X /> : <Menu />}
+                        <ChevronUp className="w-5 h-5" />
                     </button>
-                    </div>
-
-                    {isMenuOpen && (
-                    <div className="md:hidden absolute top-20 left-0 w-full bg-slate-900 border-b border-slate-800 p-6 animate-fade-in-down">
-                        <ul className="flex flex-col gap-4">
-                        {navLinks.map(link => (
-                            <li key={link.label}>
-                            <a 
-                                href={link.href} 
-                                className="block text-slate-300 hover:text-primary-400 font-medium py-2"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                {link.label}
-                            </a>
-                            </li>
-                        ))}
-                        <li>
-                            <a 
-                            href="mailto:shyamsundardharwad@gmail.com"
-                            className="block text-center w-full mt-4 px-5 py-3 bg-primary-600 text-white font-semibold rounded-lg"
-                            onClick={() => setIsMenuOpen(false)}
-                            >
-                            Hire Me
-                            </a>
-                        </li>
-                        </ul>
-                    </div>
-                    )}
-                </nav>
-
-                <main>
-                    <Hero />
-                    <Skills />
-                    <ExperienceSection />
-                    <Projects />
-                </main>
-
-                <footer className="border-t border-slate-800 bg-slate-950 pt-16 pb-8">
-                    <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-2xl font-bold text-white mb-6">Ready to optimize your operations?</h2>
-                    <p className="text-slate-400 mb-8 max-w-lg mx-auto">
-                        Currently available for immediate joining in Data Analyst or Operations Engineer roles.
-                    </p>
-
-                    <a href="mailto:shyamsundardharwad@gmail.com" className="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-500 text-white font-semibold rounded-full shadow-lg shadow-primary-600/25 transition-all hover:scale-105 mb-12">
-                        <Mail className="w-5 h-5" />
-                        shyamsundardharwad@gmail.com
-                    </a>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-400 border-t border-slate-900 pt-8 mb-8">
-                        <div className="flex items-center justify-center gap-2">
-                            <Phone className="w-4 h-4 text-primary-400" />
-                            <span>+91 789 247 0215</span>
-                        </div>
-                        <div className="flex items-center justify-center gap-2">
-                            <MapPin className="w-4 h-4 text-primary-400" />
-                            <span>Mundgod, Karnataka, India</span>
-                        </div>
-                        <div className="flex items-center justify-center gap-2">
-                            <span>Open to Relocate</span>
-                        </div>
-                    </div>
-
-                    <p className="text-xs text-slate-600">
-                        © {new Date().getFullYear()} Shyamsundar Dharwad. Built with React & Tailwind.
-                    </p>
-                    </div>
-                </footer>
-
-                <button 
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className={`fixed bottom-8 right-8 p-3 rounded-full bg-slate-800 text-primary-400 border border-slate-700 shadow-xl transition-all duration-300 z-40 hover:bg-slate-700 ${isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                >
-                    <ChevronUp className="w-5 h-5" />
-                </button>
                 </div>
             );
         };
@@ -744,4 +777,5 @@
         root.render(<App />);
     </script>
 </body>
+
 </html>
