@@ -279,14 +279,87 @@
             { subject: 'Safety', A: 85, fullMark: 100 },
         ];
 
+        const resumes = [
+            {
+                id: 'r1',
+                title: 'Data Science Resume',
+                file: 'data science shyam resume.pdf',
+                icon: <Database className="w-5 h-5" />,
+                description: 'Focused on ML, Python, and Predictive Analytics.'
+            },
+            {
+                id: 'r2',
+                title: 'SAP & Operations Resume',
+                file: 'sap shyam resume.pdf',
+                icon: <Settings className="w-5 h-5" />,
+                description: 'Highlighting 5+ years of industrial field experience & SAP.'
+            },
+            {
+                id: 'r3',
+                title: 'Cement Factory Resume',
+                file: 'shyam cement factory resume.pdf',
+                icon: <Truck className="w-5 h-5" />,
+                description: 'Specialized for heavy machinery & cement plant operations.'
+            }
+        ];
+
+        const galleryImages = [
+            {
+                url: 'photos/HCL GUVI Certification - 4N10712pv416Cz8m30.png',
+                title: 'Data Science Certification',
+                category: 'Certification',
+                verifyLink: 'https://www.guvi.in/verify-certificate?id=4N10712pv416Cz8m30'
+            },
+            {
+                url: 'photos/award from CEO.jpg',
+                title: 'CEO Award for Excellence',
+                category: 'Achievement'
+            },
+            {
+                url: 'photos/national safety day photo.jpg',
+                title: 'National Safety Day',
+                category: 'Site'
+            },
+            {
+                url: 'photos/site photo.jpg',
+                title: 'On-site Operations',
+                category: 'Site'
+            },
+            {
+                url: 'photos/site photo with Colleague .jpg',
+                title: 'Collaborative Engineering',
+                category: 'Team'
+            },
+            {
+                url: 'photos/training period photo with batchmates.JPG',
+                title: 'L&T Training Period',
+                category: 'Training'
+            }
+        ];
+
         // --- Component Definitions ---
 
         const Hero = () => {
             return (
-                <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-                    <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none" />
-                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/10 rounded-full blur-[120px] pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-500/10 rounded-full blur-[120px] pointer-events-none" />
+                <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-slate-950">
+                    {/* Panoramic Background with Parallax effect */}
+                    <motion.div
+                        initial={{ scale: 1.1, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 0.4 }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                        className="absolute inset-0 z-0"
+                    >
+                        <img
+                            src="photos/phanoramic background photo.jpg"
+                            alt="Industrial Background"
+                            className="w-full h-full object-cover"
+                        />
+                        {/* Sophisticated Overlay for Readability */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/40 to-slate-950" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/20 to-transparent" />
+                    </motion.div>
+
+                    <div className="absolute inset-0 bg-grid-pattern opacity-[0.05] pointer-events-none z-1" />
 
                     <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -630,6 +703,151 @@
             );
         };
 
+        const ResumesSection = () => {
+            return (
+                <section id="resumes" className="py-24 relative overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-6 relative z-10">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-center mb-16"
+                        >
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-500">Resumes</span></h2>
+                            <p className="text-slate-400 max-w-2xl mx-auto">
+                                Download tailored versions of my resume based on your industry needs.
+                            </p>
+                        </motion.div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {resumes.map((resume, index) => (
+                                <motion.div
+                                    key={resume.id}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1 }}
+                                    className="glass p-8 rounded-2xl border border-slate-800 group hover:border-primary-500/30 transition-all flex flex-col items-center text-center"
+                                >
+                                    <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-primary-400 mb-6 group-hover:scale-110 transition-transform">
+                                        {resume.icon}
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-2">{resume.title}</h3>
+                                    <p className="text-sm text-slate-400 mb-8 leading-relaxed">
+                                        {resume.description}
+                                    </p>
+                                    <a
+                                        href={resume.file}
+                                        download
+                                        className="mt-auto w-full flex items-center justify-center gap-2 px-6 py-3 bg-slate-800 hover:bg-primary-600 text-white font-semibold rounded-xl transition-all"
+                                    >
+                                        <Download className="w-4 h-4" />
+                                        Download PDF
+                                    </a>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const GallerySection = () => {
+            const [selectedImage, setSelectedImage] = React.useState(null);
+
+            return (
+                <section id="gallery" className="py-24 bg-slate-950/50">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-center mb-16"
+                        >
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Certifications & <span className="text-primary-400">Impact</span></h2>
+                            <p className="text-slate-400 max-w-2xl mx-auto">
+                                A visual journey through my professional milestones and field operations.
+                            </p>
+                        </motion.div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {galleryImages.map((image, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.05 }}
+                                    onClick={() => setSelectedImage(image)}
+                                    className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group"
+                                >
+                                    <img
+                                        src={image.url}
+                                        alt={image.title}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                                    <div className="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                        <span className="text-[10px] uppercase tracking-widest text-primary-400 font-bold mb-1 block">
+                                            {image.category}
+                                        </span>
+                                        <h4 className="text-white font-bold text-sm">{image.title}</h4>
+                                        {image.verifyLink && (
+                                            <div className="absolute top-4 right-4 p-2 rounded-lg bg-primary-500/20 text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <ExternalLink className="w-4 h-4" />
+                                            </div>
+                                        )}
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Simple Lightbox Modal */}
+                    {selectedImage && (
+                        <div
+                            className="fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-sm flex items-center justify-center p-6"
+                            onClick={() => setSelectedImage(null)}
+                        >
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="max-w-4xl w-full relative"
+                                onClick={e => e.stopPropagation()}
+                            >
+                                <button
+                                    className="absolute -top-12 right-0 text-white hover:text-primary-400"
+                                    onClick={() => setSelectedImage(null)}
+                                >
+                                    <X className="w-8 h-8" />
+                                </button>
+                                <img
+                                    src={selectedImage.url}
+                                    alt={selectedImage.title}
+                                    className="w-full h-auto rounded-xl shadow-2xl border border-slate-800"
+                                />
+                                <div className="mt-4 text-center">
+                                    <h3 className="text-xl font-bold text-white">{selectedImage.title}</h3>
+                                    <p className="text-slate-400 mb-4">{selectedImage.category}</p>
+                                    {selectedImage.verifyLink && (
+                                        <a
+                                            href={selectedImage.verifyLink}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="inline-flex items-center gap-2 px-6 py-2 bg-primary-600 hover:bg-primary-500 text-white text-sm font-semibold rounded-lg transition-colors"
+                                        >
+                                            <ExternalLink className="w-4 h-4" />
+                                            Verify Certificate
+                                        </a>
+                                    )}
+                                </div>
+                            </motion.div>
+                        </div>
+                    )}
+                </section>
+            );
+        };
+
         const App = () => {
             const [isScrolled, setIsScrolled] = useState(false);
             const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -647,6 +865,8 @@
                 { label: 'Expertise', href: '#expertise' },
                 { label: 'Experience', href: '#experience' },
                 { label: 'Projects', href: '#projects' },
+                { label: 'Resumes', href: '#resumes' },
+                { label: 'Gallery', href: '#gallery' },
             ];
 
             return (
@@ -723,6 +943,8 @@
                         <Skills />
                         <ExperienceSection />
                         <Projects />
+                        <ResumesSection />
+                        <GallerySection />
                     </main>
 
                     <footer className="border-t border-slate-800 bg-slate-950 pt-16 pb-8">
