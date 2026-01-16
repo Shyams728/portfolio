@@ -95,6 +95,14 @@ npm run dev
 npm run build
 ```
 
+### Python Dependencies
+For the analytical projects showcased (Streamlit dashboards, ML models), a consolidated `requirements.txt` is provided.
+
+```bash
+pip install -r requirements.txt
+```
+
+
 ---
 
 ## 📈 Deployment

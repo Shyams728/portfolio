@@ -1,0 +1,36 @@
+# Python dependencies for Analytics & ML projects showcased in the portfolio
+
+# Core Data Science
+numpy
+pandas
+scipy
+
+# Visualization
+plotly
+matplotlib
+seaborn
+
+# Machine Learning & AI
+scikit-learn
+opencv-python
+easyocr
+transformers
+torch
+
+# Web Apps & Dashboards
+streamlit
+streamlit-option-menu
+
+# Data Extraction & APIs
+selenium
+requests
+google-api-python-client
+pymongo
+
+# Geospatial Analysis
+geopandas
+folium
+
+# NLP
+nltk
+spacy
