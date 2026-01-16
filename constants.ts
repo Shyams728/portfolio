@@ -152,9 +152,9 @@ export const resumes = [
     },
     {
         id: 'r3',
-        title: 'Cement Factory Resume',
+        title: 'HEMM Resume',
         file: 'docs/shyam cement factory resume.pdf',
-        description: 'Specialized for heavy machinery & cement plant operations.'
+        description: 'Specialized for Heavy Earth Moving Machinery & cement plant operations.'
     }
 ];
 
