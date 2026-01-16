@@ -5,6 +5,7 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import ResumesSection from './components/Resumes';
 import GallerySection from './components/Gallery';
+import CertificatesSection from './components/Certificates';
 import { Menu, X, Mail, Phone, MapPin, ChevronUp } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -23,6 +24,7 @@ const App: React.FC = () => {
     { label: 'Expertise', href: '#expertise' },
     { label: 'Experience', href: '#experience' },
     { label: 'Projects', href: '#projects' },
+    { label: 'Certifications', href: '#certifications' },
     { label: 'Resumes', href: '#resumes' },
     { label: 'Gallery', href: '#gallery' },
   ];
@@ -105,6 +107,7 @@ const App: React.FC = () => {
         <Skills />
         <ExperienceSection />
         <Projects />
+        <CertificatesSection />
         <ResumesSection />
         <GallerySection />
       </main>

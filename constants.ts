@@ -154,17 +154,62 @@ export const resumes = [
         id: 'r3',
         title: 'HEMM Resume',
         file: 'docs/shyam cement factory resume.pdf',
-        description: 'Specialized for Heavy Earth Moving Machinery & cement plant operations.'
+        description: 'Specialized for Heavy Earth Moving Machinery & Cement Plant Operations.'
+    }
+];
+
+export const certifications = [
+    {
+        url: 'photos/HCL GUVI Certification - 4N10712pv416Cz8m30.png',
+        title: 'Data Science Certification',
+        issuer: 'GUVI (IIT Madras)',
+        verifyLink: 'https://www.guvi.in/verify-certificate?id=4N10712pv416Cz8m30'
+    },
+    {
+        url: 'photos/Advanced Diploma in Python Programming .png',
+        title: 'Advanced Diploma in Python Programming',
+        issuer: 'Alison',
+        verifyLink: 'https://alison.com/certification/check/4a40c55c78'
+    },
+    {
+        url: 'photos/Diploma in Machine Learning with Python.png',
+        title: 'Diploma in Machine Learning with Python',
+        issuer: 'Alison',
+        verifyLink: 'https://alison.com/certification/check/16010cd08f'
+    },
+    {
+        url: 'photos/Python for Data Science From the Basics to Advanced.png',
+        title: 'Python for Data Science',
+        issuer: 'Alison',
+        verifyLink: 'https://alison.com/certification/check/01b737a2f1'
+    },
+    {
+        url: 'photos/Master the Pandas Library in Python Programming.png',
+        title: 'Mastering Pandas Library',
+        issuer: 'Alison',
+        verifyLink: 'https://alison.com/certification/check/eaaf78d09b'
+    },
+    {
+        url: 'photos/Diploma in Cognitive Behavioural Therapy.png',
+        title: 'Diploma in Cognitive Behavioural Therapy',
+        issuer: 'Alison',
+        verifyLink: 'https://alison.com/certification/check/f4ff597b9a'
+    },
+    {
+        url: 'photos/Mindful Meditation.png',
+        title: 'Mindful Meditation',
+        issuer: 'Alison',
+        verifyLink: 'https://alison.com/certification/check/e85a44bdee'
+    },
+    {
+        url: 'photos/Depression Treatment Therapies and Triggers.png',
+        title: 'Depression: Treatment & Therapies',
+        issuer: 'Alison',
+        verifyLink: 'https://alison.com/certification/check/e2c5291f71'
     }
 ];
 
 export const galleryImages = [
-    {
-        url: 'photos/HCL GUVI Certification - 4N10712pv416Cz8m30.png',
-        title: 'Data Science Certification',
-        category: 'Certification',
-        verifyLink: 'https://www.guvi.in/verify-certificate?id=4N10712pv416Cz8m30'
-    },
     {
         url: 'photos/award from CEO.jpg',
         title: 'CEO Award for Excellence',
