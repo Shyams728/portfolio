@@ -125,7 +125,11 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-400 border-t border-slate-900 pt-8 mb-8">
             <div className="flex items-center justify-center gap-2">
               <Phone className="w-4 h-4 text-primary-400" />
-              <span>+91 789 247 0215</span>
+              <div className="flex items-center gap-3">
+                <a href="tel:+917892470215" className="hover:text-primary-400 transition-colors">+91 789 247 0215</a>
+                <span className="text-slate-800">|</span>
+                <a href="tel:+919591456580" className="hover:text-primary-400 transition-colors">+91 9591 4565 80</a>
+              </div>
             </div>
             <div className="flex items-center justify-center gap-2">
               <MapPin className="w-4 h-4 text-primary-400" />
