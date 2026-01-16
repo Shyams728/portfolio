@@ -1,33 +1,40 @@
-import React from 'react';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
+import React, { useState, useEffect } from 'react';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, LineChart, Line, CartesianGrid } from 'recharts';
 import { motion } from 'framer-motion';
-
-const techData = [
-  { name: 'Python', value: 90, color: '#38bdf8' },
-  { name: 'SQL/NoSQL', value: 80, color: '#818cf8' },
-  { name: 'Power BI / Tableau', value: 85, color: '#34d399' },
-  { name: 'Pandas', value: 95, color: '#f472b6' },
-  { name: 'Machine Learning', value: 75, color: '#fbbf24' },
-];
-
-const domainData = [
-  { subject: 'Maintenance', A: 95, fullMark: 100 },
-  { subject: 'SAP/ERP', A: 85, fullMark: 100 },
-  { subject: 'RCFA', A: 90, fullMark: 100 },
-  { subject: 'Logistics', A: 75, fullMark: 100 },
-  { subject: 'Cost Control', A: 80, fullMark: 100 },
-  { subject: 'Safety', A: 85, fullMark: 100 },
-];
+import { Activity } from 'lucide-react';
+import { techData, domainData } from '../constants';
 
 const Skills: React.FC = () => {
+  const [liveData, setLiveData] = useState<{ time: string, value: number, temp: number }[]>([]);
+
+  useEffect(() => {
+    const generatePoint = (i: number) => ({
+      time: `${i}:00`,
+      value: 40 + Math.random() * 20 + Math.sin(i / 2) * 10,
+      temp: 60 + Math.random() * 10 + Math.cos(i / 3) * 5
+    });
+
+    const initialData = Array.from({ length: 12 }, (_, i) => generatePoint(i));
+    setLiveData(initialData);
+
+    const interval = setInterval(() => {
+      setLiveData(prev => {
+        const nextTime = (parseInt(prev[prev.length - 1].time) + 1) % 24;
+        return [...prev.slice(1), generatePoint(nextTime)];
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id="expertise" className="py-24 bg-slate-950/50">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Technical & Domain <span className="text-primary-400">Expertise</span></h2>
           <p className="text-slate-400 max-w-2xl mx-auto">
@@ -35,10 +42,10 @@ const Skills: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+
           {/* Tech Stack Chart */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -53,7 +60,7 @@ const Skills: React.FC = () => {
                 <BarChart layout="vertical" data={techData} margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
                   <XAxis type="number" hide />
                   <YAxis dataKey="name" type="category" width={120} tick={{ fill: '#94a3b8', fontSize: 12 }} axisLine={false} tickLine={false} />
-                  <Tooltip 
+                  <Tooltip
                     contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#fff' }}
                     itemStyle={{ color: '#fff' }}
                     cursor={{ fill: 'rgba(255,255,255,0.05)' }}
@@ -69,7 +76,7 @@ const Skills: React.FC = () => {
           </motion.div>
 
           {/* Domain Knowledge Radar */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -92,6 +99,62 @@ const Skills: React.FC = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Skills in Action - Live Telemetry Simulator */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="glass p-8 rounded-2xl border border-slate-800 overflow-hidden relative"
+        >
+          <div className="absolute top-0 right-0 p-4">
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-tighter">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+              Live Engine Simulation
+            </div>
+          </div>
+
+          <h3 className="text-xl font-semibold text-white mb-2 flex items-center gap-2">
+            <Activity className="w-5 h-5 text-primary-400" />
+            Skills in Action: Telemetry Analytics
+          </h3>
+          <p className="text-slate-400 text-sm mb-8 max-w-2xl">
+            Simulating real-time sensor data from heavy machinery. Demonstrating the ability to process, visualize, and extract patterns from high-frequency industrial IOT streams.
+          </p>
+
+          <div className="h-[250px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={liveData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="time" tick={{ fill: '#64748b', fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis hide domain={['dataMin - 10', 'dataMax + 10']} />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '8px' }}
+                  itemStyle={{ fontSize: '12px' }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#38bdf8"
+                  strokeWidth={3}
+                  dot={false}
+                  name="Vibration (Hz)"
+                  animationDuration={300}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="temp"
+                  stroke="#f43f5e"
+                  strokeWidth={2}
+                  dot={false}
+                  strokeDasharray="5 5"
+                  name="Bearing Temp (°C)"
+                  animationDuration={300}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
