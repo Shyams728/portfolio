@@ -65,7 +65,7 @@ export const projects = [
         description: 'End-to-end data pipeline to extract, store, and analyze YouTube channel data. Features NLP for comment sentiment and interactive Plotly visualizations.',
         tech: ['Python', 'Streamlit', 'SQL', 'MongoDB', 'YouTube API', 'NLP'],
         link: 'https://github.com/Shyams728/youtube_project',
-        demoLink: 'https://shyams-youtube-dashboard-project.streamlit.app/',
+        demoLink: 'https://shyamsyoutubeproject.streamlit.app/',
         category: 'Analytics'
     },
     {
