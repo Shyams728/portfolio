@@ -44,7 +44,13 @@ const Projects: React.FC = () => {
                 <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center text-primary-400 group-hover:bg-primary-500/20 transition-colors">
                   {getIcon(project.category)}
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-center">
+                  {project.stats && (
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-primary-500/10 border border-primary-500/20 text-[10px] font-bold uppercase tracking-wider text-primary-400 mr-2">
+                      <span className="opacity-60">{project.stats.label}:</span>
+                      <span>{project.stats.value}</span>
+                    </div>
+                  )}
                   {project.demoLink && (
                     <a
                       href={project.demoLink}

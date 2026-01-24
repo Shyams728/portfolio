@@ -75,6 +75,16 @@ export const projects = [
         tech: [' Power BI', 'DAX', 'Power Query', 'Data Modeling'],
         link: 'https://github.com/Shyams728/clothing_customer_behavior_analytics',
         category: 'Analytics'
+    },
+    {
+        id: 'p10',
+        title: 'End-to-End Supply Chain Analytics',
+        description: 'A comprehensive analytics platform integrating manufacturing operations, supply chain management, and logistics optimization to drive operational excellence in heavy industries.',
+        tech: ['Python', 'Streamlit', 'Pandas', 'Plotly', 'Optimization'],
+        link: 'https://github.com/Shyams728/supply-chain-analytics',
+        demoLink: 'https://shyams-supply-chain-analytics.streamlit.app/',
+        category: 'Analytics',
+        stats: { label: 'Impact', value: 'High' }
     }
 ];
 
@@ -221,12 +231,22 @@ export const galleryImages = [
         category: 'Site'
     },
     {
-        url: 'photos/site photo.jpg',
+        url: 'photos/self-improment training sessions.jpeg',
+        title: 'Self-improvement',
+        category: 'Self-improvement'
+    },
+    {
+        url: 'photos/on_site_machine.jpg',
         title: 'On-site Operations',
         category: 'Site'
     },
     {
-        url: 'photos/site photo with Colleague .jpg',
+        url: 'photos/phanoramic background photo.jpg',
+        title: 'On-site Operations',
+        category: 'Site'
+    },
+    {
+        url: 'photos/with LnT family.png',
         title: 'Collaborative Engineering',
         category: 'Team'
     },
