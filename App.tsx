@@ -11,10 +11,23 @@ import { Menu, X, Mail, Phone, MapPin, ChevronUp } from 'lucide-react';
 const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Scroll Spy Logic
+      const sections = navLinks.map(link => link.href.replace('#', ''));
+      const active = sections.find(section => {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          return rect.top <= 150 && rect.bottom >= 150;
+        }
+        return false;
+      });
+      if (active) setActiveSection(active);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -49,7 +62,7 @@ const App: React.FC = () => {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm font-medium text-slate-400 hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary-500 after:transition-all hover:after:w-full"
+                    className={`text-sm font-medium transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-primary-500 after:transition-all hover:after:w-full ${activeSection === link.href.replace('#', '') ? 'text-white after:w-full' : 'text-slate-400 hover:text-white after:w-0'}`}
                   >
                     {link.label}
                   </a>
@@ -81,7 +94,7 @@ const App: React.FC = () => {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="block text-slate-300 hover:text-primary-400 font-medium py-2"
+                    className={`block font-medium py-2 transition-colors ${activeSection === link.href.replace('#', '') ? 'text-primary-400' : 'text-slate-300 hover:text-primary-400'}`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {link.label}

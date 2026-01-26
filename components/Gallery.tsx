@@ -1,10 +1,33 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ZoomIn } from 'lucide-react';
+import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { galleryImages } from '../constants';
 
 const GallerySection: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState('All');
+
+    const categories = ['All', ...Array.from(new Set(galleryImages.map(img => img.category)))];
+
+    const filteredImages = selectedCategory === 'All'
+        ? galleryImages
+        : galleryImages.filter(img => img.category === selectedCategory);
+
+    const handleNext = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (!selectedImage) return;
+        const currentIndex = galleryImages.findIndex(img => img.url === selectedImage.url);
+        const nextIndex = (currentIndex + 1) % galleryImages.length;
+        setSelectedImage(galleryImages[nextIndex]);
+    };
+
+    const handlePrev = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (!selectedImage) return;
+        const currentIndex = galleryImages.findIndex(img => img.url === selectedImage.url);
+        const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        setSelectedImage(galleryImages[prevIndex]);
+    };
 
     return (
         <section id="gallery" className="py-24 bg-slate-950/50">
@@ -16,44 +39,65 @@ const GallerySection: React.FC = () => {
                     className="text-center mb-16"
                 >
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Site & <span className="text-primary-400">Impact</span></h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-slate-400 max-w-2xl mx-auto mb-10">
                         Visual highlights from field operations and professional milestones.
                     </p>
+
+                    <div className="flex flex-wrap justify-center gap-2 mb-12">
+                        {categories.map(cat => (
+                            <button
+                                key={cat}
+                                onClick={() => setSelectedCategory(cat)}
+                                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all border ${selectedCategory === cat
+                                        ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
+                                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-600 hover:text-white'
+                                    }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                 </motion.div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {galleryImages.map((image, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.05 }}
-                            onClick={() => setSelectedImage(image)}
-                            className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
-                        >
-                            <img
-                                src={image.url}
-                                alt={image.title}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
+                <motion.div
+                    layout
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                >
+                    <AnimatePresence mode="popLayout">
+                        {filteredImages.map((image, index) => (
+                            <motion.div
+                                layout
+                                key={image.url}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.2 }}
+                                onClick={() => setSelectedImage(image)}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                            >
+                                <img
+                                    src={image.url}
+                                    alt={image.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
 
-                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white scale-75 group-hover:scale-100 transition-transform">
-                                    <ZoomIn className="w-6 h-6" />
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white scale-75 group-hover:scale-100 transition-transform">
+                                        <ZoomIn className="w-6 h-6" />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                                <span className="text-[10px] uppercase tracking-widest text-primary-400 font-bold mb-1 block">
-                                    {image.category}
-                                </span>
-                                <h4 className="text-white font-bold text-sm">{image.title}</h4>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
+                                <div className="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                    <span className="text-[10px] uppercase tracking-widest text-primary-400 font-bold mb-1 block">
+                                        {image.category}
+                                    </span>
+                                    <h4 className="text-white font-bold text-sm">{image.title}</h4>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
             </div>
 
             {/* Lightbox for Gallery */}
@@ -78,14 +122,29 @@ const GallerySection: React.FC = () => {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="max-w-5xl w-full"
+                            className="max-w-5xl w-full relative group"
                         >
                             <img
                                 src={selectedImage.url}
                                 alt={selectedImage.title}
-                                className="w-full h-auto max-h-[80vh] object-contain rounded-2xl shadow-2xl mb-8 border border-white/5"
+                                className="w-full h-auto max-h-[80vh] object-contain rounded-2xl shadow-2xl border border-white/5"
                             />
-                            <div className="text-center">
+
+                            {/* Navigation Buttons */}
+                            <button
+                                onClick={handlePrev}
+                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                            >
+                                <ChevronLeft className="w-6 h-6" />
+                            </button>
+                            <button
+                                onClick={handleNext}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                            >
+                                <ChevronRight className="w-6 h-6" />
+                            </button>
+
+                            <div className="text-center mt-8">
                                 <span className="text-primary-400 text-xs font-bold uppercase tracking-widest">{selectedImage.category}</span>
                                 <h3 className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
                             </div>

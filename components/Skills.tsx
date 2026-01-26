@@ -6,12 +6,14 @@ import { techData, domainData } from '../constants';
 
 const Skills: React.FC = () => {
   const [liveData, setLiveData] = useState<{ time: string, value: number, temp: number }[]>([]);
+  const [simSpeed, setSimSpeed] = useState(3000);
+  const [intensity, setIntensity] = useState(1);
 
   useEffect(() => {
     const generatePoint = (i: number) => ({
-      time: `${i}:00`,
-      value: 40 + Math.random() * 20 + Math.sin(i / 2) * 10,
-      temp: 60 + Math.random() * 10 + Math.cos(i / 3) * 5
+      time: `${i % 24}:00`,
+      value: 40 + (Math.random() * 20 + Math.sin(i / 2) * 10) * intensity,
+      temp: 60 + (Math.random() * 10 + Math.cos(i / 3) * 5) * intensity
     });
 
     const initialData = Array.from({ length: 12 }, (_, i) => generatePoint(i));
@@ -19,13 +21,14 @@ const Skills: React.FC = () => {
 
     const interval = setInterval(() => {
       setLiveData(prev => {
-        const nextTime = (parseInt(prev[prev.length - 1].time) + 1) % 24;
+        const lastTimeStr = prev[prev.length - 1].time;
+        const nextTime = (parseInt(lastTimeStr) + 1) % 24;
         return [...prev.slice(1), generatePoint(nextTime)];
       });
-    }, 3000);
+    }, simSpeed);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [simSpeed, intensity]);
 
   return (
     <section id="expertise" className="py-24 bg-slate-950/50">
@@ -121,6 +124,44 @@ const Skills: React.FC = () => {
           <p className="text-slate-400 text-sm mb-8 max-w-2xl">
             Simulating real-time sensor data from heavy machinery. Demonstrating the ability to process, visualize, and extract patterns from high-frequency industrial IOT streams.
           </p>
+
+          <div className="flex flex-wrap gap-4 mb-6">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] uppercase font-bold text-slate-500 tracking-widest">Simulation Speed</span>
+              <div className="flex gap-2">
+                {[5000, 3000, 1000].map(speed => (
+                  <button
+                    key={speed}
+                    onClick={() => setSimSpeed(speed)}
+                    className={`px-3 py-1 rounded text-[10px] font-bold transition-all border ${simSpeed === speed
+                        ? 'bg-primary-600 border-primary-500 text-white'
+                        : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'
+                      }`}
+                  >
+                    {speed === 5000 ? 'Slow' : speed === 3000 ? 'Normal' : 'Fast'}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] uppercase font-bold text-slate-500 tracking-widest">Load Intensity</span>
+              <div className="flex gap-2">
+                {[0.5, 1, 2].map(level => (
+                  <button
+                    key={level}
+                    onClick={() => setIntensity(level)}
+                    className={`px-3 py-1 rounded text-[10px] font-bold transition-all border ${intensity === level
+                        ? 'bg-primary-600 border-primary-500 text-white'
+                        : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'
+                      }`}
+                  >
+                    {level === 0.5 ? 'Low' : level === 1 ? 'Medium' : 'High'}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
 
           <div className="h-[250px] w-full">
             <ResponsiveContainer width="100%" height="100%">

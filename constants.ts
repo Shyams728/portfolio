@@ -1,5 +1,24 @@
 export const projects = [
     {
+        id: 'p10',
+        title: 'End-to-End Supply Chain Analytics',
+        description: 'A comprehensive analytics platform integrating manufacturing operations, supply chain management, and logistics optimization to drive operational excellence in heavy industries.',
+        tech: ['Python', 'Streamlit', 'Pandas', 'Plotly', 'Optimization'],
+        link: 'https://github.com/Shyams728/supply-chain-analytics',
+        demoLink: 'https://shyams-supply-chain-analytics.streamlit.app/',
+        category: 'Analytics',
+        stats: { label: 'Impact', value: 'High' }
+    },
+    {
+        id: 'p11',
+        title: 'Supply Chain Operations Platform',
+        description: 'An integrated industrial platform for managing Standard Operating Procedures (SOPs), Root Cause Analysis (RCA), and operational workflows with predictive maintenance and route optimization.',
+        tech: ['Python', 'Streamlit', 'Pandas', 'Plotly', 'Scikit-Learn', 'Optimization'],
+        link: 'https://github.com/Shyams728/supply-chain-ops-platform',
+        category: 'Analytics',
+        stats: { label: 'Scale', value: 'Enterprise' }
+    },
+    {
         id: 'p1',
         title: 'Maintenance Analytics Dashboard',
         description: 'Industrial IoT dashboard for tracking machine downtime, RCFA, and predictive maintenance schedules. Directly leverages manufacturing domain expertise.',
@@ -8,56 +27,6 @@ export const projects = [
         demoLink: 'https://shyamsmaintananceanalyticsdashboard.streamlit.app/',
         category: 'Analytics',
         stats: { label: 'Utility', value: 'High' }
-    },
-    {
-        id: 'p3',
-        title: 'PhonePe Data Visualization',
-        description: 'Geo-spatial analysis of digital transaction data across India using PhonePe pulse data.',
-        tech: ['Python', 'GeoPandas', 'Streamlit', 'Plotly'],
-        link: 'https://github.com/Shyams728/phonepe_data_visualisation',
-        demoLink: 'https://shyamsphonepedatavisualisation.streamlit.app/',
-        category: 'Analytics'
-    },
-    {
-        id: 'p4',
-        title: 'RedBus Data Scraping',
-        description: 'Automated pipeline to scrape bus routes, pricing, and availability to analyze transport trends.',
-        tech: ['Selenium', 'Python', 'SQL', 'Automation'],
-        link: 'https://github.com/Shyams728/redbus-data-scraping',
-        category: 'Web Scraping'
-    },
-    {
-        id: 'p7',
-        title: 'Machine Learning Projects',
-        description: 'A comprehensive collection of various ML algorithms and experiments, demonstrating breadth of knowledge in predictive modeling.',
-        tech: ['Python', 'Scikit-Learn', 'Jupyter', 'Algorithms'],
-        link: 'https://github.com/Shyams728/machine_learning_projects',
-        category: 'Machine Learning'
-    },
-    {
-        id: 'p2',
-        title: 'Kannada LMV (LLM)',
-        description: 'A specialized Large Language Model fine-tuned for the Kannada language, enabling vernacular NLP applications.',
-        tech: ['PyTorch', 'Transformers', 'NLP', 'HuggingFace'],
-        link: 'https://github.com/Shyams728/kannada_lmv7',
-        category: 'Machine Learning'
-    },
-    {
-        id: 'p6',
-        title: 'Kannada MNIST',
-        description: 'Computer Vision model trained to recognize handwritten Kannada numerals, similar to the classic MNIST dataset.',
-        tech: ['Scikit-Learn', 'CNN', 'Deep Learning'],
-        link: 'https://github.com/Shyams728/kannada_MNIST',
-        category: 'Machine Learning'
-    },
-    {
-        id: 'p5',
-        title: 'BizCard OCR',
-        description: 'Optical Character Recognition application to digitize business cards and store contact info in a database.',
-        tech: ['EasyOCR', 'OpenCV', 'SQL', 'Streamlit'],
-        link: 'https://github.com/Shyams728/bizcard_ocr_project',
-        demoLink: 'https://shyams-ocr-project.streamlit.app/',
-        category: 'OCR'
     },
     {
         id: 'p8',
@@ -77,14 +46,54 @@ export const projects = [
         category: 'Analytics'
     },
     {
-        id: 'p10',
-        title: 'End-to-End Supply Chain Analytics',
-        description: 'A comprehensive analytics platform integrating manufacturing operations, supply chain management, and logistics optimization to drive operational excellence in heavy industries.',
-        tech: ['Python', 'Streamlit', 'Pandas', 'Plotly', 'Optimization'],
-        link: 'https://github.com/Shyams728/supply-chain-analytics',
-        demoLink: 'https://shyams-supply-chain-analytics.streamlit.app/',
-        category: 'Analytics',
-        stats: { label: 'Impact', value: 'High' }
+        id: 'p2',
+        title: 'Kannada LMV (LLM)',
+        description: 'A specialized Large Language Model fine-tuned for the Kannada language, enabling vernacular NLP applications.',
+        tech: ['PyTorch', 'Transformers', 'NLP', 'HuggingFace'],
+        link: 'https://github.com/Shyams728/kannada_lmv7',
+        category: 'Machine Learning'
+    },
+    {
+        id: 'p3',
+        title: 'PhonePe Data Visualization',
+        description: 'Geo-spatial analysis of digital transaction data across India using PhonePe pulse data.',
+        tech: ['Python', 'GeoPandas', 'Streamlit', 'Plotly'],
+        link: 'https://github.com/Shyams728/phonepe_data_visualisation',
+        demoLink: 'https://shyamsphonepedatavisualisation.streamlit.app/',
+        category: 'Analytics'
+    },
+    {
+        id: 'p5',
+        title: 'BizCard OCR',
+        description: 'Optical Character Recognition application to digitize business cards and store contact info in a database.',
+        tech: ['EasyOCR', 'OpenCV', 'SQL', 'Streamlit'],
+        link: 'https://github.com/Shyams728/bizcard_ocr_project',
+        demoLink: 'https://shyams-ocr-project.streamlit.app/',
+        category: 'OCR'
+    },
+    {
+        id: 'p4',
+        title: 'RedBus Data Scraping',
+        description: 'Automated pipeline to scrape bus routes, pricing, and availability to analyze transport trends.',
+        tech: ['Selenium', 'Python', 'SQL', 'Automation'],
+        link: 'https://github.com/Shyams728/redbus-data-scraping',
+        category: 'Web Scraping'
+    },
+    {
+        id: 'p7',
+        title: 'Machine Learning Projects',
+        description: 'A comprehensive collection of various ML algorithms and experiments, demonstrating breadth of knowledge in predictive modeling.',
+        tech: ['Python', 'Scikit-Learn', 'Jupyter', 'Algorithms'],
+        link: 'https://github.com/Shyams728/machine_learning_projects',
+        category: 'Machine Learning'
+    },
+    {
+        id: 'p6',
+        title: 'Kannada MNIST',
+        description: 'Computer Vision model trained to recognize handwritten Kannada numerals, similar to the classic MNIST dataset.',
+        tech: ['Scikit-Learn', 'CNN', 'Deep Learning'],
+        link: 'https://github.com/Shyams728/kannada_MNIST',
+        category: 'Machine Learning'
     }
 ];
 
