@@ -5,6 +5,7 @@ import { Project } from '../types';
 
 import { projects } from '../constants';
 import { Play } from 'lucide-react';
+import ProjectModal from './ProjectModal';
 
 const getIcon = (category: string) => {
   switch (category) {
@@ -18,6 +19,13 @@ const getIcon = (category: string) => {
 
 const Projects: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
 
   const categories = useMemo(() => {
     const cats = projects.map(p => p.category);
@@ -43,8 +51,8 @@ const Projects: React.FC = () => {
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border ${selectedCategory === cat
-                    ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
-                    : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white'
+                  ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
+                  : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white'
                   }`}
               >
                 {cat}
@@ -69,7 +77,8 @@ const Projects: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.2 }}
-                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full"
+                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full cursor-pointer"
+                onClick={() => handleProjectClick(project)}
               >
                 <div className="flex justify-between items-start mb-6">
                   <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center text-primary-400 group-hover:bg-primary-500/20 transition-colors">
@@ -134,6 +143,12 @@ const Projects: React.FC = () => {
           </a>
         </div>
       </div>
+
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 };

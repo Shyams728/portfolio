@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Hero from './components/Hero';
-import ExperienceSection from './components/Experience';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import ResumesSection from './components/Resumes';
-import GallerySection from './components/Gallery';
-import CertificatesSection from './components/Certificates';
-import { Menu, X, Mail, Phone, MapPin, ChevronUp } from 'lucide-react';
+const ExperienceSection = lazy(() => import('./components/Experience'));
+const Projects = lazy(() => import('./components/Projects'));
+const Skills = lazy(() => import('./components/Skills'));
+const ResumesSection = lazy(() => import('./components/Resumes'));
+const GallerySection = lazy(() => import('./components/Gallery'));
+const CertificatesSection = lazy(() => import('./components/Certificates'));
+const ContactForm = lazy(() => import('./components/ContactForm'));
+import { Menu, X, Mail, Phone, MapPin, ChevronUp, Loader2 } from 'lucide-react';
 
 const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,6 +41,7 @@ const App: React.FC = () => {
     { label: 'Certifications', href: '#certifications' },
     { label: 'Resumes', href: '#resumes' },
     { label: 'Gallery', href: '#gallery' },
+    { label: 'Contact', href: '#contact' },
   ];
 
   return (
@@ -117,12 +119,19 @@ const App: React.FC = () => {
 
       <main>
         <Hero />
-        <Skills />
-        <ExperienceSection />
-        <Projects />
-        <CertificatesSection />
-        <ResumesSection />
-        <GallerySection />
+        <Suspense fallback={
+          <div className="py-24 flex items-center justify-center bg-slate-950">
+            <Loader2 className="w-10 h-10 text-primary-500 animate-spin" />
+          </div>
+        }>
+          <Skills />
+          <ExperienceSection />
+          <Projects />
+          <CertificatesSection />
+          <ResumesSection />
+          <GallerySection />
+          <ContactForm />
+        </Suspense>
       </main>
 
       {/* Footer */}

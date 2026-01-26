@@ -4,9 +4,13 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  longDescription?: string;
+  challenges?: string[];
+  results?: string[];
   tech: string[];
   link: string;
-  category: 'Data Science' | 'Web Scraping' | 'Machine Learning' | 'OCR' | 'Analytics';
+  demoLink?: string;
+  category: string;
   stats?: {
     label: string;
     value: string;
