@@ -11,6 +11,8 @@ export interface Project {
   link: string;
   demoLink?: string;
   category: string;
+  image?: string;
+  impact?: string;
   stats?: {
     label: string;
     value: string;

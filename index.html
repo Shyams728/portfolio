@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=Chakra+Petch:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <!-- Tailwind CSS -->
@@ -50,25 +50,35 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                        industrial: ['Chakra Petch', 'sans-serif'],
                     },
                     colors: {
+                        industrial: {
+                            orange: '#FF6B35', // Safety Orange
+                            'orange-light': '#FF8A5C', // Lighter Safety Orange
+                            blue: '#004E89',   // Deep Industrial Blue
+                            yellow: '#F7B801', // Warning Yellow
+                            steel: '#1A1A2E',  // Carbon Steel
+                            concrete: '#EAEAEA' // Concrete
+                        },
                         slate: {
                             850: '#151f32',
                             900: '#0f172a',
                             950: '#020617',
                         },
                         primary: {
-                            400: '#38bdf8', // Light Blue
-                            500: '#0ea5e9', // Sky Blue
-                            600: '#0284c7', // Darker Blue
+                            400: '#FF8A5C', // Lighter Safety Orange
+                            500: '#FF6B35', // Safety Orange
+                            600: '#E65A2B', // Darker Safety Orange
                         },
                         accent: {
-                            400: '#818cf8', // Indigo
-                            500: '#6366f1',
+                            400: '#F9C940', // Lighter Warning Yellow
+                            500: '#F7B801', // Warning Yellow
                         }
                     },
                     backgroundImage: {
-                        'grid-pattern': "linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)",
+                        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
                     },
                     backgroundSize: {
                         'grid-pattern': '40px 40px',
@@ -77,6 +87,8 @@
                         'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 6s ease-in-out infinite',
                         'fade-in-down': 'fadeInDown 0.5s ease-out forwards',
+                        'grain': 'grain 8s steps(10) infinite',
+                        'pulse-green': 'pulseGreen 2s infinite',
                     },
                     keyframes: {
                         float: {
@@ -86,6 +98,22 @@
                         fadeInDown: {
                             '0%': { opacity: '0', transform: 'translateY(-10px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        grain: {
+                            '0%, 100%': { transform: 'translate(-5%, -10%)' },
+                            '10%': { transform: 'translate(-15%, -20%)' },
+                            '20%': { transform: 'translate(-5%, -10%)' },
+                            '30%': { transform: 'translate(-15%, -25%)' },
+                            '40%': { transform: 'translate(-5%, -15%)' },
+                            '50%': { transform: 'translate(-20%, -10%)' },
+                            '60%': { transform: 'translate(-15%, -20%)' },
+                            '70%': { transform: 'translate(-5%, -15%)' },
+                            '80%': { transform: 'translate(-15%, -25%)' },
+                            '90%': { transform: 'translate(-5%, -10%)' },
+                        },
+                        pulseGreen: {
+                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                            '50%': { opacity: '0.5', transform: 'scale(0.95)' },
                         }
                     }
                 },
@@ -94,21 +122,36 @@
     </script>
     <style>
         body {
-            background-color: #020617;
-            color: #f8fafc;
+            background-color: #1A1A2E;
+            /* Carbon Steel */
+            color: #EAEAEA;
+            /* Concrete */
+        }
+
+        .grain-overlay {
+            position: fixed;
+            top: -150%;
+            left: -150%;
+            width: 400%;
+            height: 400%;
+            pointer-events: none;
+            z-index: 50;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            animation: grain 8s steps(10) infinite;
         }
 
         .glass {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(26, 26, 46, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .glass-hover:hover {
-            background: rgba(30, 41, 59, 0.7);
-            border-color: rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 20px rgba(14, 165, 233, 0.15);
+            background: rgba(45, 55, 72, 0.7);
+            border-color: rgba(255, 107, 53, 0.3);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.15);
         }
 
         /* Custom scrollbar */
@@ -117,23 +160,24 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #020617;
+            background: #1A1A2E;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #334155;
+            background: #FF6B35;
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+            background: #E65A2B;
         }
     </style>
 </head>
 
 <body>
+    <div class="grain-overlay"></div>
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="./index.tsx"></script>
 </body>
 
 </html>

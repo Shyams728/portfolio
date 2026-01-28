@@ -41,110 +41,136 @@ const ContactForm: React.FC = () => {
     };
 
     return (
-        <section id="contact" className="py-24 bg-slate-950 relative overflow-hidden">
-            {/* Decorative background elements */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2" />
+        <section id="contact" className="py-24 bg-industrial-steel relative overflow-hidden">
+            {/* Industrial Textures */}
+            <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
 
             <div className="max-w-4xl mx-auto px-6 relative z-10">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                        Get in <span className="text-primary-400">Touch</span>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-industrial-orange/10 border border-industrial-orange/30 text-industrial-orange text-[10px] font-industrial font-bold uppercase tracking-[0.2em] mb-4">
+                        <span className="w-1.5 h-1.5 bg-industrial-orange animate-pulse"></span>
+                        External Communications Protocol
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4 tracking-tighter">
+                        ISSUE <span className="text-industrial-orange">WORK ORDER</span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto">
-                        Have a project in mind or just want to say hello? Feel free to reach out.
-                        I'm always open to discussing new opportunities and industrial collaborations.
+                    <p className="text-slate-400 font-sans max-w-xl mx-auto">
+                        Initiate a technical consultation or collaborative inquiry. All requests are prioritized by the optimization engine.
                     </p>
                 </div>
 
-                <div className="glass p-8 md:p-12 rounded-3xl border border-slate-800 shadow-2xl">
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-[#1e1e2e]/60 border-2 border-slate-800 p-8 md:p-12 rounded-sm relative shadow-2xl">
+                    {/* Metal Panel Detail */}
+                    <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-industrial-orange -translate-x-1 -translate-y-1"></div>
+                    <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-industrial-orange translate-x-1 -translate-y-1"></div>
+                    <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-industrial-orange -translate-x-1 translate-y-1"></div>
+                    <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-industrial-orange translate-x-1 translate-y-1"></div>
+
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {/* Name Field */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                                    <User className="w-4 h-4" /> Full Name
+                                <label className="text-[10px] font-industrial font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                                    <User className="w-3 h-3 text-industrial-orange" /> REQUESTOR_IDENTITY [FULL NAME]
                                 </label>
                                 <input
-                                    {...register('name', { required: 'Name is required' })}
-                                    placeholder="Shyamsundar D"
-                                    className={`w-full bg-slate-900/50 border ${errors.name ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all`}
+                                    {...register('name', { required: 'Identifier required' })}
+                                    placeholder="Jane Doe"
+                                    className={`w-full bg-[#0d0d17] border ${errors.name ? 'border-red-500/50' : 'border-slate-800'} rounded-none px-4 py-3 text-white font-mono text-sm placeholder:text-slate-700 focus:outline-none focus:border-industrial-orange transition-all`}
                                 />
-                                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+                                {errors.name && <p className="text-red-500 font-mono text-[10px] mt-1 uppercase">ERR: {errors.name.message}</p>}
                             </div>
 
                             {/* Email Field */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                                    <Mail className="w-4 h-4" /> Email Address
+                                <label className="text-[10px] font-industrial font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                                    <Mail className="w-3 h-3 text-industrial-orange" /> COMMS_ENDPOINT [EMAIL]
                                 </label>
                                 <input
                                     {...register('email', {
-                                        required: 'Email is required',
-                                        pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' }
+                                        required: 'Endpoint required',
+                                        pattern: { value: /^\S+@\S+$/i, message: 'Invalid syntax' }
                                     })}
-                                    placeholder="shyam@example.com"
-                                    className={`w-full bg-slate-900/50 border ${errors.email ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all`}
+                                    placeholder="jane@network.com"
+                                    className={`w-full bg-[#0d0d17] border ${errors.email ? 'border-red-500/50' : 'border-slate-800'} rounded-none px-4 py-3 text-white font-mono text-sm placeholder:text-slate-700 focus:outline-none focus:border-industrial-orange transition-all`}
                                 />
-                                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+                                {errors.email && <p className="text-red-500 font-mono text-[10px] mt-1 uppercase">ERR: {errors.email.message}</p>}
                             </div>
                         </div>
 
                         {/* Subject Field */}
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300">Subject</label>
+                            <label className="text-[10px] font-industrial font-bold text-slate-500 uppercase tracking-widest">ORDER_SUBJECT [CATEGORY]</label>
                             <input
-                                {...register('subject', { required: 'Subject is required' })}
-                                placeholder="Project Inquiry"
-                                className={`w-full bg-slate-900/50 border ${errors.subject ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all`}
+                                {...register('subject', { required: 'Subject required' })}
+                                placeholder="Data Pipeline Optimization / Maintenance Consultation"
+                                className={`w-full bg-[#0d0d17] border ${errors.subject ? 'border-red-500/50' : 'border-slate-800'} rounded-none px-4 py-3 text-white font-mono text-sm placeholder:text-slate-700 focus:outline-none focus:border-industrial-orange transition-all`}
                             />
-                            {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject.message}</p>}
+                            {errors.subject && <p className="text-red-500 font-mono text-[10px] mt-1 uppercase">ERR: {errors.subject.message}</p>}
                         </div>
 
                         {/* Message Field */}
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                                <MessageSquare className="w-4 h-4" /> Your Message
+                            <label className="text-[10px] font-industrial font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                                <MessageSquare className="w-3 h-3 text-industrial-orange" /> MAINTENANCE_LOG [DESCRIPTION]
                             </label>
                             <textarea
-                                {...register('message', { required: 'Message is required' })}
+                                {...register('message', { required: 'Log entry required' })}
                                 rows={5}
-                                placeholder="Tell me more about your project..."
-                                className={`w-full bg-slate-900/50 border ${errors.message ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all resize-none`}
+                                placeholder="Detailed description of requirements, system constraints, and objectives..."
+                                className={`w-full bg-[#0d0d17] border ${errors.message ? 'border-red-500/50' : 'border-slate-800'} rounded-none px-4 py-3 text-white font-mono text-sm placeholder:text-slate-700 focus:outline-none focus:border-industrial-orange transition-all resize-none`}
                             />
-                            {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message.message}</p>}
+                            {errors.message && <p className="text-red-500 font-mono text-[10px] mt-1 uppercase">ERR: {errors.message.message}</p>}
                         </div>
 
                         <button
                             type="submit"
                             disabled={status === 'sending'}
-                            className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-xl ${status === 'success'
+                            className={`w-full py-4 rounded-none font-industrial font-bold uppercase tracking-[0.3em] flex items-center justify-center gap-3 transition-all ${status === 'success'
                                 ? 'bg-green-600 text-white'
                                 : status === 'error'
                                     ? 'bg-red-600 text-white'
-                                    : 'bg-primary-600 hover:bg-primary-500 text-white shadow-primary-600/20'
+                                    : 'bg-industrial-orange hover:bg-industrial-orange-light text-slate-900 shadow-[0_0_20px_rgba(255,107,53,0.2)]'
                                 }`}
                         >
                             {status === 'idle' && (
                                 <>
-                                    <Send className="w-5 h-5" /> Send Message
+                                    <Send className="w-5 h-5" /> TRANSMIT_REQUEST
                                 </>
                             )}
                             {status === 'sending' && (
-                                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                <>
+                                    <div className="w-5 h-5 border-2 border-slate-900/30 border-t-slate-900 rounded-full animate-spin" />
+                                    UPLOADING_BUFFER...
+                                </>
                             )}
                             {status === 'success' && (
                                 <>
-                                    <CheckCircle className="w-5 h-5" /> Message Sent Successfully!
+                                    <CheckCircle className="w-5 h-5" /> SYSTEM: SUCCESS_STATUS
                                 </>
                             )}
                             {status === 'error' && (
                                 <>
-                                    <AlertCircle className="w-5 h-5" /> Something went wrong.
+                                    <AlertCircle className="w-5 h-5" /> SYSTEM: UPLOAD_FAILURE
                                 </>
                             )}
                         </button>
                     </form>
+                </div>
+
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="p-4 bg-slate-900/40 border border-slate-800 rounded-sm">
+                        <span className="text-[9px] font-industrial text-slate-500 uppercase block mb-1">Response Time</span>
+                        <span className="text-xs font-mono text-industrial-yellow">T-MINUS 24H</span>
+                    </div>
+                    <div className="p-4 bg-slate-900/40 border border-slate-800 rounded-sm">
+                        <span className="text-[9px] font-industrial text-slate-500 uppercase block mb-1">Availability</span>
+                        <span className="text-xs font-mono text-industrial-yellow">REMOTE / ON-SITE</span>
+                    </div>
+                    <div className="p-4 bg-slate-900/40 border border-slate-800 rounded-sm">
+                        <span className="text-[9px] font-industrial text-slate-500 uppercase block mb-1">Direct Secure Line</span>
+                        <span className="text-xs font-mono text-industrial-yellow">ENCRYPTED_SMTP</span>
+                    </div>
                 </div>
             </div>
         </section>

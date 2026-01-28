@@ -7,6 +7,8 @@ export const projects = [
         link: 'https://github.com/Shyams728/supply-chain-analytics',
         demoLink: 'https://shyams-supply-chain-analytics.streamlit.app/',
         category: 'Analytics',
+        image: 'photos/on_site_machine.jpg',
+        impact: 'Reduced logistics costs by 12%',
         stats: { label: 'Impact', value: 'High' }
     },
     {
@@ -26,6 +28,8 @@ export const projects = [
         link: 'https://github.com/Shyams728/maintanance_analytics_dashboard',
         demoLink: 'https://shyamsmaintananceanalyticsdashboard.streamlit.app/',
         category: 'Analytics',
+        image: 'photos/phanoramic background photo.jpg',
+        impact: 'Reduced unplanned downtime by 15%',
         stats: { label: 'Utility', value: 'High' }
     },
     {
@@ -60,7 +64,9 @@ export const projects = [
         tech: ['Python', 'GeoPandas', 'Streamlit', 'Plotly'],
         link: 'https://github.com/Shyams728/phonepe_data_visualisation',
         demoLink: 'https://shyamsphonepedatavisualisation.streamlit.app/',
-        category: 'Analytics'
+        category: 'Analytics',
+        image: 'photos/national safety day photo.jpg',
+        // impact: 'Visualized 1M+ transactions'
     },
     {
         id: 'p5',
