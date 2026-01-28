@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
         className="absolute inset-0 z-0"
       >
         <img
-          src="photos/phanoramic background photo.jpg"
+          src="photos/on_site_machine.jpg"
           alt="Industrial Background"
           className="w-full h-full object-cover blur-[2px]"
         />

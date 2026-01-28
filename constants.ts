@@ -7,7 +7,7 @@ export const projects = [
         link: 'https://github.com/Shyams728/supply-chain-analytics',
         demoLink: 'https://shyams-supply-chain-analytics.streamlit.app/',
         category: 'Analytics',
-        image: 'photos/on_site_machine.jpg',
+        image: 'photos/End_end_supply_chain.png',
         impact: 'Reduced logistics costs by 12%',
         stats: { label: 'Impact', value: 'High' }
     },
@@ -28,7 +28,7 @@ export const projects = [
         link: 'https://github.com/Shyams728/maintanance_analytics_dashboard',
         demoLink: 'https://shyamsmaintananceanalyticsdashboard.streamlit.app/',
         category: 'Analytics',
-        image: 'photos/phanoramic background photo.jpg',
+        image: 'photos/Maintenance Analytics Dashboard.png',
         impact: 'Reduced unplanned downtime by 15%',
         stats: { label: 'Utility', value: 'High' }
     },
@@ -47,7 +47,8 @@ export const projects = [
         description: 'Advanced Power BI dashboard for retail analytics, featuring RFM segmentation, cohort retention analysis, and executive KPI tracking.',
         tech: [' Power BI', 'DAX', 'Power Query', 'Data Modeling'],
         link: 'https://github.com/Shyams728/clothing_customer_behavior_analytics',
-        category: 'Analytics'
+        category: 'Analytics',
+        image: 'photos/Customer Behavior Analytics.png',
     },
     {
         id: 'p2',
@@ -65,8 +66,7 @@ export const projects = [
         link: 'https://github.com/Shyams728/phonepe_data_visualisation',
         demoLink: 'https://shyamsphonepedatavisualisation.streamlit.app/',
         category: 'Analytics',
-        image: 'photos/national safety day photo.jpg',
-        // impact: 'Visualized 1M+ transactions'
+        image: 'photos/phonepe.png',
     },
     {
         id: 'p5',
@@ -75,7 +75,8 @@ export const projects = [
         tech: ['EasyOCR', 'OpenCV', 'SQL', 'Streamlit'],
         link: 'https://github.com/Shyams728/bizcard_ocr_project',
         demoLink: 'https://shyams-ocr-project.streamlit.app/',
-        category: 'OCR'
+        category: 'OCR',
+        image: 'photos/bizcardX.png',
     },
     {
         id: 'p4',
