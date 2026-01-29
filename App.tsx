@@ -10,6 +10,7 @@ const CertificatesSection = lazy(() => import('./components/Certificates'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const OperationalMetrics = lazy(() => import('./components/OperationalMetrics'));
 import LoadingScreen from './components/LoadingScreen';
+import SystemHealth from './components/SystemHealth';
 import { Menu, X, Mail, Phone, MapPin, ChevronUp, Loader2, Settings } from 'lucide-react';
 
 const SectionDivider: React.FC<{ type?: 'gear' | 'circuit' }> = ({ type = 'gear' }) => (
@@ -35,20 +36,37 @@ const SectionDivider: React.FC<{ type?: 'gear' | 'circuit' }> = ({ type = 'gear'
 );
 
 const CustomCursor: React.FC = () => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const cursorRef = React.useRef<HTMLDivElement>(null);
+  const posRef = React.useRef({ x: 0, y: 0 });
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      posRef.current = { x: e.clientX, y: e.clientY };
     };
+
+    let animationFrameId: number;
+    const updatePosition = () => {
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${posRef.current.x}px, ${posRef.current.y}px, 0) translate(-50%, -50%)`;
+        setCoords(posRef.current);
+      }
+      animationFrameId = requestAnimationFrame(updatePosition);
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    animationFrameId = requestAnimationFrame(updatePosition);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return (
     <div
-      className="fixed pointer-events-none z-[9999] hidden md:block"
-      style={{ left: `${mousePos.x}px`, top: `${mousePos.y}px`, transform: 'translate(-50%, -50%)' }}
+      ref={cursorRef}
+      className="fixed pointer-events-none z-[9999] hidden md:block top-0 left-0"
     >
       {/* Main Crosshair */}
       <div className="relative w-8 h-8 flex items-center justify-center">
@@ -64,8 +82,8 @@ const CustomCursor: React.FC = () => {
 
       {/* Coordinates display */}
       <div className="absolute top-4 left-4 flex flex-col gap-0.5">
-        <span className="text-[7px] font-mono text-industrial-orange font-bold uppercase tracking-wider">X: {mousePos.x.toFixed(0)}</span>
-        <span className="text-[7px] font-mono text-industrial-orange font-bold uppercase tracking-wider">Y: {mousePos.y.toFixed(0)}</span>
+        <span className="text-[7px] font-mono text-industrial-orange font-bold uppercase tracking-wider">X: {coords.x.toFixed(0)}</span>
+        <span className="text-[7px] font-mono text-industrial-orange font-bold uppercase tracking-wider">Y: {coords.y.toFixed(0)}</span>
       </div>
     </div>
   );
@@ -133,6 +151,7 @@ const App: React.FC = () => {
                   <li key={link.label}>
                     <a
                       href={link.href}
+                      aria-label={`Navigate to ${link.label} section`}
                       className={`text-[10px] font-industrial font-bold tracking-widest transition-all relative py-2 ${activeSection === link.href.replace('#', '') ? 'text-industrial-orange' : 'text-slate-500 hover:text-white'}`}
                     >
                       {link.label}
@@ -210,6 +229,7 @@ const App: React.FC = () => {
             <SectionDivider />
             <ContactForm />
           </Suspense>
+          <SystemHealth />
         </main>
 
         {/* Footer */}

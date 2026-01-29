@@ -45,7 +45,7 @@ export const projects = [
         id: 'p9',
         title: 'Clothing Customer Behavior Analytics',
         description: 'Advanced Power BI dashboard for retail analytics, featuring RFM segmentation, cohort retention analysis, and executive KPI tracking.',
-        tech: [' Power BI', 'DAX', 'Power Query', 'Data Modeling'],
+        tech: ['Power BI', 'DAX', 'Power Query', 'Data Modeling'],
         link: 'https://github.com/Shyams728/clothing_customer_behavior_analytics',
         category: 'Analytics',
         image: 'photos/Customer Behavior Analytics.png',
