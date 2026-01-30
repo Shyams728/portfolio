@@ -15,10 +15,10 @@ const CertificatesSection: React.FC = () => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-heading font-black text-white mb-4 tracking-tighter uppercase">
+                    <h2 className="text-4xl md:text-5xl font-heading font-black text-industrial-concrete dark:text-white mb-4 tracking-tighter uppercase transition-colors">
                         OPERATIONAL <span className="text-industrial-orange">CERTIFICATION</span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto font-sans">
+                    <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-sans transition-colors">
                         Professional credentials and technical skill validations in Data Science, Operations & SAP.
                     </p>
                 </motion.div>
@@ -32,7 +32,7 @@ const CertificatesSection: React.FC = () => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
                             onClick={() => setSelectedCert(cert)}
-                            className="relative aspect-square rounded-none overflow-hidden cursor-pointer group bg-[#1e1e2e]/40 border border-slate-800 hover:border-industrial-orange transition-all duration-500"
+                            className="relative aspect-square rounded-none overflow-hidden cursor-pointer group bg-industrial-steel/40 border border-slate-200 dark:border-slate-800 hover:border-industrial-orange transition-all duration-500"
                         >
                             {/* Face: Logo */}
                             <div className="absolute inset-0 p-8 flex items-center justify-center bg-white/[0.02] group-hover:scale-105 transition-transform duration-500">
@@ -106,11 +106,11 @@ const CertificatesSection: React.FC = () => {
                                         </div>
                                         <span className="text-industrial-orange text-[10px] font-industrial font-bold uppercase tracking-[0.2em]">{selectedCert.issuer}</span>
                                     </div>
-                                    <h3 className="text-3xl font-heading font-black text-white mb-6 uppercase tracking-tight leading-none">{selectedCert.title}</h3>
+                                    <h3 className="text-3xl font-heading font-black text-industrial-concrete dark:text-white mb-6 uppercase tracking-tight leading-none transition-colors">{selectedCert.title}</h3>
 
                                     <div className="space-y-6">
-                                        <p className="text-slate-400 font-sans text-sm leading-relaxed">
-                                            SYSTEM_LOG: Technical competency validated. Credential hash verified through secure protocol. Issuer node confirmed as <span className="text-white">{selectedCert.issuer}</span>.
+                                        <p className="text-slate-600 dark:text-slate-400 font-sans text-sm leading-relaxed transition-colors">
+                                            SYSTEM_LOG: Technical competency validated. Credential hash verified through secure protocol. Issuer node confirmed as <span className="text-industrial-orange dark:text-white transition-colors">{selectedCert.issuer}</span>.
                                         </p>
 
                                         <div className="flex flex-col gap-4">

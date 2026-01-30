@@ -9,9 +9,10 @@ const GallerySection = lazy(() => import('./components/Gallery'));
 const CertificatesSection = lazy(() => import('./components/Certificates'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const OperationalMetrics = lazy(() => import('./components/OperationalMetrics'));
+const Insights = lazy(() => import('./components/Insights'));
 import LoadingScreen from './components/LoadingScreen';
 import SystemHealth from './components/SystemHealth';
-import { Menu, X, Mail, Phone, MapPin, ChevronUp, Loader2, Settings } from 'lucide-react';
+import { Menu, X, Mail, Phone, MapPin, ChevronUp, Loader2, Settings, Sun, Moon } from 'lucide-react';
 
 const SectionDivider: React.FC<{ type?: 'gear' | 'circuit' }> = ({ type = 'gear' }) => (
   <div className="py-12 flex items-center justify-center overflow-hidden">
@@ -104,6 +105,15 @@ const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -128,18 +138,18 @@ const App: React.FC = () => {
   return (
     <>
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-      <div className="min-h-screen bg-industrial-steel text-slate-200 font-sans selection:bg-industrial-orange/30 selection:text-white md:cursor-none transition-colors duration-500">
+      <div className="min-h-screen bg-industrial-steel text-industrial-concrete font-sans selection:bg-industrial-orange/30 selection:text-industrial-concrete dark:selection:text-white md:cursor-none transition-colors duration-500">
         <CustomCursor />
 
         {/* Navigation */}
-        <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-industrial-steel/90 backdrop-blur-md border-b border-slate-800' : 'bg-transparent border-b border-transparent'}`}>
+        <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'glass border-b border-slate-200 dark:border-slate-800' : 'bg-transparent border-b border-transparent'}`}>
           <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <a href="#" className="flex items-center gap-3 group">
               <div className="w-10 h-10 bg-industrial-orange flex items-center justify-center text-slate-950 font-heading font-extrabold text-xl skew-x-[-10deg]">
                 S
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-heading font-black text-lg text-white tracking-tighter uppercase">SHYAMSUNDAR</span>
+                <span className="font-heading font-black text-lg text-industrial-concrete dark:text-white tracking-tighter uppercase transition-colors">SHYAMSUNDAR</span>
                 <span className="font-industrial text-[10px] text-industrial-orange tracking-[0.2em]">SYSTEM_ADMIN</span>
               </div>
             </a>
@@ -152,7 +162,7 @@ const App: React.FC = () => {
                     <a
                       href={link.href}
                       aria-label={`Navigate to ${link.label} section`}
-                      className={`text-[10px] font-industrial font-bold tracking-widest transition-all relative py-2 ${activeSection === link.href.replace('#', '') ? 'text-industrial-orange' : 'text-slate-500 hover:text-white'}`}
+                      className={`text-[10px] font-industrial font-bold tracking-widest transition-all relative py-2 ${activeSection === link.href.replace('#', '') ? 'text-industrial-orange' : 'text-slate-500 hover:text-industrial-orange'}`}
                     >
                       {link.label}
                       {activeSection === link.href.replace('#', '') && (
@@ -162,6 +172,13 @@ const App: React.FC = () => {
                   </li>
                 ))}
               </ul>
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="p-2 rounded-sm border border-slate-800 text-slate-400 hover:text-industrial-orange transition-colors"
+                title={isDarkMode ? "Enable High Visibility Mode" : "Enable Industrial Dark Mode"}
+              >
+                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
               <a
                 href="#contact"
                 className="px-5 py-2.5 bg-industrial-orange text-slate-950 text-[10px] font-industrial font-bold tracking-widest uppercase hover:bg-industrial-orange-light transition-all shadow-[0_0_20px_rgba(255,107,53,0.3)]"
@@ -181,13 +198,13 @@ const App: React.FC = () => {
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="md:hidden absolute top-20 left-0 w-full bg-slate-900 border-b border-slate-800 p-6 animate-fade-in-down">
+            <div className="md:hidden absolute top-20 left-0 w-full glass border-b border-slate-200 dark:border-slate-800 p-6 animate-fade-in-down transition-colors">
               <ul className="flex flex-col gap-4">
                 {NAV_LINKS.map(link => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className={`block font-industrial font-bold text-xs tracking-widest py-2 transition-colors ${activeSection === link.href.replace('#', '') ? 'text-industrial-orange' : 'text-slate-300 hover:text-industrial-orange'}`}
+                      className={`block font-industrial font-bold text-xs tracking-widest py-2 transition-colors ${activeSection === link.href.replace('#', '') ? 'text-industrial-orange' : 'text-industrial-concrete dark:text-slate-300 hover:text-industrial-orange'}`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {link.label}
@@ -227,6 +244,8 @@ const App: React.FC = () => {
             <ResumesSection />
             <GallerySection />
             <SectionDivider />
+            <Insights />
+            <SectionDivider type="circuit" />
             <ContactForm />
           </Suspense>
           <SystemHealth />
@@ -241,32 +260,32 @@ const App: React.FC = () => {
                   <div className="w-8 h-8 bg-industrial-orange flex items-center justify-center text-slate-950 font-heading font-extrabold text-lg skew-x-[-10deg]">
                     S
                   </div>
-                  <span className="font-heading font-black text-xl text-white tracking-tighter uppercase">SHYAMSUNDAR <span className="text-industrial-orange">DHARWAD</span></span>
+                  <span className="font-heading font-black text-xl text-industrial-concrete dark:text-white tracking-tighter uppercase transition-colors">SHYAMSUNDAR <span className="text-industrial-orange">DHARWAD</span></span>
                 </div>
                 <p className="text-slate-500 font-sans max-w-md mb-8">
                   Specializing in the nexus between heavy industry and data science. Available for global deployment and remote technical optimization.
                 </p>
                 <div className="flex gap-4">
-                  <a href="mailto:shyamsundardharwad@gmail.com" className="p-3 bg-slate-900 border border-slate-800 rounded-sm hover:border-industrial-orange transition-colors text-industrial-orange">
+                  <a href="mailto:shyamsundardharwad@gmail.com" className="p-3 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-sm hover:border-industrial-orange transition-colors text-industrial-orange">
                     <Mail className="w-5 h-5" />
                   </a>
                 </div>
               </div>
 
-              <div className="bg-slate-900/50 p-8 border border-slate-800 rounded-sm">
+              <div className="bg-slate-100 dark:bg-slate-900/50 p-8 border border-slate-300 dark:border-slate-800 rounded-sm transition-colors">
                 <span className="text-[10px] font-industrial font-bold text-industrial-yellow uppercase tracking-widest block mb-6">Operational Readiness</span>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center text-xs font-mono">
                     <span className="text-slate-500">RELOCATION:</span>
-                    <span className="text-white">ENABLED</span>
+                    <span className="text-industrial-concrete dark:text-white transition-colors">ENABLED</span>
                   </div>
                   <div className="flex justify-between items-center text-xs font-mono">
                     <span className="text-slate-500">AVAILABILITY:</span>
-                    <span className="text-white">IMMEDIATE_JOINING</span>
+                    <span className="text-industrial-concrete dark:text-white transition-colors">IMMEDIATE_JOINING</span>
                   </div>
                   <div className="flex justify-between items-center text-xs font-mono">
                     <span className="text-slate-500">TIMEZONE:</span>
-                    <span className="text-white">IST [UTC+5:30]</span>
+                    <span className="text-industrial-concrete dark:text-white transition-colors">IST [UTC+5:30]</span>
                   </div>
                 </div>
               </div>

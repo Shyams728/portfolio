@@ -44,10 +44,10 @@ const Projects: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16">
           <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4 tracking-tighter">
+            <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-industrial-concrete mb-4 tracking-tighter transition-colors">
               INDUSTRIAL <span className="text-industrial-orange">SOLUTIONS</span>
             </h2>
-            <p className="text-slate-400 font-sans text-lg">
+            <p className="text-slate-600 dark:text-slate-400 font-sans text-lg transition-colors">
               Data pipelines, predictive models, and analytics platforms engineered for heavy industry operational excellence.
             </p>
           </div>
@@ -58,7 +58,7 @@ const Projects: React.FC = () => {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-5 py-2 rounded-sm text-xs font-industrial font-bold tracking-widest uppercase transition-all border-2 ${selectedCategory === cat
                   ? 'bg-industrial-orange border-industrial-orange text-white shadow-[0_0_15px_rgba(255,107,53,0.3)]'
-                  : 'bg-transparent border-slate-700 text-slate-400 hover:border-industrial-orange/50 hover:text-white'
+                  : 'bg-transparent border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-industrial-orange/50 hover:text-industrial-orange transition-colors'
                   }`}
               >
                 {cat}
@@ -80,7 +80,7 @@ const Projects: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="group relative flex flex-col h-full bg-[#1e1e2e]/40 border border-slate-800 hover:border-industrial-orange/40 transition-all duration-500 overflow-hidden rounded-sm cursor-pointer"
+                className="group relative flex flex-col h-full glass border border-slate-200 dark:border-slate-800 hover:border-industrial-orange/40 transition-all duration-500 overflow-hidden rounded-sm cursor-pointer"
                 onClick={() => handleProjectClick(project)}
               >
                 {/* Project Image/Thumbnail */}
@@ -96,7 +96,7 @@ const Projects: React.FC = () => {
                       <Database className="w-12 h-12 text-slate-700" />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1e1e2e] to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-industrial-steel to-transparent"></div>
 
                   {/* Category Badge - Industrial Look */}
                   <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 px-2 py-1 bg-industrial-orange text-white text-[10px] font-industrial font-bold uppercase tracking-tighter shadow-lg">
@@ -108,12 +108,12 @@ const Projects: React.FC = () => {
                 {/* Content */}
                 <div className="p-6 flex flex-col flex-grow">
                   <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-heading font-bold text-white group-hover:text-industrial-orange transition-colors">
+                    <h3 className="text-xl font-heading font-bold text-industrial-concrete group-hover:text-industrial-orange transition-colors">
                       {project.title}
                     </h3>
                   </div>
 
-                  <p className="text-slate-400 text-sm mb-6 flex-grow leading-relaxed font-sans">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 flex-grow leading-relaxed font-sans transition-colors">
                     {project.description}
                   </p>
 
@@ -129,7 +129,7 @@ const Projects: React.FC = () => {
                   {project.impact && (
                     <div className="mb-6 p-3 bg-industrial-orange/5 border-l-2 border-industrial-orange">
                       <div className="text-[10px] font-industrial text-industrial-orange uppercase tracking-widest font-bold">Business Impact</div>
-                      <div className="text-sm font-heading font-bold text-white">{project.impact}</div>
+                      <div className="text-sm font-heading font-bold text-industrial-concrete dark:text-white transition-colors">{project.impact}</div>
                     </div>
                   )}
 
@@ -140,7 +140,7 @@ const Projects: React.FC = () => {
                           href={project.demoLink}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-2 text-xs font-industrial font-bold text-industrial-orange hover:text-white transition-colors"
+                          className="flex items-center gap-2 text-xs font-industrial font-bold text-industrial-orange hover:text-industrial-orange/80 transition-colors"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <Play className="w-4 h-4" /> LIVE DEMO
@@ -150,7 +150,7 @@ const Projects: React.FC = () => {
                         href={project.link}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-2 text-xs font-industrial font-bold text-slate-400 hover:text-white transition-colors"
+                        className="flex items-center gap-2 text-xs font-industrial font-bold text-slate-500 dark:text-slate-400 hover:text-industrial-orange transition-colors"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <Github className="w-4 h-4" /> REPOSITORY
@@ -173,7 +173,7 @@ const Projects: React.FC = () => {
             href="https://github.com/Shyams728"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-3 border border-slate-700 text-slate-400 font-industrial font-bold uppercase tracking-widest hover:border-industrial-orange hover:text-white transition-all group"
+            className="inline-flex items-center gap-3 px-8 py-3 border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-industrial font-bold uppercase tracking-widest hover:border-industrial-orange hover:text-industrial-orange transition-all group"
           >
             Terminal Output: Full Repository <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </a>

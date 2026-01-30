@@ -13,10 +13,10 @@ const ExperienceSection: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4 tracking-tighter">
+          <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-industrial-concrete dark:text-white mb-4 tracking-tighter transition-colors">
             CAREER <span className="text-industrial-orange">PIPELINE</span>
           </h2>
-          <p className="text-slate-400 font-sans text-lg max-w-2xl mx-auto">
+          <p className="text-slate-600 dark:text-slate-400 font-sans text-lg max-w-2xl mx-auto transition-colors">
             Operational trajectory from heavy industrial maintenance to advanced data science.
           </p>
         </div>
@@ -57,14 +57,14 @@ const ExperienceSection: React.FC = () => {
                     </div>
                     <div className="w-0.5 flex-grow bg-slate-800 my-2"></div>
                   </div>
-                  <div className="pb-10">
+                  <div className="pb-10 glass p-4 rounded-sm mb-4">
                     <span className="text-[10px] font-industrial font-bold text-industrial-yellow uppercase tracking-widest">{exp.period}</span>
-                    <h3 className="text-xl font-heading font-bold text-white mt-1 uppercase tracking-tight">{exp.role}</h3>
-                    <p className="text-slate-400 text-sm mb-4 font-sans">{exp.company} • {exp.location}</p>
-                    <p className="text-slate-300 text-sm leading-relaxed mb-4 font-sans">{exp.description}</p>
+                    <h3 className="text-xl font-heading font-bold text-industrial-concrete dark:text-white mt-1 uppercase tracking-tight transition-colors">{exp.role}</h3>
+                    <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 font-sans transition-colors">{exp.company} • {exp.location}</p>
+                    <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-4 font-sans transition-colors">{exp.description}</p>
                     <div className="space-y-2">
                       {exp.achievements.map((ach, i) => (
-                        <div key={i} className="flex items-start gap-3 text-xs text-slate-400 font-sans">
+                        <div key={i} className="flex items-start gap-3 text-xs text-slate-600 dark:text-slate-400 font-sans transition-colors">
                           <div className="w-1.5 h-1.5 mt-1.5 bg-industrial-orange rotate-45 shrink-0"></div>
                           <span>{ach}</span>
                         </div>
@@ -74,18 +74,18 @@ const ExperienceSection: React.FC = () => {
                 </div>
 
                 {/* Desktop View - Gantt Style Bar */}
-                <div className="hidden md:grid grid-cols-12 gap-6 items-start hover:bg-slate-900/40 p-4 transition-colors rounded-sm border border-transparent hover:border-slate-800 group/item">
+                <div className="hidden md:grid grid-cols-12 gap-6 items-start hover:bg-industrial-orange/5 p-4 transition-colors rounded-sm border border-transparent hover:border-industrial-orange/20 group/item">
                   <div className="col-span-3">
                     <div className="flex items-center gap-3">
                       <div className={`w-1 h-8 ${exp.type === 'work' ? 'bg-industrial-orange' : 'bg-industrial-blue'}`}></div>
                       <div>
-                        <h3 className="text-sm font-heading font-bold text-white uppercase tracking-tight group-hover/item:text-industrial-orange transition-colors">{exp.role}</h3>
-                        <span className="text-[9px] font-industrial text-slate-500 uppercase tracking-widest">{exp.period}</span>
+                        <h3 className="text-sm font-heading font-bold text-industrial-concrete dark:text-white uppercase tracking-tight group-hover/item:text-industrial-orange transition-colors">{exp.role}</h3>
+                        <span className="text-[9px] font-industrial text-slate-500 dark:text-slate-500 uppercase tracking-widest transition-colors">{exp.period}</span>
                       </div>
                     </div>
                   </div>
                   <div className="col-span-2">
-                    <span className="text-xs font-sans text-slate-400">{exp.company}</span>
+                    <span className="text-xs font-sans text-slate-600 dark:text-slate-400 transition-colors">{exp.company}</span>
                   </div>
                   <div className="col-span-7">
                     <div className="space-y-4">
@@ -102,20 +102,20 @@ const ExperienceSection: React.FC = () => {
                             width: exp.period.includes('Present') ? '30%' : '20%'
                           }}
                         ></motion.div>
-                        <span className="text-[9px] font-industrial font-bold text-slate-500 uppercase tracking-widest relative z-10 group-hover/item:text-white transition-colors">
+                        <span className="text-[9px] font-industrial font-bold text-slate-500 dark:text-slate-500 uppercase tracking-widest relative z-10 group-hover/item:text-industrial-orange transition-colors">
                           Operational Log: {exp.type === 'work' ? 'Industrial Field' : 'Technical Development'}
                         </span>
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
-                        <p className="text-xs text-slate-400 leading-relaxed font-sans col-span-1">
+                        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-sans col-span-1 transition-colors">
                           {exp.description}
                         </p>
                         <div className="col-span-1">
                           {exp.achievements.length > 0 && (
                             <div className="space-y-1">
                               {exp.achievements.slice(0, 2).map((ach, i) => (
-                                <div key={i} className="flex items-start gap-2 text-[10px] text-slate-500 font-sans group-hover/item:text-slate-300 transition-colors">
+                                <div key={i} className="flex items-start gap-2 text-[10px] text-slate-500 dark:text-slate-500 font-sans group-hover/item:text-industrial-orange transition-colors">
                                   <div className="w-1 h-1 mt-1 bg-industrial-yellow shrink-0"></div>
                                   <span>{ach}</span>
                                 </div>

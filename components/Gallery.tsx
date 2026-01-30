@@ -38,10 +38,10 @@ const GallerySection: React.FC = () => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-heading font-black text-white mb-4 tracking-tighter uppercase">
+                    <h2 className="text-4xl md:text-5xl font-heading font-black text-industrial-concrete dark:text-white mb-4 tracking-tighter uppercase transition-colors">
                         OPERATIONAL <span className="text-industrial-orange">SIGHTS</span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto mb-10 font-sans">
+                    <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 font-sans transition-colors">
                         Visual documentation of field deployments, machine optimizations, and technical milestones.
                     </p>
 
@@ -52,7 +52,7 @@ const GallerySection: React.FC = () => {
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-5 py-2 rounded-none text-[10px] font-industrial font-bold uppercase tracking-[0.2em] transition-all border ${selectedCategory === cat
                                     ? 'bg-industrial-orange border-industrial-orange text-slate-950 shadow-[0_0_20px_rgba(255,107,53,0.3)]'
-                                    : 'bg-slate-900 border-slate-800 text-slate-500 hover:border-slate-600 hover:text-white'
+                                    : 'bg-slate-200 dark:bg-slate-900 border-slate-300 dark:border-slate-800 text-slate-600 dark:text-slate-500 hover:border-industrial-orange hover:text-industrial-orange transition-colors'
                                     }`}
                             >
                                 {cat}
@@ -75,7 +75,7 @@ const GallerySection: React.FC = () => {
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-none overflow-hidden cursor-pointer group bg-slate-900 border border-slate-800"
+                                className="relative aspect-[4/3] rounded-none overflow-hidden cursor-pointer group bg-industrial-steel border border-slate-200 dark:border-slate-800 transition-colors"
                             >
                                 <img
                                     src={image.url}
@@ -148,7 +148,7 @@ const GallerySection: React.FC = () => {
 
                             <div className="text-center mt-8">
                                 <span className="text-industrial-orange text-[10px] font-industrial font-bold uppercase tracking-[0.2em]">{selectedImage.category}</span>
-                                <h3 className="text-3xl font-heading font-black text-white mt-2 uppercase tracking-tight">{selectedImage.title}</h3>
+                                <h3 className="text-3xl font-heading font-black text-industrial-concrete dark:text-white mt-2 uppercase tracking-tight transition-colors">{selectedImage.title}</h3>
                             </div>
                         </motion.div>
                     </motion.div>

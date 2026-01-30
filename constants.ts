@@ -2,35 +2,44 @@ export const projects = [
     {
         id: 'p10',
         title: 'End-to-End Supply Chain Analytics',
-        description: 'A comprehensive analytics platform integrating manufacturing operations, supply chain management, and logistics optimization to drive operational excellence in heavy industries.',
+        description: 'A comprehensive analytics platform that transitioned supply chain operations from reactive to proactive, enabling data-driven decision making across manufacturing and logistics.',
+        longDescription: 'Developed an integrated platform that connects disparate industrial data sources to provide a single truth for the supply chain. By implementing predictive alerts and route optimization, we moved beyond reacting to delays to anticipating them, significantly improving operational agility.',
         tech: ['Python', 'Streamlit', 'Pandas', 'Plotly', 'Optimization'],
         link: 'https://github.com/Shyams728/supply-chain-analytics',
         demoLink: 'https://shyams-supply-chain-analytics.streamlit.app/',
         category: 'Analytics',
         image: 'photos/End_end_supply_chain.png',
-        impact: 'Reduced logistics costs by 12%',
-        stats: { label: 'Impact', value: 'High' }
+        impact: 'Reduced logistics costs by 12% through proactive route optimization',
+        stats: { label: 'Decision Impact', value: 'High' },
+        challenges: ['Integrating siloed data from various PLC sensors', 'Modeling complex multi-modal logistics constraints'],
+        results: ['12% reduction in overall logistics spend', 'Real-time visibility into engine component lifecycle']
     },
     {
         id: 'p11',
         title: 'Supply Chain Operations Platform',
-        description: 'An integrated industrial platform for managing Standard Operating Procedures (SOPs), Root Cause Analysis (RCA), and operational workflows with predictive maintenance and route optimization.',
+        description: 'An integrated industrial platform for SOP management and RCA, transforming workshop workflows into formalized, SAP-driven digital pipelines.',
+        longDescription: 'This platform serves as the digital backbone for operational excellence. It automates Root Cause Analysis (RCA) and Standard Operating Procedures (SOPs), ensuring that data moves seamlessly from site troubleshooting to executive dashboards, enabling faster, proactive intervention.',
         tech: ['Python', 'Streamlit', 'Pandas', 'Plotly', 'Scikit-Learn', 'Optimization'],
         link: 'https://github.com/Shyams728/supply-chain-ops-platform',
         category: 'Analytics',
-        stats: { label: 'Scale', value: 'Enterprise' }
+        stats: { label: 'Efficiency', value: 'Enterprise' },
+        challenges: ['Digitizing legacy paper-based SOPs', 'Ensuring 100% data integrity for safety-critical workflows'],
+        results: ['Streamlined SAP workflow integration', 'Quantifiable rise in workshop productivity']
     },
     {
         id: 'p1',
         title: 'Maintenance Analytics Dashboard',
-        description: 'Industrial IoT dashboard for tracking machine downtime, RCFA, and predictive maintenance schedules. Directly leverages manufacturing domain expertise.',
+        description: 'Industrial IoT dashboard that shifted maintenance from scheduled to predictive, reducing unplanned machine downtime significantly.',
+        longDescription: 'By leveraging sensor data and historical breakdown patterns, this dashboard predicts potential failures before they occur. It provides clear "Actionable Intelligence," allowing maintenance teams to intervene proactively, thus avoiding costly site stoppages.',
         tech: ['Python', 'Streamlit', 'Pandas', 'Plotly'],
         link: 'https://github.com/Shyams728/maintanance_analytics_dashboard',
         demoLink: 'https://shyamsmaintananceanalyticsdashboard.streamlit.app/',
         category: 'Analytics',
         image: 'photos/Maintenance Analytics Dashboard.png',
         impact: 'Reduced unplanned downtime by 15%',
-        stats: { label: 'Utility', value: 'High' }
+        stats: { label: 'Reliability', value: 'High' },
+        challenges: ['Filtering noise from industrial sensor telemetry', 'Predicting failure modes in diverse site environments'],
+        results: ['15% reduction in asset downtime', '80% troubleshooting success rate within stipulated window']
     },
     {
         id: 'p8',
@@ -121,15 +130,17 @@ export const experiences = [
     },
     {
         id: 'exp2',
-        role: 'Service Engineer',
+        role: 'Service Engineer & Engine Specialist',
         company: 'Larsen & Toubro (Construction & Mining)',
         period: 'Sep 2012 - Mar 2017',
         location: 'Kanchipuram / Chennai',
-        description: 'Managed end-to-end service lifecycle for Heavy Earth Moving Machinery (HEMM).',
+        description: 'Managed end-to-end service lifecycle for Heavy Earth Moving Machinery (HEMM) and high-power industrial engines.',
         achievements: [
+            'Achieved 99% success rate in high-power engine assembly testing and operational readiness',
+            'Boosted workshop productivity by implementing Kaizen, Poka-yoke, and stringent safety protocols',
+            'Optimized complex workshop workflows and asset tracking using SAP HANA',
+            'Troubleshot and restored critical machinery across 80%+ of site visits (Mining & Cement) within stipulated timeframes',
             'Analyzed breakdown data to improve machine availability to 20+ hours/day',
-            'Used SAP (HANA) for service orders, spares tracking, and cost estimation',
-            'Site In-Charge for large irrigation projects (Telangana)',
             'Received CEO Award for operational excellence'
         ],
         type: 'work'
@@ -147,11 +158,31 @@ export const experiences = [
 ];
 
 export const techData = [
-    { name: 'Python', value: 90, color: '#38bdf8' },
-    { name: 'SQL/NoSQL', value: 80, color: '#818cf8' },
-    { name: 'Power BI / Tableau', value: 85, color: '#34d399' },
-    { name: 'Pandas', value: 95, color: '#f472b6' },
-    { name: 'Machine Learning', value: 75, color: '#fbbf24' },
+    { name: 'Python', value: 95, color: '#38bdf8', category: 'Data Science' },
+    { name: 'Machine Learning', value: 90, color: '#fbbf24', category: 'Data Science' },
+    { name: 'Pandas', value: 95, color: '#f472b6', category: 'Data Science' },
+    { name: 'SQL/NoSQL', value: 85, color: '#818cf8', category: 'Technical' },
+    { name: 'Power BI / Tableau', value: 90, color: '#34d399', category: 'Technical' },
+    { name: 'SAP HANA', value: 85, color: '#004E89', category: 'Industrial/Ops' },
+    { name: 'HEMM Operations', value: 95, color: '#FF6B35', category: 'Industrial/Ops' },
+    { name: 'Kaizen/Six Sigma', value: 90, color: '#F7B801', category: 'Industrial/Ops' }
+];
+
+export const insights = [
+    {
+        id: 'i1',
+        title: 'The Future of Industry 4.0: Predictive Maintenance',
+        excerpt: 'Moving from reactive "fix it when it breaks" to proactive "fix it before it fails" using ML and IoT telemetry.',
+        date: 'Jan 2026',
+        readTime: '5 min'
+    },
+    {
+        id: 'i2',
+        title: 'Challenges of Dirty Data in Manufacturing',
+        excerpt: 'How to clean and normalize sensor data from legacy PLCs for accurate predictive modeling.',
+        date: 'Dec 2025',
+        readTime: '7 min'
+    }
 ];
 
 export const domainData = [

@@ -29,7 +29,7 @@ const SystemHealth: React.FC = () => {
                 <div className="flex items-center justify-between mb-4 border-b border-slate-800 pb-2">
                     <div className="flex items-center gap-2">
                         <Activity className="w-4 h-4 text-industrial-orange animate-pulse" />
-                        <span className="text-[10px] font-industrial font-bold text-white tracking-widest uppercase">SYSTEM_HEALTH</span>
+                        <span className="text-[10px] font-industrial font-bold text-industrial-concrete dark:text-white tracking-widest uppercase transition-colors">SYSTEM_HEALTH</span>
                     </div>
                     <span className="text-[10px] font-mono text-green-500 font-bold">{status}</span>
                 </div>

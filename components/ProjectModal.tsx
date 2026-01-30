@@ -32,12 +32,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="bg-slate-900 border border-slate-800 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl pointer-events-auto relative"
+                            className="bg-industrial-steel border border-slate-200 dark:border-slate-800 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl pointer-events-auto relative transition-colors duration-500"
                         >
                             {/* Close Button */}
                             <button
                                 onClick={onClose}
-                                className="absolute top-4 right-4 p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors z-10"
+                                className="absolute top-4 right-4 p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-industrial-orange transition-colors z-10"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -48,32 +48,32 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                                         {project.category}
                                     </span>
                                     {project.stats && (
-                                        <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-medium text-slate-300">
+                                        <span className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300">
                                             {project.stats.label}: {project.stats.value}
                                         </span>
                                     )}
                                 </div>
 
-                                <h2 className="text-3xl font-bold text-white mb-6 leading-tight">
+                                <h2 className="text-3xl font-bold text-industrial-concrete dark:text-white mb-6 leading-tight transition-colors">
                                     {project.title}
                                 </h2>
 
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-sm">
                                     <div className="md:col-span-2">
-                                        <h3 className="text-slate-200 font-semibold mb-3 flex items-center gap-2">
+                                        <h3 className="text-industrial-concrete font-semibold mb-3 flex items-center gap-2">
                                             <Layers className="w-4 h-4 text-primary-400" /> Description
                                         </h3>
-                                        <p className="text-slate-400 leading-relaxed">
+                                        <p className="text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">
                                             {project.longDescription || project.description}
                                         </p>
                                     </div>
                                     <div>
-                                        <h3 className="text-slate-200 font-semibold mb-3 flex items-center gap-2">
+                                        <h3 className="text-industrial-concrete font-semibold mb-3 flex items-center gap-2">
                                             <Cpu className="w-4 h-4 text-primary-400" /> Technologies
                                         </h3>
                                         <div className="flex flex-wrap gap-2">
                                             {project.tech.map(t => (
-                                                <span key={t} className="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                                                <span key={t} className="px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700">
                                                     {t}
                                                 </span>
                                             ))}
@@ -82,23 +82,23 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                                 </div>
 
                                 {(project.challenges || project.results) && (
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 p-6 rounded-xl bg-slate-800/30 border border-slate-800">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 p-6 rounded-xl bg-slate-200/50 dark:bg-slate-800/30 border border-slate-300 dark:border-slate-800 transition-colors">
                                         {project.challenges && (
                                             <div>
-                                                <h3 className="text-slate-200 font-semibold mb-3 flex items-center gap-2">
+                                                <h3 className="text-industrial-concrete font-semibold mb-3 flex items-center gap-2">
                                                     <Target className="w-4 h-4 text-orange-400" /> Key Challenges
                                                 </h3>
-                                                <ul className="space-y-2 text-slate-400 text-xs list-disc pl-4">
+                                                <ul className="space-y-2 text-slate-600 dark:text-slate-400 text-xs list-disc pl-4 transition-colors">
                                                     {project.challenges.map((c, i) => <li key={i}>{c}</li>)}
                                                 </ul>
                                             </div>
                                         )}
                                         {project.results && (
                                             <div>
-                                                <h3 className="text-slate-200 font-semibold mb-3 flex items-center gap-2">
+                                                <h3 className="text-industrial-concrete font-semibold mb-3 flex items-center gap-2">
                                                     <Target className="w-4 h-4 text-green-400" /> Key Results
                                                 </h3>
-                                                <ul className="space-y-2 text-slate-400 text-xs list-disc pl-4">
+                                                <ul className="space-y-2 text-slate-600 dark:text-slate-400 text-xs list-disc pl-4 transition-colors">
                                                     {project.results.map((r, i) => <li key={i}>{r}</li>)}
                                                 </ul>
                                             </div>
@@ -111,7 +111,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                                         href={project.link}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700"
+                                        className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-200 dark:bg-slate-800 text-industrial-concrete font-semibold hover:bg-slate-300 dark:hover:bg-slate-700 transition-all border border-slate-300 dark:border-slate-700"
                                     >
                                         <Github className="w-5 h-5" /> Code Repo
                                     </a>
@@ -120,7 +120,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                                             href={project.demoLink}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary-600 text-white font-semibold hover:bg-primary-500 transition-all shadow-lg shadow-primary-600/20"
+                                            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-industrial-orange text-white font-semibold hover:bg-industrial-orange/90 transition-all shadow-lg shadow-industrial-orange/20"
                                         >
                                             <ExternalLink className="w-5 h-5" /> Live Demo
                                         </a>

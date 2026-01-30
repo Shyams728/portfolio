@@ -14,20 +14,20 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://shyams728.github.io/portfolio/" />
-    <meta property="og:title" content="Shyamsundar Dharwad | Industrial Data Scientist" />
+    <meta property="og:title" content="Shyamsundar Dharwad | Industrial Data Scientist & Operations Engineer" />
     <meta property="og:description"
-        content="Bridging Heavy Industry with Data Science. 5+ years of experience in Construction & Mining machinery analytics." />
-    <meta property="og:image"
-        content="https://shyams728.github.io/portfolio/photos/phanoramic%20background%20photo.jpg" />
+        content="Bridging Heavy Industry with Data Science. Specialized in Predictive Maintenance, Supply Chain Analytics, and SAP HANA optimization for Mining & Construction." />
+    <meta property="og:image" content="https://shyams728.github.io/portfolio/photos/End_end_supply_chain.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://shyams728.github.io/portfolio/" />
     <meta property="twitter:title" content="Shyamsundar Dharwad | Industrial Data Scientist" />
     <meta property="twitter:description"
-        content="Bridging Heavy Industry with Data Science. 5+ years of experience in Construction & Mining machinery analytics." />
-    <meta property="twitter:image"
-        content="https://shyams728.github.io/portfolio/photos/phanoramic%20background%20photo.jpg" />
+        content="Transforming industrial sensor data into Maintenance Intelligence. 5+ years of Heavy Industry experience." />
+    <meta property="twitter:image" content="https://shyams728.github.io/portfolio/photos/End_end_supply_chain.png" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -74,8 +74,8 @@
                             'orange-light': '#FF8A5C', // Lighter Safety Orange
                             blue: '#004E89',   // Deep Industrial Blue
                             yellow: '#F7B801', // Warning Yellow
-                            steel: '#1A1A2E',  // Carbon Steel
-                            concrete: '#EAEAEA' // Concrete
+                            steel: 'var(--industrial-steel)',  // Dynamic Industrial Steel
+                            concrete: 'var(--industrial-concrete)' // Dynamic Concrete
                         },
                         slate: {
                             850: '#151f32',
@@ -129,18 +129,37 @@
                         pulseGreen: {
                             '0%, 100%': { opacity: '1', transform: 'scale(1)' },
                             '50%': { opacity: '0.5', transform: 'scale(0.95)' },
+                        },
+                        scan: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' },
                         }
                     }
                 },
             },
         }
     </script>
-    <style>
+    <style type="text/tailwindcss">
+        :root {
+            --industrial-steel: #F8FAFC;
+            --industrial-concrete: #0F172A;
+            --glass-bg-rgb: 248, 250, 252;
+            --glass-border-rgb: 15, 23, 42;
+            --glass-hover-bg-rgb: 226, 232, 240;
+        }
+        .dark {
+            --industrial-steel: #1A1A2E;
+            --industrial-concrete: #EAEAEA;
+            --glass-bg-rgb: 26, 26, 46;
+            --glass-border-rgb: 255, 255, 255;
+            --glass-hover-bg-rgb: 45, 55, 72;
+        }
         body {
-            background-color: #1A1A2E;
-            /* Carbon Steel */
-            color: #EAEAEA;
-            /* Concrete */
+            background-color: var(--industrial-steel);
+            color: var(--industrial-concrete);
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 500ms;
         }
 
         .grain-overlay {
@@ -157,16 +176,16 @@
         }
 
         .glass {
-            background: rgba(26, 26, 46, 0.6);
+            background: rgba(var(--glass-bg-rgb, 26, 26, 46), 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(var(--glass-border-rgb, 255, 255, 255), 0.1);
         }
 
         .glass-hover:hover {
-            background: rgba(45, 55, 72, 0.7);
-            border-color: rgba(255, 107, 53, 0.3);
-            box-shadow: 0 0 20px rgba(255, 107, 53, 0.15);
+            background: rgba(var(--glass-hover-bg-rgb, 45, 55, 72), 0.7);
+            border-color: rgba(255, 107, 53, 0.4);
+            box-shadow: 0 0 25px rgba(255, 107, 53, 0.2);
         }
 
         /* Custom scrollbar */
@@ -185,6 +204,26 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: #E65A2B;
+        }
+
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .rotate-y-12 {
+            transform: rotateY(12deg);
+        }
+
+        .animate-scan {
+            animation: scan 4s linear infinite;
+        }
+
+        .animate-spin-slow {
+            animation: spin 8s linear infinite;
+        }
+
+        .glow-industrial-orange {
+            box-shadow: 0 0 15px rgba(255, 107, 53, 0.6);
         }
     </style>
 </head>

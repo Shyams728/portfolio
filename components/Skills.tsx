@@ -41,10 +41,10 @@ const Skills: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4 tracking-tighter">
+          <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-industrial-concrete dark:text-white mb-4 tracking-tighter transition-colors">
             OPERATIONAL <span className="text-industrial-orange">INTELLIGENCE</span>
           </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto font-sans text-lg">
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-sans text-lg transition-colors">
             Engineering a nexus between hardcore field operations and advanced predictive analytics.
           </p>
         </motion.div>
@@ -56,10 +56,10 @@ const Skills: React.FC = () => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-[#1e1e2e]/40 p-8 border border-slate-800 rounded-sm relative"
+            className="bg-industrial-steel/40 p-8 border border-slate-200 dark:border-slate-800 rounded-sm relative transition-colors"
           >
             <div className="absolute top-0 right-0 w-16 h-1 bg-industrial-orange"></div>
-            <h3 className="text-xl font-heading font-bold text-white mb-10 flex items-center gap-3">
+            <h3 className="text-xl font-heading font-bold text-industrial-concrete dark:text-white mb-10 flex items-center gap-3 transition-colors">
               <span className="p-2 bg-industrial-orange/10 border border-industrial-orange/30 rounded-sm">
                 <Database className="w-5 h-5 text-industrial-orange" />
               </span>
@@ -70,7 +70,7 @@ const Skills: React.FC = () => {
               {techData.map((skill, i) => (
                 <div key={skill.name} className="space-y-2">
                   <div className="flex justify-between items-end">
-                    <span className="text-xs font-industrial font-bold uppercase tracking-widest text-slate-300">{skill.name}</span>
+                    <span className="text-xs font-industrial font-bold uppercase tracking-widest text-slate-600 dark:text-slate-300 transition-colors">{skill.name}</span>
                     <span className="text-xs font-mono text-industrial-yellow">{skill.value}%</span>
                   </div>
                   <div className="h-3 w-full bg-slate-900 border border-slate-800 flex items-center px-0.5">
@@ -93,10 +93,10 @@ const Skills: React.FC = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-[#1e1e2e]/40 p-8 border border-slate-800 rounded-sm relative"
+            className="bg-industrial-steel/40 p-8 border border-slate-200 dark:border-slate-800 rounded-sm relative transition-colors"
           >
             <div className="absolute top-0 right-0 w-16 h-1 bg-industrial-blue"></div>
-            <h3 className="text-xl font-heading font-bold text-white mb-8 flex items-center gap-3">
+            <h3 className="text-xl font-heading font-bold text-industrial-concrete dark:text-white mb-8 flex items-center gap-3 transition-colors">
               <span className="p-2 bg-industrial-blue/10 border border-industrial-blue/30 rounded-sm">
                 <Activity className="w-5 h-5 text-industrial-blue" />
               </span>
@@ -195,7 +195,7 @@ const Skills: React.FC = () => {
               </div>
 
               <div className="space-y-6">
-                <div className="p-4 bg-slate-900/50 border border-slate-800 rounded-sm">
+                <div className="p-4 bg-slate-100 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-800 rounded-sm transition-colors">
                   <span className="text-[10px] font-industrial font-bold text-slate-500 uppercase tracking-widest block mb-4">Controller Panel</span>
                   <div className="space-y-5">
                     <div className="flex flex-col gap-2">
@@ -237,7 +237,7 @@ const Skills: React.FC = () => {
                 <div className="p-4 bg-industrial-orange/10 border border-industrial-orange/30 rounded-sm">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-[9px] font-industrial font-bold text-industrial-orange">PREDICTIVE STABILITY</span>
-                    <span className="text-[11px] font-mono text-white">{(94 + Math.random() * 5).toFixed(1)}%</span>
+                    <span className="text-[11px] font-mono text-industrial-orange dark:text-white transition-colors">{(94 + Math.random() * 5).toFixed(1)}%</span>
                   </div>
                   <div className="h-1 w-full bg-slate-800">
                     <div className="h-full bg-industrial-orange animate-pulse" style={{ width: '96%' }}></div>

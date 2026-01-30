@@ -81,7 +81,7 @@ const Hero: React.FC = () => {
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-8xl font-heading font-extrabold tracking-tighter mb-4 leading-[0.9] text-white">
+            <h1 className="text-5xl md:text-8xl font-heading font-extrabold tracking-tighter mb-4 leading-[0.9] text-industrial-concrete transition-colors">
               INDUSTRIAL <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-industrial-orange via-industrial-yellow to-industrial-orange">
                 DATA SCIENTIST
@@ -92,8 +92,8 @@ const Hero: React.FC = () => {
               Shyamsundar Dharwad
             </p>
 
-            <p className="text-lg text-slate-300 mb-8 leading-relaxed max-w-xl font-sans">
-              Bridging Heavy Industry with Data Science. 5+ years of hands-on experience in Construction & Mining machinery, now transforming sensors into <span className="text-industrial-yellow font-semibold">Maintenance Intelligence</span>.
+            <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed max-w-xl font-sans transition-colors">
+              Bridging Heavy Industry with Data Science. 5+ years of hands-on experience in Construction & Mining machinery, now transforming sensors into <span className="text-industrial-orange dark:text-industrial-yellow font-semibold">Maintenance Intelligence</span>.
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -101,22 +101,21 @@ const Hero: React.FC = () => {
                 href="#projects"
                 className="group flex items-center gap-3 px-8 py-4 bg-industrial-orange text-white font-bold rounded-sm hover:bg-industrial-orange/90 transition-all uppercase tracking-widest shadow-[0_4px_0_0_#CC552B] active:translate-y-1 active:shadow-none"
               >
-                Launch Projects
+                Explore Solutions
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="#contact"
-                className="flex items-center gap-3 px-8 py-4 border-2 border-slate-700 text-white font-bold rounded-sm hover:bg-slate-800 transition-all hover:border-industrial-yellow/50 uppercase tracking-widest"
-              >
-                Work Order
-              </a>
-              <a
                 href="docs/data science shyam resume.pdf"
-                download
-                className="flex items-center gap-3 px-8 py-4 border-2 border-industrial-orange/50 text-industrial-orange font-bold rounded-sm hover:bg-industrial-orange/10 transition-all uppercase tracking-widest group"
+                className="flex items-center gap-3 px-8 py-4 border-2 border-industrial-orange text-industrial-orange font-bold rounded-sm hover:bg-industrial-orange/10 transition-all uppercase tracking-widest group"
               >
                 <Download className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
-                Resume
+                Download CV
+              </a>
+              <a
+                href="#contact"
+                className="flex items-center gap-3 px-8 py-4 border-2 border-slate-300 dark:border-slate-700 text-industrial-concrete font-bold rounded-sm hover:bg-slate-800 dark:hover:bg-slate-800 transition-all hover:border-industrial-yellow/50 uppercase tracking-widest"
+              >
+                Technical Inquiry
               </a>
             </div>
 
@@ -145,7 +144,7 @@ const Hero: React.FC = () => {
                 <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
                 <div className="text-center relative z-10">
                   <div className="text-6xl font-heading font-bold text-industrial-orange mb-1">5+</div>
-                  <div className="text-sm text-slate-400 uppercase tracking-[0.3em] font-industrial">Years Ops</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400 uppercase tracking-[0.3em] font-industrial transition-colors">Years Ops</div>
                 </div>
                 {/* Subtle scanning line effect */}
                 <div className="absolute inset-0 w-full h-1 bg-industrial-orange/20 animate-[scan_3s_ease-in-out_infinite]"></div>
@@ -181,11 +180,11 @@ const Hero: React.FC = () => {
                   <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest ml-2">optimizer.py</span>
                 </div>
                 <div className="p-5 font-mono text-sm leading-relaxed">
-                  <pre className="text-slate-300">
-                    <span className="text-pink-500">def</span> <span className="text-blue-400">optimize_uptime</span>(data):{'\n'}
+                  <pre className="text-slate-700 dark:text-slate-300 transition-colors">
+                    <span className="text-pink-600 dark:text-pink-500">def</span> <span className="text-blue-600 dark:text-blue-400">optimize_uptime</span>(data):{'\n'}
                     {'  '}metrics = analyze_logs(data){'\n'}
-                    {'  '}<span className="text-pink-500">return</span> metrics.predict(<br />
-                    {'    '}<span className="text-industrial-yellow">'failure_risk'</span><br />
+                    {'  '}<span className="text-pink-600 dark:text-pink-500">return</span> metrics.predict(<br />
+                    {'    '}<span className="text-industrial-orange dark:text-industrial-yellow">'failure_risk'</span><br />
                     {'  '})
                   </pre>
                   {/* Blinking cursor */}

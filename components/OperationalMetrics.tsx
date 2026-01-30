@@ -37,11 +37,11 @@ const OperationalMetrics: React.FC = () => {
         { label: "OPTIMIZATION_UPLIFT", value: 18, suffix: "%", icon: <Zap className="w-5 h-5" />, color: "text-industrial-orange" },
         { label: "DEPLOYED_PROJECTS", value: 45, suffix: "+", icon: <Factory className="w-5 h-5" />, color: "text-industrial-blue" },
         { label: "PREDICTIVE_ACCURACY", value: 96, suffix: "%", icon: <Target className="w-5 h-5" />, color: "text-industrial-yellow" },
-        { label: "SAFETY_COMPLIANCE", value: 100, suffix: "%", icon: <ShieldCheck className="w-5 h-5" />, color: "text-white" },
+        { label: "SAFETY_COMPLIANCE", value: 100, suffix: "%", icon: <ShieldCheck className="w-5 h-5" />, color: "text-industrial-concrete dark:text-white" },
     ];
 
     return (
-        <section className="py-20 bg-industrial-steel/50 border-y border-slate-900 overflow-hidden relative">
+        <section className="py-20 bg-industrial-steel/50 border-y border-slate-200 dark:border-slate-800 overflow-hidden relative transition-colors">
             {/* Background elements */}
             <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
 
@@ -56,14 +56,14 @@ const OperationalMetrics: React.FC = () => {
                             transition={{ delay: i * 0.1 }}
                             className="flex flex-col items-center text-center group"
                         >
-                            <div className={`mb-4 p-4 bg-slate-900 border border-slate-800 rounded-sm relative group-hover:border-industrial-orange transition-colors ${stat.color}`}>
+                            <div className={`mb-4 p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-sm relative group-hover:border-industrial-orange transition-colors ${stat.color}`}>
                                 {stat.icon}
                                 <div className="absolute -top-1 -right-1 w-2 h-2 bg-industrial-orange/50"></div>
                             </div>
-                            <h3 className="text-3xl md:text-5xl font-heading font-black text-white mb-2 tracking-tighter">
+                            <h3 className="text-3xl md:text-5xl font-heading font-black text-industrial-concrete dark:text-white mb-2 tracking-tighter transition-colors">
                                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                             </h3>
-                            <span className="text-[9px] font-industrial font-bold text-slate-500 uppercase tracking-[0.2em]">
+                            <span className="text-[9px] font-industrial font-bold text-slate-600 dark:text-slate-500 uppercase tracking-[0.2em] transition-colors">
                                 {stat.label}
                             </span>
                         </motion.div>
