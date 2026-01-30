@@ -79,17 +79,20 @@ const LoadingScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => 
                 </div>
 
                 {/* Progress Bar */}
-                <div className="relative h-2 bg-slate-900 border border-slate-800 overflow-hidden">
+                <div className="relative h-3 bg-slate-900 border border-slate-800 rounded-none overflow-hidden group shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)]">
                     <motion.div
-                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-industrial-orange to-industrial-yellow"
+                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-industrial-orange via-industrial-yellow to-industrial-orange bg-[length:200%_100%]"
                         style={{ width: `${progress}%` }}
-                        transition={{ duration: 0.3 }}
+                        animate={{ backgroundPosition: ['0% 0%', '100% 0%'] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                     />
+                    {/* Machined texture overlay */}
+                    <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(45deg,transparent,transparent_2px,rgba(255,255,255,0.1)_2px,rgba(255,255,255,0.1)_4px)]"></div>
                     {/* Scanning line effect */}
                     <motion.div
                         animate={{ x: ['-100%', '200%'] }}
                         transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                        className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent"
                     />
                 </div>
 

@@ -24,14 +24,17 @@ const SystemHealth: React.FC = () => {
             <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-slate-950/80 backdrop-blur-md border border-slate-800 p-4 rounded-sm w-64 shadow-2xl"
+                className="glass rounded-sm border-l-4 border-industrial-orange p-5 w-64 shadow-2xl transition-all duration-500 hover:border-l-industrial-yellow/80"
             >
-                <div className="flex items-center justify-between mb-4 border-b border-slate-800 pb-2">
+                <div className="flex items-center justify-between mb-5 border-b border-slate-200 dark:border-slate-800 pb-3">
                     <div className="flex items-center gap-2">
                         <Activity className="w-4 h-4 text-industrial-orange animate-pulse" />
-                        <span className="text-[10px] font-industrial font-bold text-industrial-concrete dark:text-white tracking-widest uppercase transition-colors">SYSTEM_HEALTH</span>
+                        <span className="text-[10px] font-industrial font-bold text-industrial-concrete dark:text-white tracking-widest uppercase transition-colors">CORE_TELEMETRY</span>
                     </div>
-                    <span className="text-[10px] font-mono text-green-500 font-bold">{status}</span>
+                    <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                        <span className="text-[10px] font-mono text-green-500 font-bold uppercase">{status}</span>
+                    </div>
                 </div>
 
                 <div className="space-y-3">

@@ -136,6 +136,8 @@ export const experiences = [
         location: 'Kanchipuram / Chennai',
         description: 'Managed end-to-end service lifecycle for Heavy Earth Moving Machinery (HEMM) and high-power industrial engines.',
         achievements: [
+            // 'Analyzed breakdown data to improve machine availability to 20+ hours/day',
+            // 'Used SAP (HANA) for service orders, spares tracking, and cost estimation',
             'Achieved 99% success rate in high-power engine assembly testing and operational readiness',
             'Boosted workshop productivity by implementing Kaizen, Poka-yoke, and stringent safety protocols',
             'Optimized complex workshop workflows and asset tracking using SAP HANA',
@@ -152,7 +154,9 @@ export const experiences = [
         period: '2010 - 2012',
         location: 'Karnataka',
         description: 'Foundation in electrical systems and electronics.',
-        achievements: [],
+        achievements: [
+            'implemented Automatic Star Delta Starter for 3-phase motor with remote control and timer'
+        ],
         type: 'education'
     }
 ];

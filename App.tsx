@@ -71,6 +71,11 @@ const CustomCursor: React.FC = () => {
     >
       {/* Main Crosshair */}
       <div className="relative w-8 h-8 flex items-center justify-center">
+        <motion.div
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute inset-0 border border-industrial-orange/20 rounded-full"
+        />
         <div className="absolute w-full h-[1px] bg-industrial-orange/50"></div>
         <div className="absolute h-full w-[1px] bg-industrial-orange/50"></div>
 

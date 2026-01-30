@@ -12,13 +12,17 @@ const ExperienceSection: React.FC = () => {
       <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-industrial-concrete dark:text-white mb-4 tracking-tighter transition-colors">
+        <div className="text-center mb-16 relative">
+          <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-industrial-concrete dark:text-white mb-4 tracking-tighter transition-colors uppercase">
             CAREER <span className="text-industrial-orange">PIPELINE</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 font-sans text-lg max-w-2xl mx-auto transition-colors">
             Operational trajectory from heavy industrial maintenance to advanced data science.
           </p>
+          <div className="mt-6 inline-flex items-center gap-2 px-3 py-1 bg-slate-900/50 border border-slate-800 rounded-sm">
+            <div className="w-1.5 h-1.5 rounded-full bg-industrial-orange animate-pulse"></div>
+            <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">Last Log Sync: {new Date().toLocaleTimeString()} [LOCAL_RELAY]</span>
+          </div>
         </div>
 
         <div className="relative">
@@ -96,13 +100,15 @@ const ExperienceSection: React.FC = () => {
                           whileInView={{ scaleX: 1 }}
                           viewport={{ once: true }}
                           transition={{ duration: 1.5, ease: "easeOut" }}
-                          className={`absolute inset-y-0 h-full origin-left ${exp.type === 'work' ? 'bg-industrial-orange/20 border-r-2 border-industrial-orange' : 'bg-industrial-blue/20 border-r-2 border-industrial-blue'}`}
+                          className={`absolute inset-y-0 h-full origin-left ${exp.type === 'work' ? 'bg-industrial-orange/10 dark:bg-industrial-orange/20 border-r-2 border-industrial-orange' : 'bg-industrial-blue/10 dark:bg-industrial-blue/20 border-r-2 border-industrial-blue'}`}
                           style={{
                             left: exp.period.includes('Present') ? '70%' : `${index * 15}%`,
                             width: exp.period.includes('Present') ? '30%' : '20%'
                           }}
-                        ></motion.div>
-                        <span className="text-[9px] font-industrial font-bold text-slate-500 dark:text-slate-500 uppercase tracking-widest relative z-10 group-hover/item:text-industrial-orange transition-colors">
+                        >
+                          <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+                        </motion.div>
+                        <span className="text-[9px] font-industrial font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest relative z-10 group-hover/item:text-industrial-orange transition-colors">
                           Operational Log: {exp.type === 'work' ? 'Industrial Field' : 'Technical Development'}
                         </span>
                       </div>

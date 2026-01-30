@@ -159,32 +159,43 @@ const Hero: React.FC = () => {
                 <motion.div
                   key={i}
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
                   className="absolute inset-0 w-full h-full rounded-full pointer-events-none"
                   style={{ transform: `rotate(${item.angle}deg)` }}
                 >
-                  <div className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-industrial-steel border-2 border-slate-700 rounded-sm flex items-center justify-center ${item.color} shadow-lg pointer-events-auto`}>
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.05, 1],
+                      opacity: [0.9, 1, 0.9]
+                    }}
+                    transition={{
+                      duration: 3,
+                      delay: item.delay,
+                      repeat: Infinity
+                    }}
+                    className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-industrial-steel dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-800 rounded-sm flex items-center justify-center ${item.color} shadow-lg pointer-events-auto transition-colors duration-500`}
+                  >
                     <item.Icon className="w-8 h-8" />
-                  </div>
+                  </motion.div>
                 </motion.div>
               ))}
 
               {/* Terminal Snippet */}
-              <div className="absolute -right-8 top-1/4 w-72 bg-[#0d0d17] rounded-md border border-slate-700 shadow-2xl z-30 transform rotate-2 hover:rotate-0 transition-all duration-500 overflow-hidden">
-                <div className="bg-[#1e1e2e] px-4 py-2 border-b border-slate-700 flex items-center gap-2">
+              <div className="absolute -right-8 top-1/4 w-72 bg-slate-950/90 dark:bg-[#0d0d17] backdrop-blur-md rounded-md border border-slate-300 dark:border-slate-800 shadow-2xl z-30 transform rotate-2 hover:rotate-0 transition-all duration-500 overflow-hidden">
+                <div className="bg-slate-200 dark:bg-[#1e1e2e] px-4 py-2 border-b border-slate-300 dark:border-slate-800 flex items-center gap-2">
                   <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-                    <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-                    <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></div>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest ml-2">optimizer.py</span>
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-2">optimizer.py</span>
                 </div>
                 <div className="p-5 font-mono text-sm leading-relaxed">
-                  <pre className="text-slate-700 dark:text-slate-300 transition-colors">
-                    <span className="text-pink-600 dark:text-pink-500">def</span> <span className="text-blue-600 dark:text-blue-400">optimize_uptime</span>(data):{'\n'}
+                  <pre className="text-slate-600 dark:text-slate-300 transition-colors">
+                    <span className="text-pink-600 dark:text-pink-400">def</span> <span className="text-blue-600 dark:text-blue-400 font-bold">optimize_uptime</span>(data):{'\n'}
                     {'  '}metrics = analyze_logs(data){'\n'}
-                    {'  '}<span className="text-pink-600 dark:text-pink-500">return</span> metrics.predict(<br />
-                    {'    '}<span className="text-industrial-orange dark:text-industrial-yellow">'failure_risk'</span><br />
+                    {'  '}<span className="text-pink-600 dark:text-pink-400">return</span> metrics.predict(<br />
+                    {'    '}<span className="text-industrial-orange dark:text-industrial-yellow font-medium">'failure_risk'</span><br />
                     {'  '})
                   </pre>
                   {/* Blinking cursor */}
