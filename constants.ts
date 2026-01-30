@@ -168,8 +168,6 @@ export const techData = [
     { name: 'SQL/NoSQL', value: 85, color: '#818cf8', category: 'Technical' },
     { name: 'Power BI / Tableau', value: 90, color: '#34d399', category: 'Technical' },
     { name: 'SAP HANA', value: 85, color: '#004E89', category: 'Industrial/Ops' },
-    { name: 'HEMM Operations', value: 95, color: '#FF6B35', category: 'Industrial/Ops' },
-    { name: 'Kaizen/Six Sigma', value: 90, color: '#F7B801', category: 'Industrial/Ops' }
 ];
 
 export const insights = [
