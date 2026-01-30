@@ -33,7 +33,7 @@ const CircularGauge: React.FC<{ value: number; color: string; label: string; ico
                 <svg className="transform -rotate-90 w-32 h-32">
                     <defs>
                         <filter id={`glow-${label.replace(/\s+/g, '-')}`}>
-                            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                            <feGaussianBlur stdDeviation="0.8" result="coloredBlur" />
                             <feMerge>
                                 <feMergeNode in="coloredBlur" />
                                 <feMergeNode in="SourceGraphic" />
@@ -65,7 +65,7 @@ const CircularGauge: React.FC<{ value: number; color: string; label: string; ico
                     />
                 </svg>
 
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/40 rounded-full border border-slate-800/50 m-2 backdrop-blur-sm">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-100/10 dark:bg-slate-900/40 rounded-full border border-slate-800/50 m-2 transition-colors">
                     <div className="text-industrial-orange/80 mb-0.5 group-hover:scale-110 group-hover:text-industrial-orange transition-all duration-300">
                         {icon}
                     </div>

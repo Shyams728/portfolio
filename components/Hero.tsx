@@ -55,12 +55,12 @@ const Hero: React.FC = () => {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/50 border border-slate-800 rounded-sm"
+                  className="inline-flex items-center gap-2 px-4 py-2 glass border border-slate-200 dark:border-slate-800 rounded-sm"
                 >
                   <div className="text-industrial-orange">
                     {metrics[currentMetric].icon}
                   </div>
-                  <span className="text-[10px] font-industrial text-slate-500 uppercase tracking-widest">
+                  <span className="text-[10px] font-industrial text-slate-600 dark:text-slate-400 uppercase tracking-widest">
                     {metrics[currentMetric].label}
                   </span>
                   <span className="text-sm font-heading font-black text-industrial-orange">
