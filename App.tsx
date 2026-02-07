@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy, useMemo, useRef } from 'react';
 import Hero from './components/Hero';
 const ExperienceSection = lazy(() => import('./components/Experience'));
 const Projects = lazy(() => import('./components/Projects'));
@@ -14,35 +14,97 @@ const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
+  const navLinks = useMemo(
+    () => [
+      { label: 'Expertise', href: '#expertise' },
+      { label: 'Experience', href: '#experience' },
+      { label: 'Projects', href: '#projects' },
+      { label: 'Certifications', href: '#certifications' },
+      { label: 'Resumes', href: '#resumes' },
+      { label: 'Gallery', href: '#gallery' },
+      { label: 'Contact', href: '#contact' },
+    ],
+    []
+  );
+  const isScrolledRef = useRef(isScrolled);
+  const activeSectionRef = useRef(activeSection);
+  const sectionObserverRef = useRef<IntersectionObserver | null>(null);
+
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    const sections = navLinks.map(link => link.href.replace('#', ''));
+    let rafId: number | null = null;
 
-      // Scroll Spy Logic
-      const sections = navLinks.map(link => link.href.replace('#', ''));
-      const active = sections.find(section => {
+    const supportsObserver = 'IntersectionObserver' in window;
+    const updateActiveByScroll = () => {
+      let nextActive = '';
+      for (const section of sections) {
         const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          return rect.top <= 150 && rect.bottom >= 150;
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 150 && rect.bottom >= 150) {
+          nextActive = section;
+          break;
         }
-        return false;
-      });
-      if (active) setActiveSection(active);
+      }
+      if (nextActive !== activeSectionRef.current) {
+        activeSectionRef.current = nextActive;
+        setActiveSection(nextActive);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
-  const navLinks = [
-    { label: 'Expertise', href: '#expertise' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Certifications', href: '#certifications' },
-    { label: 'Resumes', href: '#resumes' },
-    { label: 'Gallery', href: '#gallery' },
-    { label: 'Contact', href: '#contact' },
-  ];
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
+        const scrolled = window.scrollY > 50;
+        if (scrolled !== isScrolledRef.current) {
+          isScrolledRef.current = scrolled;
+          setIsScrolled(scrolled);
+        }
+        if (!supportsObserver) {
+          updateActiveByScroll();
+        }
+      });
+    };
+
+    const handleIntersections: IntersectionObserverCallback = entries => {
+      const visibleSections = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visibleSections.length === 0) return;
+      const nextActive = visibleSections[0].target.id;
+      if (nextActive !== activeSectionRef.current) {
+        activeSectionRef.current = nextActive;
+        setActiveSection(nextActive);
+      }
+    };
+
+    if (supportsObserver) {
+      sectionObserverRef.current?.disconnect();
+      sectionObserverRef.current = new IntersectionObserver(handleIntersections, {
+        rootMargin: '-150px 0px -60% 0px',
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      });
+
+      sections.forEach(section => {
+        const el = document.getElementById(section);
+        if (el) sectionObserverRef.current?.observe(el);
+      });
+    } else {
+      updateActiveByScroll();
+    }
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+      window.removeEventListener('scroll', handleScroll);
+      sectionObserverRef.current?.disconnect();
+    };
+  }, [navLinks]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-primary-500/30 selection:text-white">
@@ -50,7 +112,7 @@ const App: React.FC = () => {
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent border-b border-transparent'}`}>
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="#" className="flex items-center gap-2 group" aria-label="Back to top">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent-600 flex items-center justify-center text-white font-bold shadow-lg shadow-primary-500/20 group-hover:shadow-primary-500/40 transition-shadow">
               S
             </div>
@@ -59,7 +121,7 @@ const App: React.FC = () => {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
-            <ul className="flex gap-8">
+            <ul className="flex gap-8" aria-label="Primary navigation">
               {navLinks.map(link => (
                 <li key={link.label}>
                   <a
@@ -83,6 +145,10 @@ const App: React.FC = () => {
           <button
             className="md:hidden text-slate-300 hover:text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            type="button"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMenuOpen ? <X /> : <Menu />}
           </button>
@@ -90,7 +156,10 @@ const App: React.FC = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-20 left-0 w-full bg-slate-900 border-b border-slate-800 p-6 animate-fade-in-down">
+          <div
+            id="mobile-menu"
+            className="md:hidden absolute top-20 left-0 w-full bg-slate-900 border-b border-slate-800 p-6 animate-fade-in-down"
+          >
             <ul className="flex flex-col gap-4">
               {navLinks.map(link => (
                 <li key={link.label}>
@@ -175,6 +244,8 @@ const App: React.FC = () => {
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className={`fixed bottom-8 right-8 p-3 rounded-full bg-slate-800 text-primary-400 border border-slate-700 shadow-xl transition-all duration-300 z-40 hover:bg-slate-700 ${isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        type="button"
+        aria-label="Scroll to top"
       >
         <ChevronUp className="w-5 h-5" />
       </button>
