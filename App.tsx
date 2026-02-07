@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy, useRef } from 'react';
 import Hero from './components/Hero';
 const ExperienceSection = lazy(() => import('./components/Experience'));
 const Projects = lazy(() => import('./components/Projects'));
@@ -9,40 +9,72 @@ const CertificatesSection = lazy(() => import('./components/Certificates'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 import { Menu, X, Mail, Phone, MapPin, ChevronUp, Loader2 } from 'lucide-react';
 
+const NAV_LINKS = [
+  { label: 'Expertise', href: '#expertise' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Certifications', href: '#certifications' },
+  { label: 'Resumes', href: '#resumes' },
+  { label: 'Gallery', href: '#gallery' },
+  { label: 'Contact', href: '#contact' },
+];
+const SECTIONS = NAV_LINKS.map(link => link.href.replace('#', ''));
+
 const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const isScrolledRef = useRef(isScrolled);
+  const activeSectionRef = useRef(activeSection);
+  const sectionElementsRef = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    let rafId: number | null = null;
 
-      // Scroll Spy Logic
-      const sections = navLinks.map(link => link.href.replace('#', ''));
-      const active = sections.find(section => {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          return rect.top <= 150 && rect.bottom >= 150;
-        }
-        return false;
-      });
-      if (active) setActiveSection(active);
+    const updateSectionElements = () => {
+      sectionElementsRef.current = SECTIONS.map(section => document.getElementById(section));
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
-  const navLinks = [
-    { label: 'Expertise', href: '#expertise' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Certifications', href: '#certifications' },
-    { label: 'Resumes', href: '#resumes' },
-    { label: 'Gallery', href: '#gallery' },
-    { label: 'Contact', href: '#contact' },
-  ];
+    const handleScroll = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
+        const scrolled = window.scrollY > 50;
+        if (scrolled !== isScrolledRef.current) {
+          isScrolledRef.current = scrolled;
+          setIsScrolled(scrolled);
+        }
+
+        let nextActive = '';
+        for (let index = 0; index < SECTIONS.length; index += 1) {
+          const section = SECTIONS[index];
+          const el = sectionElementsRef.current[index];
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            nextActive = section;
+            break;
+          }
+        }
+        if (nextActive !== activeSectionRef.current) {
+          activeSectionRef.current = nextActive;
+          setActiveSection(nextActive);
+        }
+      });
+    };
+
+    updateSectionElements();
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', updateSectionElements);
+    return () => {
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', updateSectionElements);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-primary-500/30 selection:text-white">
@@ -60,10 +92,11 @@ const App: React.FC = () => {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             <ul className="flex gap-8">
-              {navLinks.map(link => (
+              {NAV_LINKS.map(link => (
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    aria-current={activeSection === link.href.replace('#', '') ? 'page' : undefined}
                     className={`text-sm font-medium transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-primary-500 after:transition-all hover:after:w-full ${activeSection === link.href.replace('#', '') ? 'text-white after:w-full' : 'text-slate-400 hover:text-white after:w-0'}`}
                   >
                     {link.label}
@@ -81,6 +114,9 @@ const App: React.FC = () => {
 
           {/* Mobile Menu Toggle */}
           <button
+            type="button"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav"
             className="md:hidden text-slate-300 hover:text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -90,12 +126,16 @@ const App: React.FC = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-20 left-0 w-full bg-slate-900 border-b border-slate-800 p-6 animate-fade-in-down">
+          <div
+            id="mobile-nav"
+            className="md:hidden absolute top-20 left-0 w-full bg-slate-900 border-b border-slate-800 p-6 animate-fade-in-down"
+          >
             <ul className="flex flex-col gap-4">
-              {navLinks.map(link => (
+              {NAV_LINKS.map(link => (
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    aria-current={activeSection === link.href.replace('#', '') ? 'page' : undefined}
                     className={`block font-medium py-2 transition-colors ${activeSection === link.href.replace('#', '') ? 'text-primary-400' : 'text-slate-300 hover:text-primary-400'}`}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -173,6 +213,8 @@ const App: React.FC = () => {
 
       {/* Scroll to top */}
       <button
+        type="button"
+        aria-label="Scroll to top"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className={`fixed bottom-8 right-8 p-3 rounded-full bg-slate-800 text-primary-400 border border-slate-700 shadow-xl transition-all duration-300 z-40 hover:bg-slate-700 ${isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
