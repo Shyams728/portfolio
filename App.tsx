@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy, useMemo, useRef } from 'react';
 import Hero from './components/Hero';
 const ExperienceSection = lazy(() => import('./components/Experience'));
 const Projects = lazy(() => import('./components/Projects'));
@@ -14,35 +14,61 @@ const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
+  const navLinks = useMemo(
+    () => [
+      { label: 'Expertise', href: '#expertise' },
+      { label: 'Experience', href: '#experience' },
+      { label: 'Projects', href: '#projects' },
+      { label: 'Certifications', href: '#certifications' },
+      { label: 'Resumes', href: '#resumes' },
+      { label: 'Gallery', href: '#gallery' },
+      { label: 'Contact', href: '#contact' },
+    ],
+    []
+  );
+  const isScrolledRef = useRef(isScrolled);
+  const activeSectionRef = useRef(activeSection);
+
   useEffect(() => {
+    const sections = navLinks.map(link => link.href.replace('#', ''));
+    let rafId: number | null = null;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-
-      // Scroll Spy Logic
-      const sections = navLinks.map(link => link.href.replace('#', ''));
-      const active = sections.find(section => {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          return rect.top <= 150 && rect.bottom >= 150;
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
+        const scrolled = window.scrollY > 50;
+        if (scrolled !== isScrolledRef.current) {
+          isScrolledRef.current = scrolled;
+          setIsScrolled(scrolled);
         }
-        return false;
-      });
-      if (active) setActiveSection(active);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
-  const navLinks = [
-    { label: 'Expertise', href: '#expertise' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Certifications', href: '#certifications' },
-    { label: 'Resumes', href: '#resumes' },
-    { label: 'Gallery', href: '#gallery' },
-    { label: 'Contact', href: '#contact' },
-  ];
+        let nextActive = '';
+        for (const section of sections) {
+          const el = document.getElementById(section);
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            nextActive = section;
+            break;
+          }
+        }
+        if (nextActive !== activeSectionRef.current) {
+          activeSectionRef.current = nextActive;
+          setActiveSection(nextActive);
+        }
+      });
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [navLinks]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-primary-500/30 selection:text-white">

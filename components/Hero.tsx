@@ -6,7 +6,7 @@ import TechMarquee from './TechMarquee';
 const Hero: React.FC = () => {
   return (
     <div className="relative">
-      <section className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden bg-slate-950">
+      <section className="relative min-h-[90vh] flex items-center justify-center pt-16 sm:pt-20 overflow-hidden bg-slate-950">
         {/* Panoramic Background with Parallax effect */}
         <motion.div
           initial={{ scale: 1.1, opacity: 0 }}
@@ -27,13 +27,13 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.05] pointer-events-none z-1" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-500/30 bg-primary-500/10 text-primary-400 text-xs font-mono mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-500/30 bg-primary-500/10 text-primary-400 text-xs font-mono mb-5 sm:mb-6">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
                 System Online: Available for Hire
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight text-white">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-5 sm:mb-6 leading-tight text-white">
                 Bridging <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-blue-500 to-accent-500">
                   Heavy Industry
@@ -49,27 +49,27 @@ const Hero: React.FC = () => {
                 with Data Science
               </h1>
 
-              <p className="text-lg text-slate-400 mb-8 leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg text-slate-400 mb-6 sm:mb-8 leading-relaxed max-w-xl">
                 I transform 5+ years of hands-on L&T Construction & Mining machinery experience into actionable business insights using Python, SAP, and Advanced Maintenance Analytics.
               </p>
 
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
                 <a
                   href="#projects"
-                  className="group flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-semibold rounded-lg hover:bg-slate-200 transition-all"
+                  className="group flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 bg-white text-slate-950 font-semibold rounded-lg hover:bg-slate-200 transition-all"
                 >
                   View Analytics Projects
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a
                   href="#contact"
-                  className="flex items-center gap-2 px-6 py-3 border border-slate-700 text-white font-medium rounded-lg hover:bg-slate-800 transition-all hover:border-primary-500/50"
+                  className="flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 border border-slate-700 text-white font-medium rounded-lg hover:bg-slate-800 transition-all hover:border-primary-500/50"
                 >
                   Contact Me
                 </a>
               </div>
 
-              <div className="mt-12 flex items-center gap-6 text-slate-400">
+              <div className="mt-8 sm:mt-12 flex items-center gap-6 text-slate-400">
                 <a href="https://github.com/Shyams728" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
                   <Github className="w-6 h-6" />
                 </a>
