@@ -15,18 +15,20 @@ const GallerySection: React.FC = () => {
 
     const handleNext = (e: React.MouseEvent) => {
         e.stopPropagation();
-        if (!selectedImage) return;
-        const currentIndex = galleryImages.findIndex(img => img.url === selectedImage.url);
-        const nextIndex = (currentIndex + 1) % galleryImages.length;
-        setSelectedImage(galleryImages[nextIndex]);
+        if (!selectedImage || filteredImages.length === 0) return;
+        const currentIndex = filteredImages.findIndex(img => img.url === selectedImage.url);
+        if (currentIndex === -1) return;
+        const nextIndex = (currentIndex + 1) % filteredImages.length;
+        setSelectedImage(filteredImages[nextIndex]);
     };
 
     const handlePrev = (e: React.MouseEvent) => {
         e.stopPropagation();
-        if (!selectedImage) return;
-        const currentIndex = galleryImages.findIndex(img => img.url === selectedImage.url);
-        const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-        setSelectedImage(galleryImages[prevIndex]);
+        if (!selectedImage || filteredImages.length === 0) return;
+        const currentIndex = filteredImages.findIndex(img => img.url === selectedImage.url);
+        if (currentIndex === -1) return;
+        const prevIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
+        setSelectedImage(filteredImages[prevIndex]);
     };
 
     return (
