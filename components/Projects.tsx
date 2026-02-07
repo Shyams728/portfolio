@@ -96,6 +96,7 @@ const Projects: React.FC = () => {
                         href={project.demoLink}
                         target="_blank"
                         rel="noreferrer"
+                        onClick={(event) => event.stopPropagation()}
                         className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
                         title="Live Streamlit Demo"
                       >
@@ -106,6 +107,7 @@ const Projects: React.FC = () => {
                       href={project.link}
                       target="_blank"
                       rel="noreferrer"
+                      onClick={(event) => event.stopPropagation()}
                       className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
                       title="View Code on GitHub"
                     >
@@ -115,7 +117,12 @@ const Projects: React.FC = () => {
                 </div>
 
                 <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
-                  <a href={project.demoLink || project.link} target="_blank" rel="noreferrer">
+                  <a
+                    href={project.demoLink || project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(event) => event.stopPropagation()}
+                  >
                     {project.title}
                   </a>
                 </h3>
