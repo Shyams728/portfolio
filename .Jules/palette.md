@@ -1,0 +1,3 @@
+## 2025-05-14 - [Form and Icon-Link Accessibility]
+**Learning:** In projects using utility-first CSS frameworks like Tailwind with custom 'glass' components, accessibility attributes like `htmlFor`, `id`, and `aria-label` are frequently overlooked in favor of visual styling. Specifically, icon-only social links and form validation states lack the necessary ARIA attributes to be screen-reader friendly.
+**Action:** Always audit form labels and icon-only interactive elements for missing IDs and ARIA labels. Use `aria-describedby` to programmatically link error messages to their respective inputs for better assistive technology support.
