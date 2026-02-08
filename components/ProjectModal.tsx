@@ -38,6 +38,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                             <button
                                 onClick={onClose}
                                 className="absolute top-4 right-4 p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors z-10"
+                                aria-label="Close modal"
                             >
                                 <X className="w-5 h-5" />
                             </button>
