@@ -62,20 +62,23 @@ const ContactForm: React.FC = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Name Field */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
+                                <label htmlFor="name" className="text-sm font-medium text-slate-300 flex items-center gap-2">
                                     <User className="w-4 h-4" /> Full Name
                                 </label>
                                 <input
                                     {...register('name', { required: 'Name is required' })}
+                                    id="name"
                                     placeholder="Shyamsundar D"
+                                    aria-invalid={errors.name ? 'true' : 'false'}
+                                    aria-describedby={errors.name ? 'name-error' : undefined}
                                     className={`w-full bg-slate-900/50 border ${errors.name ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all`}
                                 />
-                                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+                                {errors.name && <p id="name-error" className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
                             </div>
 
                             {/* Email Field */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
+                                <label htmlFor="email" className="text-sm font-medium text-slate-300 flex items-center gap-2">
                                     <Mail className="w-4 h-4" /> Email Address
                                 </label>
                                 <input
@@ -83,41 +86,51 @@ const ContactForm: React.FC = () => {
                                         required: 'Email is required',
                                         pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' }
                                     })}
+                                    id="email"
                                     placeholder="shyam@example.com"
+                                    aria-invalid={errors.email ? 'true' : 'false'}
+                                    aria-describedby={errors.email ? 'email-error' : undefined}
                                     className={`w-full bg-slate-900/50 border ${errors.email ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all`}
                                 />
-                                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+                                {errors.email && <p id="email-error" className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                             </div>
                         </div>
 
                         {/* Subject Field */}
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300">Subject</label>
+                            <label htmlFor="subject" className="text-sm font-medium text-slate-300">Subject</label>
                             <input
                                 {...register('subject', { required: 'Subject is required' })}
+                                id="subject"
                                 placeholder="Project Inquiry"
+                                aria-invalid={errors.subject ? 'true' : 'false'}
+                                aria-describedby={errors.subject ? 'subject-error' : undefined}
                                 className={`w-full bg-slate-900/50 border ${errors.subject ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all`}
                             />
-                            {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject.message}</p>}
+                            {errors.subject && <p id="subject-error" className="text-red-500 text-xs mt-1">{errors.subject.message}</p>}
                         </div>
 
                         {/* Message Field */}
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
+                            <label htmlFor="message" className="text-sm font-medium text-slate-300 flex items-center gap-2">
                                 <MessageSquare className="w-4 h-4" /> Your Message
                             </label>
                             <textarea
                                 {...register('message', { required: 'Message is required' })}
+                                id="message"
                                 rows={5}
                                 placeholder="Tell me more about your project..."
+                                aria-invalid={errors.message ? 'true' : 'false'}
+                                aria-describedby={errors.message ? 'message-error' : undefined}
                                 className={`w-full bg-slate-900/50 border ${errors.message ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all resize-none`}
                             />
-                            {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message.message}</p>}
+                            {errors.message && <p id="message-error" className="text-red-500 text-xs mt-1">{errors.message.message}</p>}
                         </div>
 
                         <button
                             type="submit"
                             disabled={status === 'sending'}
+                            aria-label={status === 'sending' ? 'Sending message...' : undefined}
                             className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-xl ${status === 'success'
                                 ? 'bg-green-600 text-white'
                                 : status === 'error'
@@ -125,24 +138,29 @@ const ContactForm: React.FC = () => {
                                     : 'bg-primary-600 hover:bg-primary-500 text-white shadow-primary-600/20'
                                 }`}
                         >
-                            {status === 'idle' && (
-                                <>
-                                    <Send className="w-5 h-5" /> Send Message
-                                </>
-                            )}
-                            {status === 'sending' && (
-                                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            )}
-                            {status === 'success' && (
-                                <>
-                                    <CheckCircle className="w-5 h-5" /> Message Sent Successfully!
-                                </>
-                            )}
-                            {status === 'error' && (
-                                <>
-                                    <AlertCircle className="w-5 h-5" /> Something went wrong.
-                                </>
-                            )}
+                            <span className="flex items-center gap-2" role="status" aria-live="polite">
+                                {status === 'idle' && (
+                                    <>
+                                        <Send className="w-5 h-5" /> Send Message
+                                    </>
+                                )}
+                                {status === 'sending' && (
+                                    <>
+                                        <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" aria-hidden="true" />
+                                        <span className="sr-only">Sending...</span>
+                                    </>
+                                )}
+                                {status === 'success' && (
+                                    <>
+                                        <CheckCircle className="w-5 h-5" /> Message Sent Successfully!
+                                    </>
+                                )}
+                                {status === 'error' && (
+                                    <>
+                                        <AlertCircle className="w-5 h-5" /> Something went wrong.
+                                    </>
+                                )}
+                            </span>
                         </button>
                     </form>
                 </div>
