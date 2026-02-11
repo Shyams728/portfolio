@@ -114,6 +114,7 @@ const GallerySection: React.FC = () => {
                     >
                         <button
                             onClick={() => setSelectedImage(null)}
+                            aria-label="Close gallery"
                             className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
                         >
                             <X className="w-8 h-8" />
@@ -135,12 +136,14 @@ const GallerySection: React.FC = () => {
                             {/* Navigation Buttons */}
                             <button
                                 onClick={handlePrev}
+                                aria-label="Previous image"
                                 className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
                             >
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={handleNext}
+                                aria-label="Next image"
                                 className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
                             >
                                 <ChevronRight className="w-6 h-6" />
