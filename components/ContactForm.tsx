@@ -62,57 +62,69 @@ const ContactForm: React.FC = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Name Field */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                                    <User className="w-4 h-4" /> Full Name
+                                <label htmlFor="name" className="text-sm font-medium text-slate-300 flex items-center gap-2">
+                                    <User className="w-4 h-4" aria-hidden="true" /> Full Name
                                 </label>
                                 <input
+                                    id="name"
                                     {...register('name', { required: 'Name is required' })}
+                                    aria-invalid={errors.name ? 'true' : 'false'}
+                                    aria-describedby={errors.name ? 'name-error' : undefined}
                                     placeholder="Shyamsundar D"
                                     className={`w-full bg-slate-900/50 border ${errors.name ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all`}
                                 />
-                                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+                                {errors.name && <p id="name-error" className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
                             </div>
 
                             {/* Email Field */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                                    <Mail className="w-4 h-4" /> Email Address
+                                <label htmlFor="email" className="text-sm font-medium text-slate-300 flex items-center gap-2">
+                                    <Mail className="w-4 h-4" aria-hidden="true" /> Email Address
                                 </label>
                                 <input
+                                    id="email"
                                     {...register('email', {
                                         required: 'Email is required',
                                         pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' }
                                     })}
+                                    aria-invalid={errors.email ? 'true' : 'false'}
+                                    aria-describedby={errors.email ? 'email-error' : undefined}
                                     placeholder="shyam@example.com"
                                     className={`w-full bg-slate-900/50 border ${errors.email ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all`}
                                 />
-                                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+                                {errors.email && <p id="email-error" className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                             </div>
                         </div>
 
                         {/* Subject Field */}
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300">Subject</label>
+                            <label htmlFor="subject" className="text-sm font-medium text-slate-300">Subject</label>
                             <input
+                                id="subject"
                                 {...register('subject', { required: 'Subject is required' })}
+                                aria-invalid={errors.subject ? 'true' : 'false'}
+                                aria-describedby={errors.subject ? 'subject-error' : undefined}
                                 placeholder="Project Inquiry"
                                 className={`w-full bg-slate-900/50 border ${errors.subject ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all`}
                             />
-                            {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject.message}</p>}
+                            {errors.subject && <p id="subject-error" className="text-red-500 text-xs mt-1">{errors.subject.message}</p>}
                         </div>
 
                         {/* Message Field */}
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                                <MessageSquare className="w-4 h-4" /> Your Message
+                            <label htmlFor="message" className="text-sm font-medium text-slate-300 flex items-center gap-2">
+                                <MessageSquare className="w-4 h-4" aria-hidden="true" /> Your Message
                             </label>
                             <textarea
+                                id="message"
                                 {...register('message', { required: 'Message is required' })}
+                                aria-invalid={errors.message ? 'true' : 'false'}
+                                aria-describedby={errors.message ? 'message-error' : undefined}
                                 rows={5}
                                 placeholder="Tell me more about your project..."
                                 className={`w-full bg-slate-900/50 border ${errors.message ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all resize-none`}
                             />
-                            {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message.message}</p>}
+                            {errors.message && <p id="message-error" className="text-red-500 text-xs mt-1">{errors.message.message}</p>}
                         </div>
 
                         <button
@@ -127,20 +139,23 @@ const ContactForm: React.FC = () => {
                         >
                             {status === 'idle' && (
                                 <>
-                                    <Send className="w-5 h-5" /> Send Message
+                                    <Send className="w-5 h-5" aria-hidden="true" /> Send Message
                                 </>
                             )}
                             {status === 'sending' && (
-                                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                <>
+                                    <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" aria-hidden="true" />
+                                    <span className="sr-only">Sending message...</span>
+                                </>
                             )}
                             {status === 'success' && (
                                 <>
-                                    <CheckCircle className="w-5 h-5" /> Message Sent Successfully!
+                                    <CheckCircle className="w-5 h-5" aria-hidden="true" /> Message Sent Successfully!
                                 </>
                             )}
                             {status === 'error' && (
                                 <>
-                                    <AlertCircle className="w-5 h-5" /> Something went wrong.
+                                    <AlertCircle className="w-5 h-5" aria-hidden="true" /> Something went wrong.
                                 </>
                             )}
                         </button>
