@@ -32,11 +32,15 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="modal-title"
                             className="bg-slate-900 border border-slate-800 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl pointer-events-auto relative"
                         >
                             {/* Close Button */}
                             <button
                                 onClick={onClose}
+                                aria-label="Close modal"
                                 className="absolute top-4 right-4 p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors z-10"
                             >
                                 <X className="w-5 h-5" />
@@ -54,7 +58,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                                     )}
                                 </div>
 
-                                <h2 className="text-3xl font-bold text-white mb-6 leading-tight">
+                                <h2 id="modal-title" className="text-3xl font-bold text-white mb-6 leading-tight">
                                     {project.title}
                                 </h2>
 
