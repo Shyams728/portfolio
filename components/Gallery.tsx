@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { galleryImages } from '../constants';
@@ -13,23 +13,43 @@ const GallerySection: React.FC = () => {
         ? galleryImages
         : galleryImages.filter(img => img.category === selectedCategory);
 
-    const handleNext = (e: React.MouseEvent) => {
-        e.stopPropagation();
+    const goToNext = useCallback(() => {
         if (!selectedImage || filteredImages.length === 0) return;
         const currentIndex = filteredImages.findIndex(img => img.url === selectedImage.url);
         if (currentIndex === -1) return;
         const nextIndex = (currentIndex + 1) % filteredImages.length;
         setSelectedImage(filteredImages[nextIndex]);
-    };
+    }, [selectedImage, filteredImages]);
 
-    const handlePrev = (e: React.MouseEvent) => {
-        e.stopPropagation();
+    const goToPrev = useCallback(() => {
         if (!selectedImage || filteredImages.length === 0) return;
         const currentIndex = filteredImages.findIndex(img => img.url === selectedImage.url);
         if (currentIndex === -1) return;
         const prevIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
         setSelectedImage(filteredImages[prevIndex]);
+    }, [selectedImage, filteredImages]);
+
+    const handleNext = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        goToNext();
     };
+
+    const handlePrev = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        goToPrev();
+    };
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!selectedImage) return;
+            if (e.key === 'Escape') setSelectedImage(null);
+            if (e.key === 'ArrowRight') goToNext();
+            if (e.key === 'ArrowLeft') goToPrev();
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedImage, goToNext, goToPrev]);
 
     return (
         <section id="gallery" className="py-24 bg-slate-950/50">
@@ -114,6 +134,7 @@ const GallerySection: React.FC = () => {
                     >
                         <button
                             onClick={() => setSelectedImage(null)}
+                            aria-label="Close gallery"
                             className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
                         >
                             <X className="w-8 h-8" />
@@ -135,12 +156,14 @@ const GallerySection: React.FC = () => {
                             {/* Navigation Buttons */}
                             <button
                                 onClick={handlePrev}
+                                aria-label="Previous image"
                                 className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
                             >
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={handleNext}
+                                aria-label="Next image"
                                 className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
                             >
                                 <ChevronRight className="w-6 h-6" />
