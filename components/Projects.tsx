@@ -99,6 +99,7 @@ const Projects: React.FC = () => {
                         onClick={(event) => event.stopPropagation()}
                         className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
                         title="Live Streamlit Demo"
+                        aria-label={`View live demo for ${project.title}`}
                       >
                         <Play className="w-5 h-5" />
                       </a>
@@ -110,6 +111,7 @@ const Projects: React.FC = () => {
                       onClick={(event) => event.stopPropagation()}
                       className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
                       title="View Code on GitHub"
+                      aria-label={`View source code for ${project.title} on GitHub`}
                     >
                       <Github className="w-5 h-5" />
                     </a>
