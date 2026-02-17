@@ -51,6 +51,17 @@ const GallerySection: React.FC = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [selectedImage, goToNext, goToPrev]);
 
+    useEffect(() => {
+        if (selectedImage) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [selectedImage]);
+
     return (
         <section id="gallery" className="py-24 bg-slate-950/50">
             <div className="max-w-7xl mx-auto px-6">
