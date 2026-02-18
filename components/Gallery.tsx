@@ -51,6 +51,17 @@ const GallerySection: React.FC = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [selectedImage, goToNext, goToPrev]);
 
+    useEffect(() => {
+        if (selectedImage) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [selectedImage]);
+
     return (
         <section id="gallery" className="py-24 bg-slate-950/50">
             <div className="max-w-7xl mx-auto px-6">
@@ -70,6 +81,7 @@ const GallerySection: React.FC = () => {
                             <button
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
+                                aria-pressed={selectedCategory === cat}
                                 className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all border ${selectedCategory === cat
                                         ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                                         : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-600 hover:text-white'
