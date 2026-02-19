@@ -71,10 +71,14 @@ const CertificatesSection: React.FC = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setSelectedCert(null)}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="cert-title"
                         className="fixed inset-0 z-[60] bg-slate-950/95 backdrop-blur-xl p-4 md:p-8 flex items-center justify-center"
                     >
                         <button
                             onClick={() => setSelectedCert(null)}
+                            aria-label="Close certificate preview"
                             className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
                         >
                             <X className="w-8 h-8" />
@@ -102,7 +106,7 @@ const CertificatesSection: React.FC = () => {
                                         </div>
                                         <span className="text-primary-400 text-sm font-bold uppercase tracking-widest">{selectedCert.issuer}</span>
                                     </div>
-                                    <h3 className="text-3xl font-bold text-white mb-6 leading-tight">{selectedCert.title}</h3>
+                                    <h3 id="cert-title" className="text-3xl font-bold text-white mb-6 leading-tight">{selectedCert.title}</h3>
 
                                     <div className="space-y-6">
                                         <p className="text-slate-400 leading-relaxed">

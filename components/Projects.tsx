@@ -50,6 +50,7 @@ const Projects: React.FC = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
+                aria-pressed={selectedCategory === cat}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border ${selectedCategory === cat
                   ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                   : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white'
@@ -98,6 +99,7 @@ const Projects: React.FC = () => {
                         rel="noreferrer"
                         onClick={(event) => event.stopPropagation()}
                         className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
+                        aria-label={`View live demo for ${project.title}`}
                         title="Live Streamlit Demo"
                       >
                         <Play className="w-5 h-5" />
@@ -109,6 +111,7 @@ const Projects: React.FC = () => {
                       rel="noreferrer"
                       onClick={(event) => event.stopPropagation()}
                       className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
+                      aria-label={`View source code for ${project.title} on GitHub`}
                       title="View Code on GitHub"
                     >
                       <Github className="w-5 h-5" />
