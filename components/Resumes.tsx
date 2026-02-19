@@ -48,6 +48,7 @@ const ResumesSection: React.FC = () => {
                             <a
                                 href={resume.file}
                                 download
+                                aria-label={`Download ${resume.title} resume`}
                                 className="mt-auto w-full flex items-center justify-center gap-2 px-6 py-3 bg-slate-800 hover:bg-primary-600 text-white font-semibold rounded-xl transition-all"
                             >
                                 <Download className="w-4 h-4" />
