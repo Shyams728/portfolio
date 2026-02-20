@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Database, Code, BarChart, Truck, CreditCard, ScanLine, Brain } from 'lucide-react';
+import { ExternalLink, Github, Database, Code, BarChart, Truck, CreditCard, ScanLine, Brain, Info } from 'lucide-react';
 import { Project } from '../types';
 
 import { projects } from '../constants';
@@ -50,6 +50,7 @@ const Projects: React.FC = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
+                aria-pressed={selectedCategory === cat}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border ${selectedCategory === cat
                   ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                   : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white'
@@ -91,6 +92,14 @@ const Projects: React.FC = () => {
                         <span>{project.stats.value}</span>
                       </div>
                     )}
+                    <button
+                      onClick={(e) => { e.stopPropagation(); handleProjectClick(project); }}
+                      className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-primary-500/20 hover:text-primary-400 transition-colors"
+                      title="View Project Details"
+                      aria-label={`View details for ${project.title}`}
+                    >
+                      <Info className="w-5 h-5" />
+                    </button>
                     {project.demoLink && (
                       <a
                         href={project.demoLink}
@@ -99,6 +108,7 @@ const Projects: React.FC = () => {
                         onClick={(event) => event.stopPropagation()}
                         className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
                         title="Live Streamlit Demo"
+                        aria-label="Live Streamlit Demo"
                       >
                         <Play className="w-5 h-5" />
                       </a>
@@ -110,6 +120,7 @@ const Projects: React.FC = () => {
                       onClick={(event) => event.stopPropagation()}
                       className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
                       title="View Code on GitHub"
+                      aria-label="View Code on GitHub"
                     >
                       <Github className="w-5 h-5" />
                     </a>

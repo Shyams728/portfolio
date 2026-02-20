@@ -70,6 +70,7 @@ const GallerySection: React.FC = () => {
                             <button
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
+                                aria-pressed={selectedCategory === cat}
                                 className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all border ${selectedCategory === cat
                                         ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                                         : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-600 hover:text-white'
@@ -87,7 +88,7 @@ const GallerySection: React.FC = () => {
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredImages.map((image, index) => (
-                            <motion.div
+                            <motion.button
                                 layout
                                 key={image.url}
                                 initial={{ opacity: 0, scale: 0.9 }}
@@ -95,11 +96,13 @@ const GallerySection: React.FC = () => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                aria-label={`View ${image.title}`}
+                                type="button"
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 w-full text-left"
                             >
                                 <img
                                     src={image.url}
-                                    alt={image.title}
+                                    alt=""
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
@@ -116,7 +119,7 @@ const GallerySection: React.FC = () => {
                                     </span>
                                     <h4 className="text-white font-bold text-sm">{image.title}</h4>
                                 </div>
-                            </motion.div>
+                            </motion.button>
                         ))}
                     </AnimatePresence>
                 </motion.div>
