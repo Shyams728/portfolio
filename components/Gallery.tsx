@@ -70,6 +70,7 @@ const GallerySection: React.FC = () => {
                             <button
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
+                                aria-pressed={selectedCategory === cat}
                                 className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all border ${selectedCategory === cat
                                         ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                                         : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-600 hover:text-white'
@@ -87,15 +88,17 @@ const GallerySection: React.FC = () => {
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredImages.map((image, index) => (
-                            <motion.div
+                            <motion.button
                                 layout
                                 key={image.url}
+                                type="button"
+                                aria-label={`View ${image.title} in lightbox`}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 text-left"
                             >
                                 <img
                                     src={image.url}
@@ -116,7 +119,7 @@ const GallerySection: React.FC = () => {
                                     </span>
                                     <h4 className="text-white font-bold text-sm">{image.title}</h4>
                                 </div>
-                            </motion.div>
+                            </motion.button>
                         ))}
                     </AnimatePresence>
                 </motion.div>

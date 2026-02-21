@@ -50,6 +50,7 @@ const Projects: React.FC = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
+                aria-pressed={selectedCategory === cat}
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border ${selectedCategory === cat
                   ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                   : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white'
