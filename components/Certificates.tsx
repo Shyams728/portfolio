@@ -1,10 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X, Award, ShieldCheck } from 'lucide-react';
 import { certifications } from '../constants';
 
 const CertificatesSection: React.FC = () => {
     const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!selectedCert) return;
+            if (e.key === 'Escape') setSelectedCert(null);
+        };
+
+        if (selectedCert) {
+            document.body.style.overflow = 'hidden';
+            window.addEventListener('keydown', handleKeyDown);
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset';
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [selectedCert]);
 
     return (
         <section id="certifications" className="py-24 bg-slate-900/30">
@@ -23,14 +42,16 @@ const CertificatesSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {certifications.map((cert, index) => (
-                        <motion.div
+                        <motion.button
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
                             onClick={() => setSelectedCert(cert)}
-                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500"
+                            type="button"
+                            aria-label={`View details for ${cert.title}`}
+                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500 w-full text-left"
                         >
                             {/* Face: Scan Code */}
                             <div className="absolute inset-0 p-8 flex items-center justify-center bg-white/5 group-hover:scale-90 transition-transform duration-500">
@@ -58,7 +79,7 @@ const CertificatesSection: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </motion.button>
                     ))}
                 </div>
             </div>
@@ -71,10 +92,14 @@ const CertificatesSection: React.FC = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setSelectedCert(null)}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="cert-title"
                         className="fixed inset-0 z-[60] bg-slate-950/95 backdrop-blur-xl p-4 md:p-8 flex items-center justify-center"
                     >
                         <button
                             onClick={() => setSelectedCert(null)}
+                            aria-label="Close certificate preview"
                             className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
                         >
                             <X className="w-8 h-8" />
@@ -102,7 +127,7 @@ const CertificatesSection: React.FC = () => {
                                         </div>
                                         <span className="text-primary-400 text-sm font-bold uppercase tracking-widest">{selectedCert.issuer}</span>
                                     </div>
-                                    <h3 className="text-3xl font-bold text-white mb-6 leading-tight">{selectedCert.title}</h3>
+                                    <h3 id="cert-title" className="text-3xl font-bold text-white mb-6 leading-tight">{selectedCert.title}</h3>
 
                                     <div className="space-y-6">
                                         <p className="text-slate-400 leading-relaxed">
