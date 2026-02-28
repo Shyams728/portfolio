@@ -51,6 +51,17 @@ const GallerySection: React.FC = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [selectedImage, goToNext, goToPrev]);
 
+    useEffect(() => {
+        if (selectedImage) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [selectedImage]);
+
     return (
         <section id="gallery" className="py-24 bg-slate-950/50">
             <div className="max-w-7xl mx-auto px-6">
@@ -70,6 +81,7 @@ const GallerySection: React.FC = () => {
                             <button
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
+                                aria-pressed={selectedCategory === cat}
                                 className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all border ${selectedCategory === cat
                                         ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                                         : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-600 hover:text-white'
@@ -87,7 +99,7 @@ const GallerySection: React.FC = () => {
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredImages.map((image, index) => (
-                            <motion.div
+                            <motion.button
                                 layout
                                 key={image.url}
                                 initial={{ opacity: 0, scale: 0.9 }}
@@ -95,7 +107,9 @@ const GallerySection: React.FC = () => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                type="button"
+                                aria-label={`View ${image.title}`}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                             >
                                 <img
                                     src={image.url}
@@ -110,13 +124,13 @@ const GallerySection: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <div className="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition-transform text-left">
                                     <span className="text-[10px] uppercase tracking-widest text-primary-400 font-bold mb-1 block">
                                         {image.category}
                                     </span>
                                     <h4 className="text-white font-bold text-sm">{image.title}</h4>
                                 </div>
-                            </motion.div>
+                            </motion.button>
                         ))}
                     </AnimatePresence>
                 </motion.div>
@@ -130,6 +144,9 @@ const GallerySection: React.FC = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setSelectedImage(null)}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="gallery-title"
                         className="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-2xl p-4 md:p-8 flex items-center justify-center"
                     >
                         <button
@@ -171,7 +188,7 @@ const GallerySection: React.FC = () => {
 
                             <div className="text-center mt-8">
                                 <span className="text-primary-400 text-xs font-bold uppercase tracking-widest">{selectedImage.category}</span>
-                                <h3 className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
+                                <h3 id="gallery-title" className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
                             </div>
                         </motion.div>
                     </motion.div>
