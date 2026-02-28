@@ -72,6 +72,13 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-primary-500/30 selection:text-white">
+      {/* Skip to Content Link */}
+      <a
+        href="#main-content"
+        className="fixed top-[-100px] left-1/2 -translate-x-1/2 z-[100] bg-primary-600 text-white px-6 py-3 rounded-b-xl font-bold transition-all focus:top-0 shadow-lg shadow-primary-600/20"
+      >
+        Skip to content
+      </a>
 
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent border-b border-transparent'}`}>
@@ -90,6 +97,7 @@ const App: React.FC = () => {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    aria-current={activeSection === link.href.replace('#', '') ? 'page' : undefined}
                     className={`text-sm font-medium transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-primary-500 after:transition-all hover:after:w-full ${activeSection === link.href.replace('#', '') ? 'text-white after:w-full' : 'text-slate-400 hover:text-white after:w-0'}`}
                   >
                     {link.label}
@@ -128,6 +136,7 @@ const App: React.FC = () => {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    aria-current={activeSection === link.href.replace('#', '') ? 'page' : undefined}
                     className={`block font-medium py-2 transition-colors ${activeSection === link.href.replace('#', '') ? 'text-primary-400' : 'text-slate-300 hover:text-primary-400'}`}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -149,7 +158,7 @@ const App: React.FC = () => {
         )}
       </nav>
 
-      <main>
+      <main id="main-content" tabIndex={-1} className="outline-none">
         <Hero />
         <Suspense fallback={
           <div className="py-24 flex items-center justify-center bg-slate-950">
