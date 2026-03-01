@@ -23,14 +23,16 @@ const CertificatesSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {certifications.map((cert, index) => (
-                        <motion.div
+                        <motion.button
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
                             onClick={() => setSelectedCert(cert)}
-                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500"
+                            type="button"
+                            aria-label={`View ${cert.title}`}
+                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                         >
                             {/* Face: Scan Code */}
                             <div className="absolute inset-0 p-8 flex items-center justify-center bg-white/5 group-hover:scale-90 transition-transform duration-500">
@@ -58,7 +60,7 @@ const CertificatesSection: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </motion.button>
                     ))}
                 </div>
             </div>

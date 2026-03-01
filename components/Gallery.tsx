@@ -87,7 +87,7 @@ const GallerySection: React.FC = () => {
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredImages.map((image, index) => (
-                            <motion.div
+                            <motion.button
                                 layout
                                 key={image.url}
                                 initial={{ opacity: 0, scale: 0.9 }}
@@ -95,7 +95,9 @@ const GallerySection: React.FC = () => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                type="button"
+                                aria-label={`View ${image.title}`}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                             >
                                 <img
                                     src={image.url}
@@ -116,7 +118,7 @@ const GallerySection: React.FC = () => {
                                     </span>
                                     <h4 className="text-white font-bold text-sm">{image.title}</h4>
                                 </div>
-                            </motion.div>
+                            </motion.button>
                         ))}
                     </AnimatePresence>
                 </motion.div>
