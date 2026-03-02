@@ -40,6 +40,17 @@ const GallerySection: React.FC = () => {
     };
 
     useEffect(() => {
+        if (selectedImage) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [selectedImage]);
+
+    useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (!selectedImage) return;
             if (e.key === 'Escape') setSelectedImage(null);
@@ -87,15 +98,17 @@ const GallerySection: React.FC = () => {
                 >
                     <AnimatePresence mode="popLayout">
                         {filteredImages.map((image, index) => (
-                            <motion.div
+                            <motion.button
                                 layout
                                 key={image.url}
+                                type="button"
+                                aria-label={`View ${image.title}`}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                             >
                                 <img
                                     src={image.url}
@@ -116,7 +129,7 @@ const GallerySection: React.FC = () => {
                                     </span>
                                     <h4 className="text-white font-bold text-sm">{image.title}</h4>
                                 </div>
-                            </motion.div>
+                            </motion.button>
                         ))}
                     </AnimatePresence>
                 </motion.div>
@@ -130,12 +143,15 @@ const GallerySection: React.FC = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setSelectedImage(null)}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="gallery-title"
                         className="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-2xl p-4 md:p-8 flex items-center justify-center"
                     >
                         <button
                             onClick={() => setSelectedImage(null)}
                             aria-label="Close gallery"
-                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                         >
                             <X className="w-8 h-8" />
                         </button>
@@ -171,7 +187,7 @@ const GallerySection: React.FC = () => {
 
                             <div className="text-center mt-8">
                                 <span className="text-primary-400 text-xs font-bold uppercase tracking-widest">{selectedImage.category}</span>
-                                <h3 className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
+                                <h3 id="gallery-title" className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
                             </div>
                         </motion.div>
                     </motion.div>
