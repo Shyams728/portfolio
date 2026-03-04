@@ -133,7 +133,8 @@ const Skills: React.FC = () => {
                   <button
                     key={speed}
                     onClick={() => setSimSpeed(speed)}
-                    className={`px-3 py-1 rounded text-[10px] font-bold transition-all border ${simSpeed === speed
+                    aria-pressed={simSpeed === speed}
+                    className={`px-3 py-1 rounded text-[10px] font-bold transition-all border focus-visible:ring-2 focus-visible:ring-primary-500 outline-none ${simSpeed === speed
                         ? 'bg-primary-600 border-primary-500 text-white'
                         : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'
                       }`}
@@ -151,7 +152,8 @@ const Skills: React.FC = () => {
                   <button
                     key={level}
                     onClick={() => setIntensity(level)}
-                    className={`px-3 py-1 rounded text-[10px] font-bold transition-all border ${intensity === level
+                    aria-pressed={intensity === level}
+                    className={`px-3 py-1 rounded text-[10px] font-bold transition-all border focus-visible:ring-2 focus-visible:ring-primary-500 outline-none ${intensity === level
                         ? 'bg-primary-600 border-primary-500 text-white'
                         : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'
                       }`}

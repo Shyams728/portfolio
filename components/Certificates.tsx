@@ -75,7 +75,8 @@ const CertificatesSection: React.FC = () => {
                     >
                         <button
                             onClick={() => setSelectedCert(null)}
-                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                            aria-label="Close certificate preview"
+                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                         >
                             <X className="w-8 h-8" />
                         </button>
