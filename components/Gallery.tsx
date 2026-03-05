@@ -40,6 +40,17 @@ const GallerySection: React.FC = () => {
     };
 
     useEffect(() => {
+        if (selectedImage) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [selectedImage]);
+
+    useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (!selectedImage) return;
             if (e.key === 'Escape') setSelectedImage(null);
@@ -95,7 +106,16 @@ const GallerySection: React.FC = () => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setSelectedImage(image);
+                                    }
+                                }}
+                                role="button"
+                                tabIndex={0}
+                                aria-label={`View image: ${image.title}`}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                             >
                                 <img
                                     src={image.url}
@@ -135,7 +155,7 @@ const GallerySection: React.FC = () => {
                         <button
                             onClick={() => setSelectedImage(null)}
                             aria-label="Close gallery"
-                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                         >
                             <X className="w-8 h-8" />
                         </button>
@@ -157,14 +177,14 @@ const GallerySection: React.FC = () => {
                             <button
                                 onClick={handlePrev}
                                 aria-label="Previous image"
-                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:opacity-100 outline-none"
                             >
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={handleNext}
                                 aria-label="Next image"
-                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:opacity-100 outline-none"
                             >
                                 <ChevronRight className="w-6 h-6" />
                             </button>
