@@ -6,6 +6,20 @@ import { certifications } from '../constants';
 const CertificatesSection: React.FC = () => {
     const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null);
 
+    React.useEffect(() => {
+        if (selectedCert) {
+            document.body.style.overflow = 'hidden';
+            const handleKeyDown = (e: KeyboardEvent) => {
+                if (e.key === 'Escape') setSelectedCert(null);
+            };
+            window.addEventListener('keydown', handleKeyDown);
+            return () => {
+                document.body.style.overflow = 'unset';
+                window.removeEventListener('keydown', handleKeyDown);
+            };
+        }
+    }, [selectedCert]);
+
     return (
         <section id="certifications" className="py-24 bg-slate-900/30">
             <div className="max-w-7xl mx-auto px-6">
@@ -30,7 +44,16 @@ const CertificatesSection: React.FC = () => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
                             onClick={() => setSelectedCert(cert)}
-                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500"
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setSelectedCert(cert);
+                                }
+                            }}
+                            tabIndex={0}
+                            role="button"
+                            aria-label={`View certificate: ${cert.title} from ${cert.issuer}`}
+                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                         >
                             {/* Face: Scan Code */}
                             <div className="absolute inset-0 p-8 flex items-center justify-center bg-white/5 group-hover:scale-90 transition-transform duration-500">
@@ -72,10 +95,14 @@ const CertificatesSection: React.FC = () => {
                         exit={{ opacity: 0 }}
                         onClick={() => setSelectedCert(null)}
                         className="fixed inset-0 z-[60] bg-slate-950/95 backdrop-blur-xl p-4 md:p-8 flex items-center justify-center"
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="cert-modal-title"
                     >
                         <button
                             onClick={() => setSelectedCert(null)}
-                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                                aria-label="Close certificate preview"
+                                className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                         >
                             <X className="w-8 h-8" />
                         </button>
@@ -102,7 +129,7 @@ const CertificatesSection: React.FC = () => {
                                         </div>
                                         <span className="text-primary-400 text-sm font-bold uppercase tracking-widest">{selectedCert.issuer}</span>
                                     </div>
-                                    <h3 className="text-3xl font-bold text-white mb-6 leading-tight">{selectedCert.title}</h3>
+                                    <h3 id="cert-modal-title" className="text-3xl font-bold text-white mb-6 leading-tight">{selectedCert.title}</h3>
 
                                     <div className="space-y-6">
                                         <p className="text-slate-400 leading-relaxed">
