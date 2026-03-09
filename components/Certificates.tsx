@@ -6,6 +6,17 @@ import { certifications } from '../constants';
 const CertificatesSection: React.FC = () => {
     const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null);
 
+    React.useEffect(() => {
+        if (selectedCert) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [selectedCert]);
+
     return (
         <section id="certifications" className="py-24 bg-slate-900/30">
             <div className="max-w-7xl mx-auto px-6">
@@ -29,8 +40,17 @@ const CertificatesSection: React.FC = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
+                            tabIndex={0}
+                            role="button"
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setSelectedCert(cert);
+                                }
+                            }}
+                            aria-label={`View ${cert.title} certificate`}
                             onClick={() => setSelectedCert(cert)}
-                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500"
+                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                         >
                             {/* Face: Scan Code */}
                             <div className="absolute inset-0 p-8 flex items-center justify-center bg-white/5 group-hover:scale-90 transition-transform duration-500">
