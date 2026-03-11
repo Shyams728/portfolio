@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X, Award, ShieldCheck } from 'lucide-react';
 import { certifications } from '../constants';
 
 const CertificatesSection: React.FC = () => {
     const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null);
+
+    useEffect(() => {
+        if (selectedCert) {
+            document.body.style.overflow = 'hidden';
+            const handleKeyDown = (e: KeyboardEvent) => {
+                if (e.key === 'Escape') setSelectedCert(null);
+            };
+            window.addEventListener('keydown', handleKeyDown);
+            return () => {
+                document.body.style.overflow = 'unset';
+                window.removeEventListener('keydown', handleKeyDown);
+            };
+        }
+    }, [selectedCert]);
 
     return (
         <section id="certifications" className="py-24 bg-slate-900/30">
@@ -30,7 +44,11 @@ const CertificatesSection: React.FC = () => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
                             onClick={() => setSelectedCert(cert)}
-                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500"
+                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedCert(cert); }}
+                            tabIndex={0}
+                            role="button"
+                            aria-label={`View details for ${cert.title}`}
+                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 transition-all duration-500"
                         >
                             {/* Face: Scan Code */}
                             <div className="absolute inset-0 p-8 flex items-center justify-center bg-white/5 group-hover:scale-90 transition-transform duration-500">
@@ -75,7 +93,8 @@ const CertificatesSection: React.FC = () => {
                     >
                         <button
                             onClick={() => setSelectedCert(null)}
-                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                            aria-label="Close certificate preview"
+                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                         >
                             <X className="w-8 h-8" />
                         </button>
@@ -85,6 +104,9 @@ const CertificatesSection: React.FC = () => {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="cert-modal-title"
                             className="max-w-4xl w-full glass p-6 md:p-12 rounded-3xl border border-slate-800 shadow-2xl"
                         >
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -102,7 +124,7 @@ const CertificatesSection: React.FC = () => {
                                         </div>
                                         <span className="text-primary-400 text-sm font-bold uppercase tracking-widest">{selectedCert.issuer}</span>
                                     </div>
-                                    <h3 className="text-3xl font-bold text-white mb-6 leading-tight">{selectedCert.title}</h3>
+                                    <h3 id="cert-modal-title" className="text-3xl font-bold text-white mb-6 leading-tight">{selectedCert.title}</h3>
 
                                     <div className="space-y-6">
                                         <p className="text-slate-400 leading-relaxed">
