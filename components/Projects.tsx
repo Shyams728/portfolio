@@ -50,7 +50,8 @@ const Projects: React.FC = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border ${selectedCategory === cat
+                aria-pressed={selectedCategory === cat}
+                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none ${selectedCategory === cat
                   ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                   : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white'
                   }`}
@@ -77,7 +78,15 @@ const Projects: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.2 }}
-                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full cursor-pointer"
+                tabIndex={0}
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleProjectClick(project);
+                  }
+                }}
+                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full cursor-pointer focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                 onClick={() => handleProjectClick(project)}
               >
                 <div className="flex justify-between items-start mb-6">
@@ -97,8 +106,9 @@ const Projects: React.FC = () => {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(event) => event.stopPropagation()}
-                        className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
+                        className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                         title="Live Streamlit Demo"
+                        aria-label="View Live Demo"
                       >
                         <Play className="w-5 h-5" />
                       </a>
@@ -108,8 +118,9 @@ const Projects: React.FC = () => {
                       target="_blank"
                       rel="noreferrer"
                       onClick={(event) => event.stopPropagation()}
-                      className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
+                      className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                       title="View Code on GitHub"
+                      aria-label="View Code on GitHub"
                     >
                       <Github className="w-5 h-5" />
                     </a>
