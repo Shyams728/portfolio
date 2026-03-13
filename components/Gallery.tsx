@@ -70,7 +70,8 @@ const GallerySection: React.FC = () => {
                             <button
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
-                                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all border ${selectedCategory === cat
+                                aria-pressed={selectedCategory === cat}
+                                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${selectedCategory === cat
                                         ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                                         : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-600 hover:text-white'
                                     }`}
@@ -94,8 +95,17 @@ const GallerySection: React.FC = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
+                                tabIndex={0}
+                                role="button"
+                                aria-label={`View ${image.title}`}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setSelectedImage(image);
+                                    }
+                                }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                             >
                                 <img
                                     src={image.url}
