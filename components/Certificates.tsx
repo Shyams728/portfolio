@@ -30,7 +30,15 @@ const CertificatesSection: React.FC = () => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
                             onClick={() => setSelectedCert(cert)}
-                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500"
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setSelectedCert(cert);
+                                }
+                            }}
+                            tabIndex={0}
+                            role="button"
+                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                         >
                             {/* Face: Scan Code */}
                             <div className="absolute inset-0 p-8 flex items-center justify-center bg-white/5 group-hover:scale-90 transition-transform duration-500">
