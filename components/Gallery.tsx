@@ -7,11 +7,11 @@ const GallerySection: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
     const [selectedCategory, setSelectedCategory] = useState('All');
 
-    const categories = ['All', ...Array.from(new Set(galleryImages.map(img => img.category)))];
+    const categories = React.useMemo(() => ['All', ...Array.from(new Set(galleryImages.map(img => img.category)))], []);
 
-    const filteredImages = selectedCategory === 'All'
+    const filteredImages = React.useMemo(() => selectedCategory === 'All'
         ? galleryImages
-        : galleryImages.filter(img => img.category === selectedCategory);
+        : galleryImages.filter(img => img.category === selectedCategory), [selectedCategory]);
 
     const goToNext = useCallback(() => {
         if (!selectedImage || filteredImages.length === 0) return;
@@ -40,6 +40,12 @@ const GallerySection: React.FC = () => {
     };
 
     useEffect(() => {
+        if (selectedImage) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
         const handleKeyDown = (e: KeyboardEvent) => {
             if (!selectedImage) return;
             if (e.key === 'Escape') setSelectedImage(null);
@@ -48,7 +54,10 @@ const GallerySection: React.FC = () => {
         };
 
         window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            document.body.style.overflow = 'unset';
+        };
     }, [selectedImage, goToNext, goToPrev]);
 
     return (
@@ -70,7 +79,8 @@ const GallerySection: React.FC = () => {
                             <button
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
-                                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all border ${selectedCategory === cat
+                                aria-pressed={selectedCategory === cat}
+                                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all border focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none ${selectedCategory === cat
                                         ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                                         : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-600 hover:text-white'
                                     }`}
@@ -94,8 +104,17 @@ const GallerySection: React.FC = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
+                                role="button"
+                                tabIndex={0}
+                                aria-label={`View ${image.title}`}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setSelectedImage(image);
+                                    }
+                                }}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                             >
                                 <img
                                     src={image.url}
@@ -135,7 +154,7 @@ const GallerySection: React.FC = () => {
                         <button
                             onClick={() => setSelectedImage(null)}
                             aria-label="Close gallery"
-                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                         >
                             <X className="w-8 h-8" />
                         </button>
@@ -145,6 +164,9 @@ const GallerySection: React.FC = () => {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="gallery-title"
                             className="max-w-5xl w-full relative group"
                         >
                             <img
@@ -157,21 +179,21 @@ const GallerySection: React.FC = () => {
                             <button
                                 onClick={handlePrev}
                                 aria-label="Previous image"
-                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                             >
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={handleNext}
                                 aria-label="Next image"
-                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                             >
                                 <ChevronRight className="w-6 h-6" />
                             </button>
 
                             <div className="text-center mt-8">
                                 <span className="text-primary-400 text-xs font-bold uppercase tracking-widest">{selectedImage.category}</span>
-                                <h3 className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
+                                <h3 id="gallery-title" className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
                             </div>
                         </motion.div>
                     </motion.div>
