@@ -45,12 +45,13 @@ const Projects: React.FC = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Featured <span className="text-primary-400">Projects</span></h2>
             <p className="text-slate-400">Data analytics, automated pipelines, and machine learning models.</p>
           </div>
-          <div className="flex flex-wrap gap-2 mt-6 md:mt-0">
+          <div className="flex flex-wrap gap-2 mt-6 md:mt-0" role="group" aria-label="Filter projects by category">
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border ${selectedCategory === cat
+                aria-pressed={selectedCategory === cat}
+                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border focus-visible:ring-2 focus-visible:ring-primary-500 outline-none ${selectedCategory === cat
                   ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                   : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white'
                   }`}
@@ -77,8 +78,17 @@ const Projects: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.2 }}
-                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full cursor-pointer"
+                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full cursor-pointer focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                 onClick={() => handleProjectClick(project)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleProjectClick(project);
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`View details for ${project.title}`}
               >
                 <div className="flex justify-between items-start mb-6">
                   <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center text-primary-400 group-hover:bg-primary-500/20 transition-colors">
