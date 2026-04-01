@@ -27,6 +27,13 @@ const Projects: React.FC = () => {
     setIsModalOpen(true);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent, project: Project) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleProjectClick(project);
+    }
+  };
+
   const categories = useMemo(() => {
     const cats = projects.map(p => p.category);
     return ['All', ...Array.from(new Set(cats))];
@@ -77,8 +84,12 @@ const Projects: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.2 }}
-                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full cursor-pointer"
+                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full cursor-pointer focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                 onClick={() => handleProjectClick(project)}
+                onKeyDown={(e) => handleKeyDown(e, project)}
+                tabIndex={0}
+                role="button"
+                aria-label={`View details for ${project.title}`}
               >
                 <div className="flex justify-between items-start mb-6">
                   <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center text-primary-400 group-hover:bg-primary-500/20 transition-colors">
