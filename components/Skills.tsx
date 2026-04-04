@@ -8,27 +8,31 @@ const Skills: React.FC = () => {
   const [liveData, setLiveData] = useState<{ time: string, value: number, temp: number }[]>([]);
   const [simSpeed, setSimSpeed] = useState(3000);
   const [intensity, setIntensity] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const generatePoint = (i: number, multiplier = 1) => ({
+    time: `${i % 24}:00`,
+    value: 40 + (Math.random() * 20 + Math.sin(i / 2) * 10) * multiplier,
+    temp: 60 + (Math.random() * 10 + Math.cos(i / 3) * 5) * multiplier
+  });
 
   useEffect(() => {
-    const generatePoint = (i: number) => ({
-      time: `${i % 24}:00`,
-      value: 40 + (Math.random() * 20 + Math.sin(i / 2) * 10) * intensity,
-      temp: 60 + (Math.random() * 10 + Math.cos(i / 3) * 5) * intensity
-    });
+    setLiveData(Array.from({ length: 12 }, (_, i) => generatePoint(i)));
+  }, []);
 
-    const initialData = Array.from({ length: 12 }, (_, i) => generatePoint(i));
-    setLiveData(initialData);
+  useEffect(() => {
+    if (isPaused) return;
 
     const interval = setInterval(() => {
       setLiveData(prev => {
-        const lastTimeStr = prev[prev.length - 1].time;
-        const nextTime = (parseInt(lastTimeStr) + 1) % 24;
-        return [...prev.slice(1), generatePoint(nextTime)];
+        if (prev.length === 0) return prev;
+        const nextTime = (parseInt(prev[prev.length - 1].time) + 1) % 24;
+        return [...prev.slice(1), generatePoint(nextTime, intensity)];
       });
     }, simSpeed);
 
     return () => clearInterval(interval);
-  }, [simSpeed, intensity]);
+  }, [simSpeed, intensity, isPaused]);
 
   return (
     <section id="expertise" className="py-24 bg-slate-950/50">
@@ -111,10 +115,18 @@ const Skills: React.FC = () => {
           className="glass p-8 rounded-2xl border border-slate-800 overflow-hidden relative"
         >
           <div className="absolute top-0 right-0 p-4">
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-tighter">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
-              Live Engine Simulation
-            </div>
+            <button
+              onClick={() => setIsPaused(!isPaused)}
+              aria-label={isPaused ? "Resume simulation" : "Pause simulation"}
+              aria-pressed={isPaused}
+              className={`flex items-center gap-2 px-3 py-1 rounded-full border transition-all ${isPaused
+                ? 'bg-amber-500/10 border-amber-500/20 text-amber-400'
+                : 'bg-red-500/10 border-red-500/20 text-red-400'
+                } text-[10px] font-bold uppercase tracking-tighter focus-visible:ring-2 focus-visible:ring-primary-500 outline-none hover:border-white/20`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${isPaused ? 'bg-amber-500' : 'bg-red-500 animate-pulse'}`}></span>
+              {isPaused ? 'Simulation Paused' : 'Live Engine Simulation'}
+            </button>
           </div>
 
           <h3 className="text-xl font-semibold text-white mb-2 flex items-center gap-2">
@@ -133,7 +145,9 @@ const Skills: React.FC = () => {
                   <button
                     key={speed}
                     onClick={() => setSimSpeed(speed)}
-                    className={`px-3 py-1 rounded text-[10px] font-bold transition-all border ${simSpeed === speed
+                    aria-label={`Set simulation speed to ${speed === 5000 ? 'Slow' : speed === 3000 ? 'Normal' : 'Fast'}`}
+                    aria-pressed={simSpeed === speed}
+                    className={`px-3 py-1 rounded text-[10px] font-bold transition-all border focus-visible:ring-2 focus-visible:ring-primary-500 outline-none ${simSpeed === speed
                         ? 'bg-primary-600 border-primary-500 text-white'
                         : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'
                       }`}
@@ -151,7 +165,9 @@ const Skills: React.FC = () => {
                   <button
                     key={level}
                     onClick={() => setIntensity(level)}
-                    className={`px-3 py-1 rounded text-[10px] font-bold transition-all border ${intensity === level
+                    aria-label={`Set load intensity to ${level === 0.5 ? 'Low' : level === 1 ? 'Medium' : 'High'}`}
+                    aria-pressed={intensity === level}
+                    className={`px-3 py-1 rounded text-[10px] font-bold transition-all border focus-visible:ring-2 focus-visible:ring-primary-500 outline-none ${intensity === level
                         ? 'bg-primary-600 border-primary-500 text-white'
                         : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-500'
                       }`}
