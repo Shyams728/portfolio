@@ -90,12 +90,20 @@ const GallerySection: React.FC = () => {
                             <motion.div
                                 layout
                                 key={image.url}
+                                role="button"
+                                tabIndex={0}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setSelectedImage(image);
+                                    }
+                                }}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                             >
                                 <img
                                     src={image.url}
@@ -130,12 +138,15 @@ const GallerySection: React.FC = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setSelectedImage(null)}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="gallery-image-title"
                         className="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-2xl p-4 md:p-8 flex items-center justify-center"
                     >
                         <button
                             onClick={() => setSelectedImage(null)}
                             aria-label="Close gallery"
-                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                         >
                             <X className="w-8 h-8" />
                         </button>
@@ -157,21 +168,21 @@ const GallerySection: React.FC = () => {
                             <button
                                 onClick={handlePrev}
                                 aria-label="Previous image"
-                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                             >
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={handleNext}
                                 aria-label="Next image"
-                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                             >
                                 <ChevronRight className="w-6 h-6" />
                             </button>
 
                             <div className="text-center mt-8">
                                 <span className="text-primary-400 text-xs font-bold uppercase tracking-widest">{selectedImage.category}</span>
-                                <h3 className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
+                                <h3 id="gallery-image-title" className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
                             </div>
                         </motion.div>
                     </motion.div>
