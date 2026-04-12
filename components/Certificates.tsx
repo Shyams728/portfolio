@@ -6,6 +6,16 @@ import { certifications } from '../constants';
 const CertificatesSection: React.FC = () => {
     const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null);
 
+    React.useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setSelectedCert(null);
+        };
+        if (selectedCert) {
+            window.addEventListener('keydown', handleKeyDown);
+        }
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedCert]);
+
     return (
         <section id="certifications" className="py-24 bg-slate-900/30">
             <div className="max-w-7xl mx-auto px-6">
@@ -29,8 +39,17 @@ const CertificatesSection: React.FC = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.05 }}
+                            role="button"
+                            tabIndex={0}
+                            aria-label={`View ${cert.title} from ${cert.issuer}`}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setSelectedCert(cert);
+                                }
+                            }}
                             onClick={() => setSelectedCert(cert)}
-                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500"
+                            className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800 hover:border-primary-500/50 transition-all duration-500 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                         >
                             {/* Face: Scan Code */}
                             <div className="absolute inset-0 p-8 flex items-center justify-center bg-white/5 group-hover:scale-90 transition-transform duration-500">

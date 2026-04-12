@@ -77,7 +77,16 @@ const Projects: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.2 }}
-                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full cursor-pointer"
+                role="button"
+                tabIndex={0}
+                aria-label={`View details for ${project.title}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleProjectClick(project);
+                  }
+                }}
+                className="glass group p-6 rounded-xl border border-slate-800 hover:border-primary-500/50 transition-all hover:-translate-y-1 relative flex flex-col h-full cursor-pointer focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                 onClick={() => handleProjectClick(project)}
               >
                 <div className="flex justify-between items-start mb-6">
