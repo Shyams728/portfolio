@@ -72,11 +72,17 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-primary-500/30 selection:text-white">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg focus:font-bold focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        Skip to content
+      </a>
 
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent border-b border-transparent'}`}>
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="#" className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:rounded-lg focus-visible:ring-offset-4 focus-visible:ring-offset-slate-950">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent-600 flex items-center justify-center text-white font-bold shadow-lg shadow-primary-500/20 group-hover:shadow-primary-500/40 transition-shadow">
               S
             </div>
@@ -90,7 +96,7 @@ const App: React.FC = () => {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className={`text-sm font-medium transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-primary-500 after:transition-all hover:after:w-full ${activeSection === link.href.replace('#', '') ? 'text-white after:w-full' : 'text-slate-400 hover:text-white after:w-0'}`}
+                    className={`text-sm font-medium transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-primary-500 after:transition-all hover:after:w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:rounded-sm ${activeSection === link.href.replace('#', '') ? 'text-white after:w-full' : 'text-slate-400 hover:text-white after:w-0'}`}
                   >
                     {link.label}
                   </a>
@@ -99,7 +105,7 @@ const App: React.FC = () => {
             </ul>
             <a
               href="mailto:shyamsundardharwad@gmail.com"
-              className="px-5 py-2.5 bg-white text-slate-950 text-sm font-semibold rounded-lg hover:bg-slate-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+              className="px-5 py-2.5 bg-white text-slate-950 text-sm font-semibold rounded-lg hover:bg-slate-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
               Hire Me
             </a>
@@ -149,7 +155,7 @@ const App: React.FC = () => {
         )}
       </nav>
 
-      <main>
+      <main id="main-content" tabIndex={-1} className="outline-none">
         <Hero />
         <Suspense fallback={
           <div className="py-24 flex items-center justify-center bg-slate-950">
@@ -174,7 +180,7 @@ const App: React.FC = () => {
             Currently available for immediate joining in Data Analyst or Operations Engineer roles.
           </p>
 
-          <a href="mailto:shyamsundardharwad@gmail.com" className="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-500 text-white font-semibold rounded-full shadow-lg shadow-primary-600/25 transition-all hover:scale-105 mb-12">
+          <a href="mailto:shyamsundardharwad@gmail.com" className="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-500 text-white font-semibold rounded-full shadow-lg shadow-primary-600/25 transition-all hover:scale-105 mb-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950">
             <Mail className="w-5 h-5" />
             shyamsundardharwad@gmail.com
           </a>
@@ -183,9 +189,9 @@ const App: React.FC = () => {
             <div className="flex items-center justify-center gap-2">
               <Phone className="w-4 h-4 text-primary-400" />
               <div className="flex items-center gap-3">
-                <a href="tel:+917892470215" className="hover:text-primary-400 transition-colors">+91 789 247 0215</a>
+                <a href="tel:+917892470215" className="hover:text-primary-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:rounded-sm">+91 789 247 0215</a>
                 <span className="text-slate-800">|</span>
-                <a href="tel:+919591456580" className="hover:text-primary-400 transition-colors">+91 9591 4565 80</a>
+                <a href="tel:+919591456580" className="hover:text-primary-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:rounded-sm">+91 9591 4565 80</a>
               </div>
             </div>
             <div className="flex items-center justify-center gap-2">
