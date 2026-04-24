@@ -70,13 +70,13 @@ const Hero: React.FC = () => {
               </div>
 
               <div className="mt-8 sm:mt-12 flex items-center gap-6 text-slate-400">
-                <a href="https://github.com/Shyams728" target="_blank" rel="noreferrer" className="hover:text-white transition-colors" aria-label="GitHub Profile">
+                <a href="https://github.com/Shyams728" target="_blank" rel="noreferrer" className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none rounded-full" aria-label="GitHub Profile">
                   <Github className="w-6 h-6" />
                 </a>
-                <a href="https://www.linkedin.com/in/shyamsundar-dharwad-052690aa/" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors" aria-label="LinkedIn Profile">
+                <a href="https://www.linkedin.com/in/shyamsundar-dharwad-052690aa/" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition-colors focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none rounded-full" aria-label="LinkedIn Profile">
                   <Linkedin className="w-6 h-6" />
                 </a>
-                <a href="mailto:shyamsundardharwad@gmail.com" className="hover:text-white transition-colors" aria-label="Send Email">
+                <a href="mailto:shyamsundardharwad@gmail.com" className="hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none rounded-full" aria-label="Send Email">
                   <Mail className="w-6 h-6" />
                 </a>
               </div>

@@ -12,7 +12,8 @@ interface ContactFormData {
 
 const ContactForm: React.FC = () => {
     const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormData>();
+    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm<ContactFormData>();
+    const message = watch('message', '');
 
     const onSubmit = async (data: ContactFormData) => {
         setStatus('sending');
@@ -113,16 +114,24 @@ const ContactForm: React.FC = () => {
 
                         {/* Message Field */}
                         <div className="space-y-2">
-                            <label htmlFor="message" className="text-sm font-medium text-slate-300 flex items-center gap-2">
-                                <MessageSquare className="w-4 h-4" /> Your Message
-                            </label>
+                            <div className="flex justify-between items-center">
+                                <label htmlFor="message" className="text-sm font-medium text-slate-300 flex items-center gap-2">
+                                    <MessageSquare className="w-4 h-4" /> Your Message
+                                </label>
+                                <span id="message-counter" className={`text-[10px] font-mono ${message.length > 1000 ? 'text-red-500' : 'text-slate-500'}`}>
+                                    {message.length}/1000
+                                </span>
+                            </div>
                             <textarea
                                 id="message"
-                                {...register('message', { required: 'Message is required' })}
+                                {...register('message', {
+                                    required: 'Message is required',
+                                    maxLength: { value: 1000, message: 'Message cannot exceed 1000 characters' }
+                                })}
                                 rows={5}
                                 placeholder="Tell me more about your project..."
                                 aria-invalid={errors.message ? 'true' : 'false'}
-                                aria-describedby={errors.message ? 'message-error' : undefined}
+                                aria-describedby={errors.message ? 'message-error' : 'message-counter'}
                                 className={`w-full bg-slate-900/50 border ${errors.message ? 'border-red-500/50' : 'border-slate-700'} rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/20 transition-all resize-none`}
                             />
                             {errors.message && <p id="message-error" className="text-red-500 text-xs mt-1">{errors.message.message}</p>}
