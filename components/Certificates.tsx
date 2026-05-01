@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X, Award, ShieldCheck } from 'lucide-react';
 import { certifications } from '../constants';
 
 const CertificatesSection: React.FC = () => {
     const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null);
+
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setSelectedCert(null);
+        };
+
+        if (selectedCert) {
+            window.addEventListener('keydown', handleEscape);
+            document.body.style.overflow = 'hidden';
+        }
+
+        return () => {
+            window.removeEventListener('keydown', handleEscape);
+            document.body.style.overflow = '';
+        };
+    }, [selectedCert]);
 
     return (
         <section id="certifications" className="py-24 bg-slate-900/30">
