@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Github, ExternalLink, Cpu, Target, Layers } from 'lucide-react';
 import { Project } from '../types';
@@ -10,6 +10,22 @@ interface ProjectModalProps {
 }
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
+
+        if (isOpen) {
+            window.addEventListener('keydown', handleEscape);
+            document.body.style.overflow = 'hidden';
+        }
+
+        return () => {
+            window.removeEventListener('keydown', handleEscape);
+            document.body.style.overflow = '';
+        };
+    }, [isOpen, onClose]);
+
     if (!project) return null;
 
     return (

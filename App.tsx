@@ -72,6 +72,13 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-primary-500/30 selection:text-white">
+      {/* Skip to content link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg focus:font-bold focus:shadow-xl"
+      >
+        Skip to content
+      </a>
 
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent border-b border-transparent'}`}>
@@ -149,7 +156,7 @@ const App: React.FC = () => {
         )}
       </nav>
 
-      <main>
+      <main id="main-content" tabIndex={-1} className="outline-none">
         <Hero />
         <Suspense fallback={
           <div className="py-24 flex items-center justify-center bg-slate-950">
@@ -206,7 +213,7 @@ const App: React.FC = () => {
       {/* Scroll to top */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`fixed bottom-8 right-8 p-3 rounded-full bg-slate-800 text-primary-400 border border-slate-700 shadow-xl transition-all duration-300 z-40 hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`fixed bottom-8 right-8 p-3 rounded-full bg-slate-800 text-primary-400 border border-slate-700 shadow-xl transition-all duration-300 z-40 hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 invisible'}`}
         aria-label="Scroll to top"
       >
         <ChevronUp className="w-5 h-5" />
