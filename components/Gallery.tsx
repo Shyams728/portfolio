@@ -47,8 +47,15 @@ const GallerySection: React.FC = () => {
             if (e.key === 'ArrowLeft') goToPrev();
         };
 
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+        if (selectedImage) {
+            document.body.style.overflow = 'hidden';
+            window.addEventListener('keydown', handleKeyDown);
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', handleKeyDown);
+        };
     }, [selectedImage, goToNext, goToPrev]);
 
     return (
