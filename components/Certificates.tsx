@@ -6,6 +6,17 @@ import { certifications } from '../constants';
 const CertificatesSection: React.FC = () => {
     const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null);
 
+    React.useEffect(() => {
+        if (selectedCert) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [selectedCert]);
+
     return (
         <section id="certifications" className="py-24 bg-slate-900/30">
             <div className="max-w-7xl mx-auto px-6">
