@@ -40,6 +40,13 @@ const GallerySection: React.FC = () => {
     };
 
     useEffect(() => {
+        if (selectedImage) {
+            document.body.style.overflow = 'hidden';
+            return () => { document.body.style.overflow = ''; };
+        }
+    }, [selectedImage]);
+
+    useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (!selectedImage) return;
             if (e.key === 'Escape') setSelectedImage(null);
