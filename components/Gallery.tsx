@@ -47,8 +47,17 @@ const GallerySection: React.FC = () => {
             if (e.key === 'ArrowLeft') goToPrev();
         };
 
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+        if (selectedImage) {
+            document.body.style.overflow = 'hidden';
+            window.addEventListener('keydown', handleKeyDown);
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', handleKeyDown);
+        };
     }, [selectedImage, goToNext, goToPrev]);
 
     return (
@@ -95,7 +104,16 @@ const GallerySection: React.FC = () => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setSelectedImage(image);
+                                    }
+                                }}
+                                tabIndex={0}
+                                role="button"
+                                aria-label={`View ${image.title}`}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                             >
                                 <img
                                     src={image.url}
