@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { galleryImages } from '../constants';
@@ -6,6 +6,7 @@ import { galleryImages } from '../constants';
 const GallerySection: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const lastFocusedRef = useRef<HTMLElement | null>(null);
 
     const categories = ['All', ...Array.from(new Set(galleryImages.map(img => img.category)))];
 
@@ -47,8 +48,21 @@ const GallerySection: React.FC = () => {
             if (e.key === 'ArrowLeft') goToPrev();
         };
 
+        if (selectedImage) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+            if (lastFocusedRef.current) {
+                lastFocusedRef.current.focus();
+                lastFocusedRef.current = null;
+            }
+        }
+
         window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            document.body.style.overflow = '';
+        };
     }, [selectedImage, goToNext, goToPrev]);
 
     return (
@@ -86,7 +100,7 @@ const GallerySection: React.FC = () => {
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
                     <AnimatePresence mode="popLayout">
-                        {filteredImages.map((image, index) => (
+                        {filteredImages.map((image) => (
                             <motion.div
                                 layout
                                 key={image.url}
@@ -94,8 +108,21 @@ const GallerySection: React.FC = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
-                                onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                onClick={(e) => {
+                                    lastFocusedRef.current = e.currentTarget as HTMLElement;
+                                    setSelectedImage(image);
+                                }}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        lastFocusedRef.current = e.currentTarget as HTMLElement;
+                                        setSelectedImage(image);
+                                    }
+                                }}
+                                tabIndex={0}
+                                role="button"
+                                aria-label={`View ${image.title}`}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                             >
                                 <img
                                     src={image.url}
@@ -104,8 +131,8 @@ const GallerySection: React.FC = () => {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity" />
 
-                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white scale-75 group-hover:scale-100 transition-transform">
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity">
+                                    <div className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white scale-75 group-hover:scale-100 group-focus-visible:scale-100 transition-transform">
                                         <ZoomIn className="w-6 h-6" />
                                     </div>
                                 </div>
@@ -130,12 +157,15 @@ const GallerySection: React.FC = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setSelectedImage(null)}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="lightbox-title"
                         className="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-2xl p-4 md:p-8 flex items-center justify-center"
                     >
                         <button
                             onClick={() => setSelectedImage(null)}
                             aria-label="Close gallery"
-                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:text-white outline-none z-10"
                         >
                             <X className="w-8 h-8" />
                         </button>
@@ -157,21 +187,21 @@ const GallerySection: React.FC = () => {
                             <button
                                 onClick={handlePrev}
                                 aria-label="Previous image"
-                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none transition-opacity hover:bg-primary-600"
                             >
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={handleNext}
                                 aria-label="Next image"
-                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none transition-opacity hover:bg-primary-600"
                             >
                                 <ChevronRight className="w-6 h-6" />
                             </button>
 
                             <div className="text-center mt-8">
                                 <span className="text-primary-400 text-xs font-bold uppercase tracking-widest">{selectedImage.category}</span>
-                                <h3 className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
+                                <h3 id="lightbox-title" className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
                             </div>
                         </motion.div>
                     </motion.div>
