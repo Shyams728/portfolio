@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { galleryImages } from '../constants';
@@ -6,6 +6,7 @@ import { galleryImages } from '../constants';
 const GallerySection: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const modalRef = useRef<HTMLDivElement>(null);
 
     const categories = ['All', ...Array.from(new Set(galleryImages.map(img => img.category)))];
 
@@ -29,6 +30,18 @@ const GallerySection: React.FC = () => {
         setSelectedImage(filteredImages[prevIndex]);
     }, [selectedImage, filteredImages]);
 
+    const closeLightbox = useCallback(() => {
+        if (selectedImage) {
+            const currentUrl = selectedImage.url;
+            setSelectedImage(null);
+            // Restore focus to the corresponding thumbnail after modal closes
+            requestAnimationFrame(() => {
+                const thumbnail = document.querySelector(`[data-url="${CSS.escape(currentUrl)}"]`) as HTMLElement;
+                thumbnail?.focus();
+            });
+        }
+    }, [selectedImage]);
+
     const handleNext = (e: React.MouseEvent) => {
         e.stopPropagation();
         goToNext();
@@ -42,14 +55,22 @@ const GallerySection: React.FC = () => {
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (!selectedImage) return;
-            if (e.key === 'Escape') setSelectedImage(null);
+            if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowRight') goToNext();
             if (e.key === 'ArrowLeft') goToPrev();
         };
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedImage, goToNext, goToPrev]);
+    }, [selectedImage, goToNext, goToPrev, closeLightbox]);
+
+    useEffect(() => {
+        if (selectedImage) {
+            requestAnimationFrame(() => {
+                modalRef.current?.focus();
+            });
+        }
+    }, [selectedImage]);
 
     return (
         <section id="gallery" className="py-24 bg-slate-950/50">
@@ -95,7 +116,17 @@ const GallerySection: React.FC = () => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setSelectedImage(image);
+                                    }
+                                }}
+                                tabIndex={0}
+                                role="button"
+                                data-url={image.url}
+                                aria-label={`View ${image.title}`}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                             >
                                 <img
                                     src={image.url}
@@ -129,13 +160,18 @@ const GallerySection: React.FC = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onClick={() => setSelectedImage(null)}
-                        className="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-2xl p-4 md:p-8 flex items-center justify-center"
+                        onClick={closeLightbox}
+                        ref={modalRef}
+                        tabIndex={-1}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="lightbox-title"
+                        className="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-2xl p-4 md:p-8 flex items-center justify-center outline-none"
                     >
                         <button
-                            onClick={() => setSelectedImage(null)}
+                            onClick={closeLightbox}
                             aria-label="Close gallery"
-                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                            className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                         >
                             <X className="w-8 h-8" />
                         </button>
@@ -157,21 +193,21 @@ const GallerySection: React.FC = () => {
                             <button
                                 onClick={handlePrev}
                                 aria-label="Previous image"
-                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                             >
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={handleNext}
                                 aria-label="Next image"
-                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                             >
                                 <ChevronRight className="w-6 h-6" />
                             </button>
 
                             <div className="text-center mt-8">
                                 <span className="text-primary-400 text-xs font-bold uppercase tracking-widest">{selectedImage.category}</span>
-                                <h3 className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
+                                <h3 id="lightbox-title" className="text-3xl font-bold text-white mt-2">{selectedImage.title}</h3>
                             </div>
                         </motion.div>
                     </motion.div>
