@@ -95,7 +95,16 @@ const GallerySection: React.FC = () => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setSelectedImage(image);
+                                    }
+                                }}
+                                tabIndex={0}
+                                role="button"
+                                aria-label={`View ${image.title}`}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
                             >
                                 <img
                                     src={image.url}
@@ -130,6 +139,9 @@ const GallerySection: React.FC = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setSelectedImage(null)}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Image Lightbox"
                         className="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-2xl p-4 md:p-8 flex items-center justify-center"
                     >
                         <button
@@ -157,14 +169,14 @@ const GallerySection: React.FC = () => {
                             <button
                                 onClick={handlePrev}
                                 aria-label="Previous image"
-                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                             >
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={handleNext}
                                 aria-label="Next image"
-                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none"
                             >
                                 <ChevronRight className="w-6 h-6" />
                             </button>
