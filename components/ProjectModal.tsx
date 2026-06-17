@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Github, ExternalLink, Cpu, Target, Layers } from 'lucide-react';
 import { Project } from '../types';
@@ -10,6 +10,36 @@ interface ProjectModalProps {
 }
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
+    const modalRef = useRef<HTMLDivElement>(null);
+    const lastFocusedElement = useRef<HTMLElement | null>(null);
+
+    useEffect(() => {
+        if (isOpen) {
+            lastFocusedElement.current = document.activeElement as HTMLElement;
+            requestAnimationFrame(() => {
+                modalRef.current?.focus();
+            });
+        } else {
+            if (lastFocusedElement.current) {
+                const elementToFocus = lastFocusedElement.current;
+                lastFocusedElement.current = null;
+                requestAnimationFrame(() => {
+                    elementToFocus.focus();
+                });
+            }
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!isOpen) return;
+            if (e.key === 'Escape') onClose();
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, onClose]);
+
     if (!project) return null;
 
     return (
@@ -28,20 +58,22 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                     {/* Modal Container */}
                     <div className="fixed inset-0 flex items-center justify-center z-[70] p-4 pointer-events-none">
                         <motion.div
+                            ref={modalRef}
                             layoutId={`project-${project.id}`}
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            tabIndex={-1}
                             role="dialog"
                             aria-modal="true"
                             aria-labelledby="modal-title"
-                            className="bg-slate-900 border border-slate-800 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl pointer-events-auto relative"
+                            className="bg-slate-900 border border-slate-800 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl pointer-events-auto relative outline-none"
                         >
                             {/* Close Button */}
                             <button
                                 onClick={onClose}
                                 aria-label="Close modal"
-                                className="absolute top-4 right-4 p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors z-10"
+                                className="absolute top-4 right-4 p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors z-10 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -115,7 +147,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                                         href={project.link}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700"
+                                        className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-800 text-white font-semibold hover:bg-slate-700 transition-all border border-slate-700 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                                     >
                                         <Github className="w-5 h-5" /> Code Repo
                                     </a>
@@ -124,7 +156,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                                             href={project.demoLink}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary-600 text-white font-semibold hover:bg-primary-500 transition-all shadow-lg shadow-primary-600/20"
+                                            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary-600 text-white font-semibold hover:bg-primary-500 transition-all shadow-lg shadow-primary-600/20 focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                                         >
                                             <ExternalLink className="w-5 h-5" /> Live Demo
                                         </a>

@@ -50,7 +50,8 @@ const Projects: React.FC = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border ${selectedCategory === cat
+                aria-pressed={selectedCategory === cat}
+                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border focus-visible:ring-2 focus-visible:ring-primary-500 outline-none ${selectedCategory === cat
                   ? 'bg-primary-600 border-primary-500 text-white shadow-lg shadow-primary-600/20'
                   : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white'
                   }`}
@@ -97,7 +98,7 @@ const Projects: React.FC = () => {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(event) => event.stopPropagation()}
-                        className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors"
+                        className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-red-500/20 hover:text-red-400 transition-colors focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                         title="Live Streamlit Demo"
                       >
                         <Play className="w-5 h-5" />
@@ -108,7 +109,7 @@ const Projects: React.FC = () => {
                       target="_blank"
                       rel="noreferrer"
                       onClick={(event) => event.stopPropagation()}
-                      className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
+                      className="p-2 rounded-full bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-primary-500 outline-none"
                       title="View Code on GitHub"
                     >
                       <Github className="w-5 h-5" />
@@ -117,14 +118,15 @@ const Projects: React.FC = () => {
                 </div>
 
                 <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">
-                  <a
-                    href={project.demoLink || project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={(event) => event.stopPropagation()}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleProjectClick(project);
+                    }}
+                    className="text-left hover:underline focus-visible:ring-2 focus-visible:ring-primary-500 outline-none rounded"
                   >
                     {project.title}
-                  </a>
+                  </button>
                 </h3>
                 <p className="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">
                   {project.description}
