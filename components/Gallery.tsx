@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { galleryImages } from '../constants';
@@ -6,6 +6,8 @@ import { galleryImages } from '../constants';
 const GallerySection: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const lastFocusedElement = useRef<HTMLElement | null>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
 
     const categories = ['All', ...Array.from(new Set(galleryImages.map(img => img.category)))];
 
@@ -38,6 +40,25 @@ const GallerySection: React.FC = () => {
         e.stopPropagation();
         goToPrev();
     };
+
+    useEffect(() => {
+        if (selectedImage) {
+            if (!lastFocusedElement.current) {
+                lastFocusedElement.current = document.activeElement as HTMLElement;
+            }
+            document.body.style.overflow = 'hidden';
+            requestAnimationFrame(() => {
+                modalRef.current?.focus();
+            });
+        } else {
+            document.body.style.overflow = '';
+            if (lastFocusedElement.current) {
+                const el = lastFocusedElement.current;
+                requestAnimationFrame(() => el.focus());
+                lastFocusedElement.current = null;
+            }
+        }
+    }, [selectedImage]);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -95,7 +116,16 @@ const GallerySection: React.FC = () => {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.2 }}
                                 onClick={() => setSelectedImage(image)}
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50"
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setSelectedImage(image);
+                                    }
+                                }}
+                                tabIndex={0}
+                                role="button"
+                                aria-label={`View ${image.title}`}
+                                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group glass border border-slate-800/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                             >
                                 <img
                                     src={image.url}
@@ -126,11 +156,15 @@ const GallerySection: React.FC = () => {
             <AnimatePresence>
                 {selectedImage && (
                     <motion.div
+                        ref={modalRef}
+                        tabIndex={-1}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setSelectedImage(null)}
-                        className="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-2xl p-4 md:p-8 flex items-center justify-center"
+                        role="dialog"
+                        aria-modal="true"
+                        className="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-2xl p-4 md:p-8 flex items-center justify-center outline-none"
                     >
                         <button
                             onClick={() => setSelectedImage(null)}
@@ -157,14 +191,14 @@ const GallerySection: React.FC = () => {
                             <button
                                 onClick={handlePrev}
                                 aria-label="Previous image"
-                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 transition-opacity hover:bg-primary-600"
                             >
                                 <ChevronLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={handleNext}
                                 aria-label="Next image"
-                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-600"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-slate-900/60 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 transition-opacity hover:bg-primary-600"
                             >
                                 <ChevronRight className="w-6 h-6" />
                             </button>
