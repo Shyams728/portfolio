@@ -206,7 +206,7 @@ const App: React.FC = () => {
       {/* Scroll to top */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`fixed bottom-8 right-8 p-3 rounded-full bg-slate-800 text-primary-400 border border-slate-700 shadow-xl transition-all duration-300 z-40 hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`fixed bottom-8 right-8 p-3 rounded-full bg-slate-800 text-primary-400 border border-slate-700 shadow-xl transition-all duration-300 z-40 hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none invisible'}`}
         aria-label="Scroll to top"
       >
         <ChevronUp className="w-5 h-5" />
