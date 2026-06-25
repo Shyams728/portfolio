@@ -8,7 +8,7 @@ const technologies = [
 
 const TechMarquee: React.FC = () => {
     return (
-        <div className="py-12 bg-slate-900/30 overflow-hidden border-y border-slate-800/50">
+        <div className="py-12 bg-slate-900/30 overflow-hidden border-y border-slate-800/50" aria-hidden="true">
             <div className="flex whitespace-nowrap">
                 <motion.div
                     animate={{ x: [0, -1000] }}
