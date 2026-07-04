@@ -72,11 +72,17 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-primary-500/30 selection:text-white">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-[100] px-4 py-2 bg-primary-600 text-white font-bold rounded-lg shadow-xl"
+      >
+        Skip to content
+      </a>
 
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent border-b border-transparent'}`}>
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="#" className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 rounded-lg">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent-600 flex items-center justify-center text-white font-bold shadow-lg shadow-primary-500/20 group-hover:shadow-primary-500/40 transition-shadow">
               S
             </div>
@@ -99,7 +105,7 @@ const App: React.FC = () => {
             </ul>
             <a
               href="mailto:shyamsundardharwad@gmail.com"
-              className="px-5 py-2.5 bg-white text-slate-950 text-sm font-semibold rounded-lg hover:bg-slate-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+              className="px-5 py-2.5 bg-white text-slate-950 text-sm font-semibold rounded-lg hover:bg-slate-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
               Hire Me
             </a>
@@ -138,7 +144,7 @@ const App: React.FC = () => {
               <li>
                 <a
                   href="mailto:shyamsundardharwad@gmail.com"
-                  className="block text-center w-full mt-4 px-5 py-3 bg-primary-600 text-white font-semibold rounded-lg"
+                  className="block text-center w-full mt-4 px-5 py-3 bg-primary-600 text-white font-semibold rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Hire Me
@@ -149,7 +155,7 @@ const App: React.FC = () => {
         )}
       </nav>
 
-      <main>
+      <main id="main-content" tabIndex={-1} className="outline-none">
         <Hero />
         <Suspense fallback={
           <div className="py-24 flex items-center justify-center bg-slate-950">
