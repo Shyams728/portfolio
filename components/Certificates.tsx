@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X, Award, ShieldCheck } from 'lucide-react';
 import { certifications } from '../constants';
 
 const CertificatesSection: React.FC = () => {
     const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null);
+
+    useEffect(() => {
+        if (selectedCert) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [selectedCert]);
 
     return (
         <section id="certifications" className="py-24 bg-slate-900/30">
